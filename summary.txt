@@ -1,0 +1,47 @@
+//first install the next boiler plate with npx create-next-app meroghar --example with-typescript this command does not include the public and style folder
+use npx create-next-app meroghar --typescript
+
+setup eslint and prettier configuration for the application  https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
+
+
+
+//for nodejs ts setup its a long process 
+
+in scripts tsnd works like nodemon it compiles ts into js and and excutes the code every time there is changes made
+
+for production tsc command compiles then to run another command is mixed
+
+
+
+
+
+//i think external library whose funciton is short to use can be directly embeded into the controller rather than 
+creating hassle
+
+
+//now talking about the authentication portion of the application there are some things to know
+
+1.token rotation based authentication:
+
+Login:
+i used joi library and setup a midlle ware function for input validation to make sure they are okay.
+then user data is compared in database and also password is compared using bcrypt compare function
+then after every thing is pkay user with role will be retuned from services to controller
+controller will initialize accesstoken and refreshtoken and send them as httpOnly cookie to client along with response 
+
+tokenVerification:
+token stored in cookie is acessed and verified  make sure to pass credential acess throgh client side and also in cors 
+coookie can be extracted in two ways from since cookie by default is passed through header 
+req.headers.cookie will give access to array of cookie passed into the header 
+req.cookies will gives acess to indvidual cookie as property cookies{acess:...,refresh:...} use req.cookies.acess to get value 
+
+No need to setup token extractor middle are createa single middle ware which will extratc and verify token according use 
+
+
+
+//create custom middle ware in ts and custoimize req obj req.token to store token data since jwt payload is unknow
+
+once tokenpayload is stored in req.token 
+then get user information and store req.user.userId and role or just store entire token infor in req.user
+
+declaration merging

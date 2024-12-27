@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+/* this is global style property  */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    color:black;
+    letter-spacing:0.5px;
+    /* font-family: 'Poppins', sans-serif; */
+    
+  }
+
+
+  .react-tel-input .form-control{
+    @apply  py-4 
+  }
+
+
+
