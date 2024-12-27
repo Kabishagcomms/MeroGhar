@@ -8,24 +8,18 @@ import { useRouter } from 'next/navigation'
 import Search from './searchButton'
 import Image from 'next/image'
 
-
 interface NavProps {
-  theme: string,
-  authState:boolean,
-  img:string
-  is_Admin:boolean
-
+  theme: string
+  authState: boolean
+  img: string
+  is_Admin: boolean
 }
 
-
-
-
-const NavBar = ({authState,img,is_Admin}: NavProps): JSX.Element => {
+const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
   //get auth state and pass into the initial model
   const [open, setopen] = useState(false)
   const menuRef = createRef<HTMLDivElement>()
-  const router=useRouter()
-
+  const router = useRouter()
 
   useEffect(() => {
     const clickHandler = (e: any) => {
@@ -41,23 +35,26 @@ const NavBar = ({authState,img,is_Admin}: NavProps): JSX.Element => {
     }
   })
 
-  useEffect(()=>{
-    //every time nav bar is rendered refresh the page once 
-    router.refresh();
-  },[])
-
-
+  useEffect(() => {
+    //every time nav bar is rendered refresh the page once
+    router.refresh()
+  }, [])
 
   return (
-    <nav className={`fixed z-20 flex h-20 w-full items-center justify-around bg-white p-3 shadow-none dark:bg-slate-700  md:shadow-md`} >
+    <nav
+      className={`fixed z-20 flex h-20 w-full items-center justify-around bg-white p-3 shadow-none dark:bg-slate-700  md:shadow-md`}
+    >
       {/* logoName */}
 
       <div className=" hidden items-center gap-1 md:flex">
-        <Link
-          href="/"
-          className="block items-center gap-2 md:flex "
-        >
-          <Image width={40} height={40} src="/airbnb.png" alt="logo" className="block " />
+        <Link href="/" className="block items-center gap-2 md:flex ">
+          <Image
+            width={40}
+            height={40}
+            src="/airbnb.png"
+            alt="logo"
+            className="block "
+          />
         </Link>
 
         <Link
@@ -69,19 +66,13 @@ const NavBar = ({authState,img,is_Admin}: NavProps): JSX.Element => {
       </div>
 
       {/* search Bar */}
-      <div className=" w-[95%] my-2 md:w-[35%] ">
-       <Search />
+      <div className=" my-2 w-[95%] md:w-[35%] ">
+        <Search />
       </div>
 
       {/* post and Profile */}
       <div className="hidden items-center gap-2 md:flex">
         {/* <ToggleButton theme={theme} /> */}
-        <Link
-          href="/Account/listings"
-          className=" block rounded-md border-2  font-semibold  border-gray-200 p-2 px-3  text-gray-700 hover:border-themeColor dark:text-gray-300 md:text-sm"
-        >
-          Post Room
-        </Link>
 
         <div ref={menuRef}>
           <button
@@ -89,17 +80,26 @@ const NavBar = ({authState,img,is_Admin}: NavProps): JSX.Element => {
             onClick={(e) => setopen(!open)}
           >
             <Image width={20} height={20} src="/menu.png" alt="user" />
-            <Image width={32} height={32} src={img==''? '/user.png':img} alt="user" className="h-8 w-8 rounded-full " />
+            <Image
+              width={32}
+              height={32}
+              src={img == '' ? '/user.png' : img}
+              alt="user"
+              className="h-8 w-8 rounded-full "
+            />
           </button>
 
-          {open && <InititailModalC authState={authState} ref={menuRef} is_Admin={is_Admin} />}
-          
-          
+          {open && (
+            <InititailModalC
+              authState={authState}
+              ref={menuRef}
+              is_Admin={is_Admin}
+            />
+          )}
+
           {/* <LoginSignup login={true} modal={true} /> */}
-            
         </div>
       </div>
-      
     </nav>
   )
 }

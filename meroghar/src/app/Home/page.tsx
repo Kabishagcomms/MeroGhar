@@ -1,42 +1,26 @@
-import { SearchForm } from "../../components/modals/searchModal"
-import ClientComp from "../../components/clientComp"
-import { checkSession } from "../../api/server/auth"
-import { getProperties } from "../../api/server/property/getProperty"
-import { getFavourites } from "../../api/server/property/getwishlist"
-import { HomeClient } from "./HomeClient"
+import { SearchForm } from '../../components/modals/searchModal'
+import ClientComp from '../../components/clientComp'
+import { checkSession } from '../../api/server/auth'
 
-// this is not route parameters hai 
-interface HomeProps{
-  searchParams:SearchForm
-}
+import { HomeClient } from './HomeClient'
 
+export default async function Home() {
+  const { session, userData } = await checkSession()
 
-export default async function Home({searchParams}:HomeProps){
+  //for admin since admin/non logged no wishlist
 
-    console.log("queryParams",searchParams);
-
-
-    const properties=await getProperties(1,10,searchParams)
-    const {session,userData}=await checkSession()
-
-
-
-    //for admin since admin/non logged no wishlist
-
-  if(!session||userData.is_Admin)return(
-    <ClientComp>
-    <HomeClient properties={properties}  userData={userData}/>
-    </ClientComp>
-    )
-
-  
-    //user exclusiven wishlist which needs to be checked
-    const wishList=await getFavourites(1,20);
-   
-    return(
+  if (!session || userData.is_Admin)
+    return (
       <ClientComp>
-        <HomeClient properties={properties} wishList={wishList} userData={userData}/>
+        <div>no user</div>
       </ClientComp>
     )
-    
+
+  //user exclusiven wishlist which needs to be checked
+
+  return (
+    <ClientComp>
+      <div>hi</div>
+    </ClientComp>
+  )
 }
