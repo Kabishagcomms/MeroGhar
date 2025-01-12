@@ -12,7 +12,7 @@ export default async function Home() {
   if (!session || userData.is_Admin)
     return (
       <ClientComp>
-        <div>no user</div>
+        <div>No Rooms Available.</div>
       </ClientComp>
     )
 

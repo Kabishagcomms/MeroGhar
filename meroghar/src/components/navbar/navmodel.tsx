@@ -60,7 +60,12 @@ const NavModal = forwardRef<Ref, NavModal>((props, ref) => {
           <hr />
         </div>
       )}
-
+      <Link
+        href={`${props.is_Admin ? '/Admin' : '/Home/Account'}`}
+        className={`${btnstyle} ${props.is_Admin ? 'font-semibold' : ''}`}
+      >
+        {props.is_Admin ? 'Dashboard' : 'Account'}
+      </Link>
       <hr />
       <button
         className={btnstyle}
