@@ -14,7 +14,6 @@ export default async function AccountSetting() {
           userId={session.session ? session.userData.docId : ''}
           profileData={userData}
           is_Admin={true}
-          listings={[]}
         />
       </div>
     </ClientComp>

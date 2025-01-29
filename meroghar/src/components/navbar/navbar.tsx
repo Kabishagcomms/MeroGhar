@@ -74,6 +74,13 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
       <div className="hidden items-center gap-2 md:flex">
         {/* <ToggleButton theme={theme} /> */}
 
+        <Link
+          href="/Home/Account/listings"
+          className=" block rounded-md border-2  border-gray-200  p-2 px-3 font-semibold  text-gray-700 hover:border-themeColor dark:text-gray-300 md:text-sm"
+        >
+          Post Room
+        </Link>
+
         <div ref={menuRef}>
           <button
             className="flex items-center gap-1  rounded-lg border-2 border-gray-200  px-2 py-1 hover:border-themeColor dark:bg-slate-300 "

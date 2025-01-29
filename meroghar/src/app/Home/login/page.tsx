@@ -9,16 +9,12 @@ export default async function LoginPage() {
   if (!session.session)
     return (
       <main className="w-full">
-     
-
         {/* main container with full width */}
         <div className="my-24 flex items-center justify-center">
-
-        {/* modal/conttent container  */}
+          {/* modal/conttent container  */}
           <div className="w-[95%]  sm:w-[80%] md:w-fit ">
             <LoginSignup login={true} modal={false} />
           </div>
-
         </div>
       </main>
     )
