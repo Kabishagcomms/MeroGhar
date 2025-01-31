@@ -9,8 +9,7 @@ import { Images } from '../interface/request'
 import { PostPropery, UpdatePropery } from '../api/client/property'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 import { amenities, propertyOptions } from '../configs/constant'
-const inputStyle =
-  'text-md my-1 h-10 w-[95%]  rounded-md border-2  border-gray-400 p-1 text-gray-700 hover:bg-hoverColor focus:border-themeColor'
+
 import { useState, useEffect } from 'react'
 import useCountry from '../store/useCountry'
 import { ICountry } from 'country-state-city'
@@ -24,6 +23,8 @@ import { uploadImage } from '../api/client/uploadImag'
 import Image from 'next/image'
 
 //checck image function
+const inputStyle =
+  'text-md my-1 h-10 w-[95%]  rounded-md border-2  border-gray-400 p-1 text-gray-700 hover:bg-[#D3D3D3]/50 focus:border-[#59b077]'
 
 interface postProperty {
   propertyData?: Partial<Property>
@@ -268,8 +269,9 @@ export default function PostPropertyForm({
         className="mx-auto flex  w-full flex-col items-center p-3 lg:w-full"
       >
         {isUpdate && (
-          <p className="text-lg font-semibold text-themeColor">
-            Adding New Images will replace previous images{' '}
+          <p className="text-md font-medium text-[#000000]">
+            Adding New Images will{' '}
+            <span className="text-[#66cd8b]">replace</span> previous images{' '}
           </p>
         )}
         <div className="w-full p-2">
@@ -284,14 +286,21 @@ export default function PostPropertyForm({
                   className={
                     imageUrl(index) == ''
                       ? 'hidden'
-                      : 'h-[200px] w-full rounded-lg  sm:h-[270px] md:h-[320px] md:w-[80%] lg:h-[400px]'
+                      : 'mb-5 h-[150px] w-full rounded-lg  sm:h-[270px] md:h-[100px] md:w-[80%] lg:h-[400px]'
                   }
                 >
-                  <Image fill={true} src={imageUrl(index)!} alt="Image Here" />
+                  <Image
+                    layout="intrinsic"
+                    width={400}
+                    height={250}
+                    src={imageUrl(index)!}
+                    alt="Image Here"
+                    className="ml-60 rounded-lg"
+                  />
                 </div>
 
                 {/* for input and label */}
-                <div className="flex  w-full flex-col items-start justify-around rounded-lg border-2 border-gray-300 bg-white p-[6px] shadow-md md:w-[60%] md:flex-row md:items-center">
+                <div className="border-gray-300  flex w-full flex-col items-start justify-around rounded-lg border-2 bg-white p-[6px] shadow-md md:w-[60%] md:flex-row md:items-center">
                   <label
                     htmlFor={`file-upload-${index}`} // Associate label with input
                     className="my-1 block cursor-pointer text-sm font-semibold"
@@ -312,7 +321,7 @@ export default function PostPropertyForm({
                     <button
                       type="button"
                       onClick={() => remove(index)}
-                      className="rounded-lg border-2 border-gray-400 hover:bg-red-300"
+                      className="border-gray-400 rounded-lg border-2 hover:bg-red-300"
                     >
                       <AiOutlineMinus className="h-6 w-6 fill-red-500 stroke-themeColor" />
                     </button>
@@ -330,13 +339,13 @@ export default function PostPropertyForm({
           <button
             type="button"
             onClick={() => append({ image: 'newImage' })}
-            className="my-2 rounded-lg border-2 border-gray-400 hover:bg-hoverColor  "
+            className="border-gray-400 my-2 rounded-lg border-2 hover:bg-hoverColor  "
           >
             <AiOutlinePlus className="h-6 w-6 fill-themeColor stroke-themeColor" />
           </button>
         </div>
 
-        <div className="w-full rounded-lg border-2 border-gray-200 bg-white p-4 shadow-lg">
+        <div className="border-gray-200 w-full rounded-lg border-2 bg-white p-4 shadow-lg">
           <div className="my-2 grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <div className="w-full">
               <label className=" my-1 block text-sm font-semibold">
@@ -467,7 +476,7 @@ export default function PostPropertyForm({
           </div>
         </div>
 
-        <div className="my-4 w-full rounded-lg border-2 border-gray-200 bg-white p-4 shadow-lg">
+        <div className="border-gray-200 my-4 w-full rounded-lg border-2 bg-white p-4 shadow-lg">
           <div className="w-full">
             <label className="my-1 block text-sm font-semibold">
               Property Description
@@ -499,7 +508,7 @@ export default function PostPropertyForm({
 
         {/* checkBox */}
         <div className="w-full ">
-          <div className=" mx-auto rounded-lg border-2  border-gray-200 bg-white p-4 shadow-lg  hover:bg-hoverColor ">
+          <div className=" border-gray-200 mx-auto rounded-lg  border-2 bg-white p-4 shadow-lg  hover:bg-hoverColor ">
             <span className="my-1 block text-sm font-semibold">Amenities</span>
             <div className=" my-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
               {amenities.map((items, index) => {
@@ -511,7 +520,7 @@ export default function PostPropertyForm({
                       {...register(`amenities.${index}` as const)}
                       className="cursor-pointer"
                     />
-                    <label className="mx-2 text-sm text-gray-600">
+                    <label className="text-gray-600 mx-2 text-sm">
                       {items}
                     </label>
                   </div>
@@ -522,13 +531,13 @@ export default function PostPropertyForm({
         </div>
       </form>
 
-      <hr className="my-5 border-gray-400" />
+      <hr className="border-gray-400 my-5" />
 
-      <div className="w-full  rounded-lg bg-slate-300 p-4 ">
+      <div className=" w-full  rounded-lg bg-slate-100 p-4 ">
         <div className=" mx-auto flex  w-[97%] items-center justify-between">
           <button
             type="button"
-            className="text-md font-semibold underline"
+            className="text-md font-semibold underline hover:text-red-500"
             onClick={(e) => {
               e.preventDefault()
               list.onList('close')
@@ -538,7 +547,7 @@ export default function PostPropertyForm({
           </button>
           <button
             type="submit"
-            className="text-md cursor-pointer rounded-md bg-themeColor p-2 px-4 font-semibold text-white transition-all hover:bg-mainColor"
+            className="text-md cursor-pointer rounded-md bg-[#66cd8b] p-2 px-4 font-semibold text-white transition-all hover:bg-[#59b077]"
             onClick={handleSubmit(onSubmit)}
           >
             Submit

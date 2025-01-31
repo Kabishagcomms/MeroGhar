@@ -23,14 +23,14 @@ export default function ListingComp({
 
   return (
     <main>
-      <div className="block items-center justify-between border-b border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex lg:mt-1.5">
+      <div className="border-gray-200 dark:border-gray-700 dark:bg-gray-800 block items-center justify-between border-b bg-white p-4 sm:flex lg:mt-1.5">
         <div className="mx-auto mb-1 w-full sm:w-[98%]">
           <div className="mb-4">
-            <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
+            <h1 className="text-gray-900 text-xl font-semibold dark:text-white sm:text-2xl">
               All Listings
             </h1>
           </div>
-          <div className="block items-center justify-between dark:divide-gray-700 sm:flex md:divide-x md:divide-gray-100">
+          <div className="dark:divide-gray-700 md:divide-gray-100 block items-center justify-between sm:flex md:divide-x">
             {is_Admin && (
               <div className="mb-4 flex items-center sm:mb-0">
                 <form className="sm:pr-3">
@@ -38,7 +38,7 @@ export default function ListingComp({
                   <div className="relative mt-1 w-48 sm:w-64 xl:w-96">
                     <input
                       type="text"
-                      className="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:text-sm"
+                      className="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 border-gray-300 bg-gray-50 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:placeholder-gray-400 block w-full rounded-lg border p-2.5 dark:text-white sm:text-sm"
                       placeholder="Search for Property"
                     />
                   </div>
@@ -49,7 +49,7 @@ export default function ListingComp({
             {/* only for normal user */}
             {!is_Admin && (
               <button
-                className="focus:ring-primary-300  flex items-center rounded-lg bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-[#C5BAFF] focus:outline-none focus:ring-4"
+                className="focus:ring-primary-300  flex items-center rounded-lg bg-[#66cd8b] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#59b077] focus:outline-none focus:ring-4"
                 type="button"
                 onClick={(e) => {
                   e.preventDefault()
@@ -101,7 +101,7 @@ export default function ListingComp({
 
       {/* paginatioon footer */}
       {list.listProperty == 'close' && properties?.length! > 5 && (
-        <div className="sticky bottom-0 right-0 w-full  border-t border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 sm:flex sm:justify-between">
+        <div className="border-gray-200 dark:border-gray-700 dark:bg-gray-800 sticky  bottom-0 right-0 w-full border-t bg-white p-4 sm:flex sm:justify-between">
           <div className="flex items-center space-x-3">
             <Link
               href="#"

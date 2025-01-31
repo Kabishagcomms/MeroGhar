@@ -10,7 +10,6 @@ import { IBooking, Property } from '../../interface/response'
 import { useState } from 'react'
 import useModal from '../../store/useModal'
 import useConfirm from '../../store/useConfirm'
-import useVerify from '../../store/useReject'
 import { toast } from 'react-hot-toast'
 import { verifyProperty } from '../../api/client/admin'
 import { useRouter } from 'next/navigation'
@@ -68,7 +67,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
 
       <div
         key={key}
-        className="mx-auto  my-auto h-fit w-[98%] overflow-hidden rounded-xl border-[1px] border-gray-100 bg-white  shadow-md duration-300  hover:shadow-xl"
+        className="border-gray-100  mx-auto my-auto h-fit w-[98%] overflow-hidden rounded-xl border-[1px] bg-white  shadow-md duration-300  hover:shadow-xl"
       >
         <div className="group relative ">
           <Link href={`/Home/rooms/${_id}`} target="_blank">
@@ -85,7 +84,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
               }
               return setimg(img - 1)
             }}
-            className=" absolute top-[45%]  rounded-full bg-gray-100 bg-opacity-70 p-3 opacity-0 transition-all hover:bg-white hover:bg-opacity-100 hover:drop-shadow-lg group-hover:opacity-100"
+            className=" bg-gray-100 absolute  top-[45%] rounded-full bg-opacity-70 p-3 opacity-0 transition-all hover:bg-white hover:bg-opacity-100 hover:drop-shadow-lg group-hover:opacity-100"
           >
             <Image src="/left.png" alt="arrow" height={9} width={9} />
           </button>
@@ -97,7 +96,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
               }
               return setimg(img + 1)
             }}
-            className="absolute top-[45%] right-0 rounded-full bg-gray-100 bg-opacity-70 p-3 opacity-0 transition-all hover:bg-white hover:bg-opacity-100 hover:drop-shadow-lg group-hover:opacity-100"
+            className="bg-gray-100 absolute top-[45%] right-0 rounded-full bg-opacity-70 p-3 opacity-0 transition-all hover:bg-white hover:bg-opacity-100 hover:drop-shadow-lg group-hover:opacity-100"
           >
             <Image src="/arrow.png" alt="arrow" height={9} width={9} />
           </button>
@@ -132,7 +131,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
             <p className="text-md font-semibold">{name}</p>
             <div className="flex items-center gap-x-[2px]">
               <AiFillStar className="h-4 w-4" />
-              <span className="mb-[3px] text-lg text-gray-600">
+              <span className="text-gray-600 mb-[3px] text-lg">
                 {avgRating}
               </span>
             </div>
@@ -142,7 +141,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
             (use == 'userlisting' && (
               <div className="my-2">
                 {!isBanned!.status && (
-                  <p className="flex gap-x-1 text-sm font-semibold text-gray-600">
+                  <p className="text-gray-600 flex gap-x-1 text-sm font-semibold">
                     Status:{' '}
                     <span className="flex items-center gap-x-1 ">
                       {isVerified?.pending && 'Pending'}{' '}
@@ -162,7 +161,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
                 )}
 
                 {isBanned!.status && (
-                  <p className="flex gap-x-1 text-sm font-semibold text-gray-600">
+                  <p className="text-gray-600 flex gap-x-1 text-sm font-semibold">
                     Status:{' '}
                     <span className="flex items-center gap-x-1 ">
                       Banned
@@ -173,7 +172,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
               </div>
             ))}
 
-          <p className="mb-2 text-sm font-semibold text-gray-600 underline">
+          <p className="text-gray-600 mb-2 text-sm font-semibold underline">
             {country},{city}
           </p>
 
@@ -257,7 +256,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
           <div className="my-2 mx-auto mt-4 w-[95%] ">
             <button
               type="button"
-              className="me-2 mb-2 rounded-lg bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-[#C4D9FF] focus:outline-none focus:ring-4 focus:ring-blue-300 "
+              className="me-2 mb-2 rounded-lg bg-[#66cd8b] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#59b077] focus:outline-none focus:ring-4 focus:ring-[#59b077]"
               onClick={(e) => {
                 e.preventDefault()
                 list.setIndex(index!)
@@ -269,7 +268,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
 
             <button
               type="button"
-              className="me-2 mb-2 ml-3 rounded-lg border border-gray-200 bg-white py-2.5 px-5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+              className="me-2 border-gray-200 text-gray-900 hover:bg-gray-100 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-700 mb-2 ml-3 rounded-lg border bg-white py-2.5 px-5 text-sm font-medium hover:text-red-700 focus:z-10 focus:outline-none focus:ring-4 dark:hover:text-white"
               onClick={() => {
                 confirm.onContent({
                   header: 'Are You Sure To Delete Property?',

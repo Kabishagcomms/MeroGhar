@@ -82,7 +82,7 @@ export default function LoginSignup({
           height={90}
           className="mx-auto  w-auto"
         />
-        <h2 className="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">
+        <h2 className="text-gray-900 mt-10 text-center text-2xl font-bold tracking-tight">
           {login ? 'Sign In to Your Account' : 'Create an Account'}
         </h2>
       </div>
@@ -92,7 +92,7 @@ export default function LoginSignup({
           <div>
             <label
               htmlFor="userId"
-              className="block text-sm font-medium text-gray-900"
+              className="text-gray-900 block text-sm font-medium"
             >
               User ID
             </label>
@@ -102,7 +102,7 @@ export default function LoginSignup({
                 type="text"
                 placeholder="Enter your User ID"
                 required
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-[#E8F9FF] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#C4D9FF] sm:text-sm"
+                className="text-gray-900 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-[#E8F9FF] focus:outline-2 focus:-outline-offset-2 focus:outline-[#59b077] sm:text-sm"
                 {...register('userId', { required: true, minLength: 4 })}
               />
               {errors.userId && (
@@ -114,7 +114,7 @@ export default function LoginSignup({
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-900"
+              className="text-gray-900 block text-sm font-medium"
             >
               Password
             </label>
@@ -124,7 +124,7 @@ export default function LoginSignup({
                 type="password"
                 placeholder="Enter your Password"
                 required
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#C4D9FF] sm:text-sm"
+                className="text-gray-900 outline-gray-300 placeholder:text-gray-400 block w-full rounded-md bg-white px-3 py-1.5 text-base outline-1 -outline-offset-1 focus:outline-2 focus:-outline-offset-2 focus:outline-[#59b077] sm:text-sm"
                 {...register('password', { required: true, minLength: 4 })}
               />
               {errors.password && (
@@ -154,7 +154,7 @@ export default function LoginSignup({
           </div>
         </form>
 
-        <p className="mt-10 text-center text-sm text-gray-500">
+        <p className="text-gray-500 mt-10 text-center text-sm">
           {login ? "Don't have an account?" : 'Already have an account?'}{' '}
           {modal ? (
             <button
