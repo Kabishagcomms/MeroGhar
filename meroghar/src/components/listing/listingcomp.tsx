@@ -49,7 +49,7 @@ export default function ListingComp({
             {/* only for normal user */}
             {!is_Admin && (
               <button
-                className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 flex items-center rounded-lg bg-themeColor px-5 py-2.5 text-sm font-medium text-white hover:bg-mainColor focus:outline-none focus:ring-4"
+                className="focus:ring-primary-300  flex items-center rounded-lg bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-[#C5BAFF] focus:outline-none focus:ring-4"
                 type="button"
                 onClick={(e) => {
                   e.preventDefault()

@@ -49,19 +49,12 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
       <div className=" hidden items-center gap-1 md:flex">
         <Link href="/" className="block items-center gap-2 md:flex ">
           <Image
-            width={40}
-            height={40}
-            src="/airbnb.png"
+            width={100}
+            height={100}
+            src="https://res.cloudinary.com/dnimr7n8t/image/upload/v1737989511/mero-removebg-preview_xr1hum.png"
             alt="logo"
             className="block "
           />
-        </Link>
-
-        <Link
-          href="/"
-          className="block text-lg font-semibold text-mainColor drop-shadow-xl dark:text-themeColor "
-        >
-          MeroGhar
         </Link>
       </div>
 
@@ -76,34 +69,17 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
 
         <Link
           href="/Home/Account/listings"
-          className=" block rounded-md border-2  border-gray-200  p-2 px-3 font-semibold  text-gray-700 hover:border-themeColor dark:text-gray-300 md:text-sm"
+          className=" border-gray-200 text-gray-700   dark:text-gray-300  block rounded-md border-2  p-2 px-3 font-semibold hover:border-[#66cd8b] md:text-sm"
         >
           Post Room
         </Link>
 
         <div ref={menuRef}>
-          <button
-            className="flex items-center gap-1  rounded-lg border-2 border-gray-200  px-2 py-1 hover:border-themeColor dark:bg-slate-300 "
-            onClick={(e) => setopen(!open)}
-          >
-            <Image width={20} height={20} src="/menu.png" alt="user" />
-            <Image
-              width={32}
-              height={32}
-              src={img == '' ? '/user.png' : img}
-              alt="user"
-              className="h-8 w-8 rounded-full "
-            />
-          </button>
-
-          {open && (
-            <InititailModalC
-              authState={authState}
-              ref={menuRef}
-              is_Admin={is_Admin}
-            />
-          )}
-
+          <InititailModalC
+            authState={authState}
+            ref={menuRef}
+            is_Admin={is_Admin}
+          />
           {/* <LoginSignup login={true} modal={true} /> */}
         </div>
       </div>

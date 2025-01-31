@@ -257,20 +257,19 @@ export default function Card({ use, data, key, wish, user, index }: props) {
           <div className="my-2 mx-auto mt-4 w-[95%] ">
             <button
               type="button"
-              className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center rounded-lg bg-themeColor px-3 py-2 text-center text-sm font-medium text-white hover:bg-mainColor focus:ring-4"
+              className="me-2 mb-2 rounded-lg bg-indigo-500 px-5 py-2.5 text-sm font-medium text-white hover:bg-[#C4D9FF] focus:outline-none focus:ring-4 focus:ring-blue-300 "
               onClick={(e) => {
                 e.preventDefault()
                 list.setIndex(index!)
                 list.onList('edit')
               }}
             >
-              <FiEdit className="mr-2 h-4 w-4" />
               Update
             </button>
 
             <button
               type="button"
-              className="ml-2 inline-flex  items-center rounded-lg bg-red-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
+              className="me-2 mb-2 ml-3 rounded-lg border border-gray-200 bg-white py-2.5 px-5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
               onClick={() => {
                 confirm.onContent({
                   header: 'Are You Sure To Delete Property?',
@@ -296,7 +295,6 @@ export default function Card({ use, data, key, wish, user, index }: props) {
                 modal.onOpen('confirm')
               }}
             >
-              <RiDeleteBin6Fill className="mr-2 h-4 w-4" />
               Delete
             </button>
           </div>

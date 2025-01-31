@@ -102,7 +102,7 @@ export default function LoginSignup({
                 type="text"
                 placeholder="Enter your User ID"
                 required
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-[#E8F9FF] placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#C4D9FF] sm:text-sm"
                 {...register('userId', { required: true, minLength: 4 })}
               />
               {errors.userId && (
@@ -124,7 +124,7 @@ export default function LoginSignup({
                 type="password"
                 placeholder="Enter your Password"
                 required
-                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm"
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-[#C4D9FF] sm:text-sm"
                 {...register('password', { required: true, minLength: 4 })}
               />
               {errors.password && (
@@ -137,7 +137,7 @@ export default function LoginSignup({
             <div className="text-sm">
               <Link
                 href="#"
-                className="font-semibold text-indigo-600 hover:text-indigo-500"
+                className="font-semibold text-[#66cd8b] hover:text-[#59b077]"
               >
                 Forgot password?
               </Link>
@@ -147,7 +147,7 @@ export default function LoginSignup({
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-[#66cd8b] px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-[#59b077] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[##59b077]"
             >
               {login ? 'Sign in' : 'Sign up'}
             </button>
@@ -158,7 +158,7 @@ export default function LoginSignup({
           {login ? "Don't have an account?" : 'Already have an account?'}{' '}
           {modal ? (
             <button
-              className="font-semibold text-indigo-600 hover:text-indigo-500"
+              className="font-semibold text-[#66cd8b] hover:text-[#59b077]"
               onClick={(e) => {
                 e.preventDefault()
                 login
