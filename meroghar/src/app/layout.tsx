@@ -27,8 +27,6 @@ export default async function RootLayout({
       <head />
       {/* body sets the root layout for entire application */}
       <body className={` flex flex-col ${font.className}`}>
-        {/* conditionally render navbar  */}
-
         <ClientComp>
           {/* this component are kind of hassle donot repeat them on other layouts since they have shared state 
           overlapping will cause modal to bug and close  on click since they are in root layout they are rendered through out the 

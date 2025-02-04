@@ -64,7 +64,7 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
       </div>
 
       {/* post and Profile */}
-      <div className="hidden items-center gap-2 md:flex">
+      <div className="hidden items-center gap-3 md:flex">
         {/* <ToggleButton theme={theme} /> */}
 
         <Link
@@ -80,7 +80,6 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
             ref={menuRef}
             is_Admin={is_Admin}
           />
-          {/* <LoginSignup login={true} modal={true} /> */}
         </div>
       </div>
     </nav>

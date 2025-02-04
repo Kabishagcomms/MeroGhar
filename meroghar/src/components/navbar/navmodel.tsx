@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 import useModal from '../../store/useModal'
 import Api from '../../api/client/axios'
+import { Button } from '../ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -23,6 +24,17 @@ interface NavModalProps {
 const NavModal = forwardRef<HTMLDivElement, NavModalProps>((props, ref) => {
   const modal = useModal()
   const router = useRouter()
+
+  if (!props.authState) {
+    return (
+      <Button
+        onClick={() => modal.onOpen('login')}
+        className="bg-[#66cd8b] p-2 px-3 text-white hover:bg-[#59b077]"
+      >
+        Log in
+      </Button>
+    )
+  }
 
   return (
     <DropdownMenu>

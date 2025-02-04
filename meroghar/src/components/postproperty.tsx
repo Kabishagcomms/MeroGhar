@@ -525,7 +525,7 @@ export default function PostPropertyForm({
                     </label>
                   </div>
                 )
-              })}
+              })}{' '}
             </div>
           </div>
         </div>
@@ -533,7 +533,7 @@ export default function PostPropertyForm({
 
       <hr className="border-gray-400 my-5" />
 
-      <div className=" w-full  rounded-lg bg-slate-100 p-4 ">
+      <div className=" w-full   rounded-lg bg-slate-100 p-4 ">
         <div className=" mx-auto flex  w-[97%] items-center justify-between">
           <button
             type="button"

@@ -1,7 +1,6 @@
 import { checkSession } from '../../../api/server/auth'
 import LoginSignup from '../../../components/loginSignup'
 import { redirect } from 'next/navigation'
-import NavBar from '../../../components/navbar/navbar'
 
 export default async function LoginPage() {
   const session = await checkSession()

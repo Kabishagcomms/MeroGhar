@@ -1,41 +1,40 @@
-'use client';
+'use client'
 
-import { useSearchParams } from 'next/navigation';
-import { useMemo } from 'react';
-import { BiSearch } from 'react-icons/bi';
-import { differenceInDays } from 'date-fns';
-import useModal from '../../store/useModal';
-
+import { useSearchParams } from 'next/navigation'
+import { useMemo } from 'react'
+import { BiSearch } from 'react-icons/bi'
+import { differenceInDays } from 'date-fns'
+import useModal from '../../store/useModal'
 
 const Search = () => {
-  
-  const params = useSearchParams();
- 
+  const params = useSearchParams()
 
-  const  locationValue = params?.get('locationValue'); 
-  const  startDate = params?.get('startDate');
-  const  endDate = params?.get('endDate');
-  const  guestCount = params?.get('guestCount');
-  const modal=useModal();
+  const locationValue = params?.get('locationValue')
+  const startDate = params?.get('startDate')
+  const endDate = params?.get('endDate')
+  const guestCount = params?.get('guestCount')
+  const modal = useModal()
 
-  
-  return ( 
+  return (
     <div
-       onClick={(e)=>modal.onOpen('search')}
+      onClick={(e) => modal.onOpen('search')}
       className="
-        border-[2px] 
-        w-full 
-        md:w-auto 
-        py-1 
-        rounded-full 
-        shadow-sm 
-        hover:shadow-md 
-        transition 
-        cursor-pointer
-        overflow-hidden
-      "
+    
+   w-full
+    cursor-pointer 
+    overflow-hidden
+    rounded-full
+   
+    border
+    border-y-slate-300
+    py-1 
+    shadow-md 
+    transition 
+    hover:shadow-2xl
+    md:w-auto
+  "
     >
-      <div 
+      <div
         className="
           flex 
           flex-row 
@@ -43,48 +42,51 @@ const Search = () => {
           justify-between
         "
       >
-        <div 
+        <div
           className="
-            text-sm 
+            px-3 
+            text-sm
             font-semibold 
-            px-3
+            text-white
           "
         >
-         Anywhere
+          Anywhere
         </div>
-        <div 
+        <div
           className="
             hidden 
-            sm:block 
-            text-sm 
-            font-semibold 
-            px-3 
-            border-x-[2px] 
             flex-1 
-            text-center
+            border-x-[2px] 
+            px-3 
+            text-center 
+            text-sm 
+            font-semibold
+            text-white 
+            sm:block
           "
         >
-         AnyWeek
+          AnyWeek
         </div>
-        <div 
+        <div
           className="
-            text-sm 
-            pl-3 
-            pr-1 
             text-gray-600 
             flex 
             flex-row 
             items-center 
-            gap-2
+            gap-2 
+            pl-3 
+            pr-1 
+            text-sm
           "
         >
-          <div className="hidden sm:block text-gray-600">Guest</div>
-          <div 
+          <div className="hidden text-white sm:block">Guest</div>
+          <div
             className="
-              p-2 
-              bg-themeColor
               rounded-full 
+              bg-[#66cd8b]
+              p-2 
               text-white
+              hover:bg-[#59b077]
             "
           >
             <BiSearch size={18} />
@@ -92,7 +94,7 @@ const Search = () => {
         </div>
       </div>
     </div>
-  );
+  )
 }
- 
-export default Search;
+
+export default Search
