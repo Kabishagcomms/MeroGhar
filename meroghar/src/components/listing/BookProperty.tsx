@@ -104,11 +104,13 @@ export function BookProperty({ reservations, user, propertyData }: Booking) {
   }
 
   return (
-    <main className="my-4 w-[95%] rounded-xl border-2 bg-white  shadow-none md:w-[35%] md:border-gray-200  md:shadow-lg ">
+    <main className="md:border-gray-200 my-4 w-[95%] rounded-xl border-2  bg-white shadow-none md:w-[35%]  md:shadow-lg ">
       <div className="my-5 flex items-center justify-around">
-        <p className="text-lg font-semibold">
-          ${propertyData.rate}
-          <span className=" text-sm font-semibold">/Night</span>
+        <p className="ml-[-45px] text-lg font-semibold">
+          From ${propertyData.rate}
+          <span className=" ml-1 text-sm font-semibold text-zinc-500">
+            per night
+          </span>
         </p>
         <div className="flex  gap-x-[2px] ">
           <AiFillStar className="h-5 w-5" />
@@ -117,7 +119,7 @@ export function BookProperty({ reservations, user, propertyData }: Booking) {
       </div>
 
       <div className="mx-auto my-2 w-[90%] rounded-lg ">
-        <div className="my-2 rounded-lg border-2 border-gray-300">
+        <div className="border-gray-300 my-2 rounded-lg border-2">
           {/* an array with start and end date for the dates to be disabled is passed */}
           <Datepicker
             value={date}
@@ -131,7 +133,7 @@ export function BookProperty({ reservations, user, propertyData }: Booking) {
         <form>
           <input
             type="number"
-            className="text-md my-1 h-11 w-full  rounded-md border-2 border-gray-300 p-2 text-sm text-gray-700 hover:bg-hoverColor"
+            className="text-md border-gray-300 text-gray-700 my-1  h-11 w-full rounded-md border-2 p-2 text-sm hover:bg-hoverColor"
             placeholder="No of Guest"
             value={guest}
             onChange={(e) => {
@@ -146,14 +148,14 @@ export function BookProperty({ reservations, user, propertyData }: Booking) {
             </div>
           )}
 
-          <hr className=" my-2 border-gray-300" />
+          <hr className=" border-gray-300 my-2" />
           {/* pass form value from rouet then use catch all routes to access query values */}
           <button
             type="submit"
             className="my-4 block w-full rounded-lg bg-themeColor p-3 px-3 text-center text-sm font-semibold text-white hover:bg-mainColor"
             onClick={onReserve}
           >
-            reserve
+            Reserve
           </button>
 
           {/* <Link href="#" className='w-full block my-3 text-center  text-sm underline'>Contact Host</Link> */}
