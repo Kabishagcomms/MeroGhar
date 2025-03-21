@@ -43,38 +43,14 @@ const Footer = () => {
               </motion.h3>
               <div className="space-y-3">
                 <motion.div whileHover={{ x: 10 }} transition={{ type: "spring", stiffness: 300 }}>
-                  <Link href="/whats-new" className="block hover:text-secondaryHover">
+                  <Link href="/Home/listnigs" className="block hover:text-secondaryHover">
                     What&apos;s New
                   </Link>
                 </motion.div>
-                <motion.div whileHover={{ x: 10 }} transition={{ type: "spring", stiffness: 300 }}>
-                  <Link href="/private-sale" className="block hover:text-secondaryHover">
-                    Private Sale
-                  </Link>
-                </motion.div>
+               
               </div>
             </div>
-            <div>
-              <motion.h3 
-                whileHover={{ scale: 1.05 }}
-                className="text-sm font-medium text-secondaryColor mb-4"
-              >
-                POPULAR
-              </motion.h3>
-              <div className="space-y-3">
-                {['The Collection', 'Short Stays', 'Small Hotels'].map((item, index) => (
-                  <motion.div 
-                    key={index}
-                    whileHover={{ x: 10 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    <Link href={`/${item.toLowerCase().replace(' ', '-')}`} className="block hover:text-secondaryHover">
-                      {item}
-                    </Link>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+          
           </div>
 
           {/* Right Column - Title and Buttons */}
