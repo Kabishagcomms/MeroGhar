@@ -23,7 +23,7 @@ interface EditProfile {
 }
 
 const inputStyle =
-  'text-md my-1 h-10 w-[95%]  rounded-md border-2  border-gray-400 p-2 text-gray-700 hover:bg-hoverColor focus:border-themeColor'
+  'text-md my-1 h-10 w-[95%] rounded-md border-2 border-gray-400 p-2 text-gray-700 hover:bg-[#EAE7DD]/30 focus:border-[#99775C]'
 
 interface Prop {
   userName: string
@@ -168,13 +168,13 @@ export function EditBasic({ userName, about, img }: Prop) {
           </div>
         </div>
         <div className="my-4 w-full">
-          <label className=" my-1 block text-sm font-semibold text-black">
-            UserName
+          <label className="my-1 block text-sm font-semibold text-black">
+            Username
           </label>
           <input
             type="text"
             placeholder="userName"
-            className="text-md my-1 h-10 w-[95%]  rounded-md border-2  border-gray-400 p-2 text-gray-700 hover:bg-hoverColor focus:border-themeColor md:w-[70%]"
+            className="text-md my-1 h-10 w-[95%] rounded-md border-2 border-gray-400 p-2 text-gray-700 hover:bg-[#EAE7DD]/30 focus:border-[#99775C] md:w-[70%]"
             {...register('userName')}
           />
         </div>
@@ -205,9 +205,9 @@ export function EditBasic({ userName, about, img }: Prop) {
           <button
             type="submit"
             onClick={handleSubmit(submitHandler)}
-            className="rounded-lg bg-themeColor py-2 px-4 font-semibold text-white transition-all hover:bg-mainColor"
+            className="rounded-lg bg-[#99775C] py-2 px-4 font-semibold text-white transition-all hover:bg-[#886a52]"
           >
-            save
+            Save
           </button>
         </div>
       </form>

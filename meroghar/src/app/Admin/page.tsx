@@ -4,13 +4,13 @@ import ClientComp from '../../components/clientComp'
 import DashClient from './dashClient'
 
 export default async function Dashboard() {
-  const { totalUsers, activeUsers } = await getDashBoardData()
+  const {totalUsers,activeUsers,totalBookings,totalProperties,activeBookings,activeProperties,properties}=await getDashBoardData()
 
   return (
-    <main className="w-full">
-      <ClientComp>
-        <DashClient totalUsers={totalUsers} activeUsers={activeUsers} />
-      </ClientComp>
+    <main className="w-full bg-white">
+    <ClientComp>
+        <DashClient totalBookings={totalBookings} totalProperties={totalProperties} totalUsers={totalUsers} activeBookings={activeBookings} activeProperties={activeProperties} activeUsers={activeUsers} properties={properties} />
+        </ClientComp>
     </main>
   )
 }

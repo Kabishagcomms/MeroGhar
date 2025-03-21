@@ -31,30 +31,30 @@ export async function getPropertyRequests(
 }
 
 //use this to get properties of a owner
-export async function getMyProperties(
-  userId: string,
-  page: number,
-  limit: number
-): Promise<Partial<Property>[]> {
-  try {
-    const res = await fetch(
-      `${api}/property/v1/myProperties/${userId}?page=${page}&limit=${limit}`,
-      {
-        method: 'GET',
-        credentials: 'include',
-        headers: { cookie: getAccessToken() },
-        cache: 'no-store',
-      }
-    ).then((res) => res.json())
+export async function getMyProperties(userId:string,page:number,limit:number):Promise<Partial<Property>[]>{
+  try{
+    
+      
+      const res = await fetch(
+          `${api}/property/v1/myProperties/${userId}?page=${page}&limit=${limit}`,
+          {
+            method: 'GET',
+            credentials: 'include',
+            headers: { cookie: getAccessToken()},
+            cache:'no-store'
+          }
+        ).then(res=>res.json())
+  
+      if(!res.success) throw new Error("failed to fetch Property Requests")
+      
+      console.log("my properties",res);
+      return res.propertyData;
 
-    if (!res.success) throw new Error('failed to fetch Property Requests')
+      
+  }catch(e){
+     throw e;
+  }}
 
-    console.log('my properties', res)
-    return res.propertyData
-  } catch (e) {
-    throw e
-  }
-}
 
 export async function getPropertyById(
   id: string

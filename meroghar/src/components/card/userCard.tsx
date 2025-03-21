@@ -43,13 +43,13 @@ export default function UserCard({ userData }: UserProps) {
         {_.capitalize(userName)}
       </div>
       <p className="mt-1  text-sm font-semibold text-gray-500">
-        {about} dfsa sd fsadf sadf asd fsd fasdfsdfsdf
+        {about}
       </p>
 
       <div className="mt-4 flex items-center gap-x-2  ">
         <button
           type="button"
-          className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center rounded-lg bg-themeColor px-3 py-2 text-center text-sm font-medium text-white hover:bg-mainColor focus:ring-4"
+          className="inline-flex items-center rounded-lg bg-[#22c55e] px-3 py-2 text-center text-sm font-medium text-white hover:bg-[#16a34a] focus:ring-4 focus:ring-[#86efac] transition-transform duration-300 hover:scale-105"
           onClick={(e) => {
             e.preventDefault()
             console.log('verify')

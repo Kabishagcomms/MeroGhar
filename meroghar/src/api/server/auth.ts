@@ -42,27 +42,55 @@ export interface sessionData{
 
 
 //for common routes can only be accessed by user/non user
-export const checkSession=async():Promise<sessionData>=>{
-  const cookieStore=cookies();
-  const session=await cookieStore.get("session")?.value;
-    if(!session){
-      console.log("no session")
-      return {session:false,userData:{userId:"",is_Admin:false,img:'',docId:"",kycVerified:false}}  
-    }
+export const checkSession = async (): Promise<sessionData> => {
+  const cookieStore = cookies();
+  const sessionCookie = cookieStore.get("session");
+  
+  // If no session cookie exists at all
+  if (!sessionCookie || !sessionCookie.value) {
+    console.log("no session");
+    return {
+      session: false,
+      userData: {
+        userId: "",
+        is_Admin: false,
+        img: '',
+        docId: "",
+        kycVerified: false
+      }
+    };
+  }
 
-   
-    const sessionObj=await JSON.parse(session!)
-    console.log("session checked session obj: ",sessionObj)
-
-    // role mismatched so unauthorized throw custom un authorized erorr 
-    // if(sessionObj.is_Admin!==is_Admin){
-    //   return {session:false,userData:{userId:"",is_Admin:false,img:''}} 
-    // }
+  try {
+    // Parse the session value safely
+    const sessionObj = JSON.parse(sessionCookie.value);
+    console.log("session checked session obj: ", sessionObj);
     
-    //here if admin and redirection was here 
-    return {session:true,userData:{docId:sessionObj.docId,userId:sessionObj.userId,is_Admin:sessionObj.is_Admin,img:sessionObj.img,kycVerified:sessionObj.kycVerified}}
-    
-}
+    return {
+      session: true,
+      userData: {
+        docId: sessionObj.docId,
+        userId: sessionObj.userId,
+        is_Admin: sessionObj.is_Admin,
+        img: sessionObj.img,
+        kycVerified: sessionObj.kycVerified
+      }
+    };
+  } catch (error) {
+    // Handle the case where the session cookie exists but contains invalid JSON
+    console.error("Invalid session format:", error);
+    return {
+      session: false,
+      userData: {
+        userId: "",
+        is_Admin: false,
+        img: '',
+        docId: "",
+        kycVerified: false
+      }
+    };
+  }
+};
 
 
 

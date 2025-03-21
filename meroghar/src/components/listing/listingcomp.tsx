@@ -21,6 +21,8 @@ export default function ListingComp({
 }: Props) {
   const list = useRandom()
 
+  
+
   return (
     <main>
       <div className="border-gray-200 dark:border-gray-700 dark:bg-gray-800 block items-center justify-between border-b bg-white p-4 sm:flex lg:mt-1.5">
@@ -49,7 +51,7 @@ export default function ListingComp({
             {/* only for normal user */}
             {!is_Admin && (
               <button
-                className="focus:ring-primary-300  flex items-center rounded-lg bg-[#66cd8b] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#59b077] focus:outline-none focus:ring-4"
+                className="focus:ring-primary-300 flex items-center rounded-lg bg-[#99775C] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#886a52] focus:outline-none focus:ring-4"
                 type="button"
                 onClick={(e) => {
                   e.preventDefault()

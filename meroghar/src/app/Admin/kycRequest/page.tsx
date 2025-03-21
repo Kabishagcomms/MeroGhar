@@ -1,28 +1,35 @@
 import { getKycs } from '../../../api/server/user/getUser'
 import ClientComp from '../../../components/clientComp'
-
 import UserCard from '../../../components/card/userCard'
 import Link from 'next/link'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
+import { FaClipboardCheck } from 'react-icons/fa'
 
 export default async function KycRequest() {
   const KycRequests = await getKycs(1, 10)
 
   if (KycRequests.length === 0) {
     return (
-      <h1 className="text-center text-lg font-semibold md:text-xl md:font-bold">
-        {' '}
-        No Kyc Requests To Verify !!!
-      </h1>
+      <div className="flex h-screen flex-col items-center justify-center bg-[#EAE7DD]">
+        <div className="mb-6 rounded-full bg-[#99775C] p-6 text-white">
+          <FaClipboardCheck className="h-16 w-16" />
+        </div>
+        <h1 className="mb-3 text-center text-2xl font-bold text-[#99775C]">
+          No KYC Requests To Verify
+        </h1>
+        <p className="text-center text-[#886a52]">
+          All verification requests have been processed. Check back later for new requests.
+        </p>
+      </div>
     )
   }
 
   return (
-    <div>
+    <div className='bg-'>
       <div className="mx-auto mb-1  w-[96%] p-2">
         <div className="mb-4">
           <h1 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
-            User Kyc Requests
+            User KYC Requests
           </h1>
         </div>
 

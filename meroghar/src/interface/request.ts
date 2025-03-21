@@ -2,6 +2,7 @@
 export interface LoginRegisterInput {
     userId: string
     password: string
+    email: string
 }
 
 

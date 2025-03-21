@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import Search from './searchButton'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
+import NotificationDropdown from "@/components/notifications/notification-dropdown"
 
 interface NavProps {
   theme: string
@@ -42,46 +44,110 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
 
   return (
     <nav
-      className={`fixed z-20 flex h-20 w-full items-center justify-around bg-white p-3 shadow-none dark:bg-slate-700  md:shadow-md`}
+      className={`fixed z-20 flex h-20 w-full items-center justify-around bg-mainColor p-3 shadow-none dark:bg-slate-700 md:shadow-md`}
     >
       {/* logoName */}
-
-      <div className=" hidden items-center gap-1 md:flex">
+      <div className="hidden items-center gap-1 md:flex">
         <Link href="/" className="block items-center gap-2 md:flex ">
           <Image
-            width={100}
-            height={100}
-            src="https://res.cloudinary.com/dnimr7n8t/image/upload/v1737989511/mero-removebg-preview_xr1hum.png"
+            width={110}
+            height={110}
+            src="https://res.cloudinary.com/dnimr7n8t/image/upload/v1742365333/buymesome_j4ja9q.png"
             alt="logo"
-            className="block "
+            className="block"
           />
         </Link>
       </div>
 
-      {/* search Bar */}
-      <div className=" my-2 w-[95%] md:w-[35%] ">
-        <Search />
+      {/* Navigation Links */}
+      <div className="flex items-center gap-6">
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        >
+          <Link
+            href="/about-us"
+            className="text-secondaryColor font-semibold transition-colors font-inter"
+          >
+            About Us
+          </Link>
+        </motion.div>
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        >
+          <Link
+            href="/contact-us"
+            className="text-secondaryColor font-semibold transition-colors font-inter"
+          >
+            Contact Us
+          </Link>
+        </motion.div>
+        
+        {/* New Favourites and Reservations links - only visible when logged in */}
+        {authState && !is_Admin && (
+          <>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <Link
+                href="/Home/Account/favourites"
+                className="text-secondaryColor font-semibold transition-colors font-inter"
+              >
+                Favourites
+              </Link>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            >
+              <Link
+                href="/Home/Account/reservations"
+                className="text-secondaryColor font-semibold transition-colors font-inter"
+              >
+                Reservations
+              </Link>
+            </motion.div>
+          </>
+        )}
       </div>
 
       {/* post and Profile */}
       <div className="hidden items-center gap-3 md:flex">
-        {/* <ToggleButton theme={theme} /> */}
+        {authState && !is_Admin && (
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
+            <Link
+              href="/Home/Account/listings"
+              className="border-secondaryColor text-secondaryColor block rounded-md border-2 p-2 px-3 font-semibold hover:bg-secondaryColor hover:text-mainColor transition-colors md:text-sm"
+            >
+              Post Room
+            </Link>
+          </motion.div>
+        )}
 
-        <Link
-          href="/Home/Account/listings"
-          className=" border-gray-200 text-gray-700   dark:text-gray-300  block rounded-md border-2  p-2 px-3 font-semibold hover:border-[#66cd8b] md:text-sm"
-        >
-          Post Room
-        </Link>
-
-        <div ref={menuRef}>
-          <InititailModalC
-            authState={authState}
-            ref={menuRef}
-            is_Admin={is_Admin}
-          />
+        <div className="flex items-center gap-2">
+          {authState && <NotificationDropdown />}
+          <div ref={menuRef}>
+            <InititailModalC
+              authState={authState}
+              ref={menuRef}
+              is_Admin={is_Admin}
+            />
+          </div>
         </div>
       </div>
+      
+      
+      
     </nav>
   )
 }

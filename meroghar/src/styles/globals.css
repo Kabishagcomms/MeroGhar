@@ -83,13 +83,37 @@
   @layer base {
   * {
     @apply border-border;
-    
-    }
+  }
   body {
-    @apply bg-background text-foreground;
-    
-    }
-    
+    @apply bg-mainColor text-foreground;
+  }
+}
+
+.font-playfair {
+  font-family: var(--font-playfair);
+}
+
+/* Add this to your globals.css file */
+.font-rubik {
+  font-family: var(--font-rubik);
+}
+
+/* Update your CSS variables for the new theme colors */
+:root {
+  --color-primary: #EAE7DD;
+  --color-primary-hover: #dbd7cc;
+  --color-secondary: #99775C;
+  --color-secondary-hover: #886a52;
+  --background-color: var(--color-primary);
+}
+
+/* Update any existing color references */
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+svg[viewBox="0 0 24 24"].hover\:fill-\[\#22c55e\] {
+  --tw-hover-fill: var(--color-secondary) !important;
 }
 
 

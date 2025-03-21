@@ -16,14 +16,14 @@ import Password from './pasword'
 interface ProfileProps {
   userId: string
   profileData: Partial<FetchedMe>
-
+  listings?:Partial<Property>[],
   is_Admin: boolean
 }
 
 export default function Profile({
   userId,
   profileData,
-
+  listings,
   is_Admin,
 }: ProfileProps) {
   const {
@@ -42,95 +42,109 @@ export default function Profile({
   const account = useAccount()
 
   return (
-    <main className="my-5">
-      <div className={`${bg} rounded-lg`}>
-        <div className="flex flex-wrap-reverse items-center justify-between">
-          <div>
-            <h2 className="text-2xl font-semibold">Hi, I am {userName}</h2>
-            <p className="my-1 text-sm font-semibold text-gray-700">
-              Joined in {new Date(createdAt!).getFullYear()}{' '}
-            </p>
-          </div>
-          <Image
-            height={150}
-            width={150}
-            src={profileImg!.imgUrl == '' ? '/user.png' : profileImg!.imgUrl}
-            alt="user"
-            className="my-2 h-[100px] w-[100px] rounded-full border-2 border-gray-300 p-1 shadow-lg md:h-[150px] md:w-[150px]"
-          />
-        </div>
-
-        <div className="my-3 flex flex-col gap-2">
-          <div className="my-2 flex items-center gap-x-2">
-            {kyc!.isVerified ? (
-              <FiUserCheck className="h-6 w-6 stroke-themeColor  " />
-            ) : (
-              <FiUserMinus className="h-6 w-6 stroke-themeColor  " />
-            )}
-            <span className="block">Identity Verified</span>
-          </div>
-
-          <div className="flex items-center gap-x-2 ">
-            <HiStar className="h-6 w-6 fill-themeColor" />
-            <span>{recievedReviewcount} Reviews</span>
-            {/* {recievedReviewcount! > 0 && (
-              <Link href="#" className="text-sm font-semibold underline">
-                {' '}
-                Show all reviews
-              </Link>
-            )} */}
-          </div>
-
-          <div className="flex items-center gap-x-2 ">
-            <HiStar className="h-6 w-6 fill-themeColor" />
-            <span>{avgRating} Average Rating</span>
-          </div>
-        </div>
-        <hr className="my-5 border-gray-400" />
-
-        <div className=" my-5  flex  items-center justify-around ">
-          <div className="flex items-center gap-x-2 ">
-            {kyc!.isVerified ? (
-              <HiCheck className="h-6 w-6 fill-themeColor" />
-            ) : (
-              <HiMinus className="h-6 w-6 fill-themeColor" />
-            )}
-            <span>Identity</span>
-          </div>
-
-          <div className="flex items-center gap-x-2 ">
-            {email!.isVerified ? (
-              <HiCheck className="h-6 w-6 fill-themeColor" />
-            ) : (
-              <HiMinus className="h-6 w-6 fill-themeColor" />
-            )}
-            <span>Email</span>
-          </div>
-
-          <div className="flex items-center gap-x-2 ">
-            {kycInfo!.phoneNumber ? (
-              <HiCheck className="h-6 w-6 fill-themeColor" />
-            ) : (
-              <HiMinus className="h-6 w-6 fill-themeColor" />
-            )}
-            <span>Phone Number</span>
+    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+        {/* Profile Header - updated background color */}
+        <div className="bg-white px-6 py-8">
+          <div className="flex flex-wrap-reverse items-center justify-between gap-6">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900">Hi, I am {userName}</h2>
+              <p className="mt-2 text-sm text-gray-600">
+                Joined in {new Date(createdAt!).getFullYear()}
+              </p>
+            </div>
+            <div className="relative">
+              <Image
+                height={150}
+                width={150}
+                src={profileImg!.imgUrl || '/user.png'}
+                alt={userName || 'User'}
+                className="h-32 w-32 md:h-40 md:w-40 rounded-full border-4 border-white shadow-xl object-cover"
+                style={{ maxHeight: '160px', maxWidth: '160px' }}
+              />
+            </div>
           </div>
         </div>
 
-        <hr className="my-5 border-gray-400" />
+        {/* Stats Section - updated icon colors */}
+        <div className="px-6 py-6 border-b border-[#EAE7DD]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex items-center gap-3">
+              {kyc!.isVerified ? (
+                <FiUserCheck className="h-6 w-6 text-[#99775C]" />
+              ) : (
+                <FiUserMinus className="h-6 w-6 text-gray-400" />
+              )}
+              <div>
+                <span className="block text-sm text-gray-500">Identity Status</span>
+                <span className="font-medium">{kyc!.isVerified ? 'Verified' : 'Not Verified'}</span>
+              </div>
+            </div>
 
-        {userId == profileData._id! && (
-          <div className="flex  w-full gap-x-1 sm:gap-x-3 ">
+            <div className="flex items-center gap-3">
+              <HiStar className="h-6 w-6 text-[#99775C]" />
+              <div>
+                <span className="block text-sm text-gray-500">Reviews</span>
+                <span className="font-medium">{recievedReviewcount}</span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <HiStar className="h-6 w-6 text-[#99775C]" />
+              <div>
+                <span className="block text-sm text-gray-500">Average Rating</span>
+                <span className="font-medium">{avgRating}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Verification Status - updated colors */}
+        <div className="px-6 py-6 border-b border-[#EAE7DD]">
+          <h3 className="text-lg font-semibold mb-4">Verification Status</h3>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="flex items-center gap-2 p-3 bg-[#EAE7DD]/30 rounded-lg">
+              {kyc!.isVerified ? (
+                <HiCheck className="h-5 w-5 text-[#99775C]" />
+              ) : (
+                <HiMinus className="h-5 w-5 text-gray-400" />
+              )}
+              <span className="text-sm font-medium">Identity</span>
+            </div>
+
+            <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+              {email!.isVerified ? (
+                <HiCheck className="h-5 w-5 text-[#99775C]" />
+              ) : (
+                <HiMinus className="h-5 w-5 text-gray-400" />
+              )}
+              <span className="text-sm font-medium">Email</span>
+            </div>
+
+            <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
+              {kycInfo!.phoneNumber ? (
+                <HiCheck className="h-5 w-5 text-[#99775C]" />
+              ) : (
+                <HiMinus className="h-5 w-5 text-gray-400" />
+              )}
+              <span className="text-sm font-medium">Phone</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Profile Actions - updated button colors */}
+        <div className="px-6 py-4 border-b border-[#EAE7DD]">
+          <div className="flex gap-4">
             <button
               onClick={(e) => {
                 e.preventDefault()
                 account.onOpen('profile')
               }}
-              className={`mb-2 block p-2 text-left text-sm font-semibold text-gray-600 ${
-                account.openComponent == 'profile'
-                  ? 'border-b-2 border-themeColor text-black'
-                  : 'border-b-2 border-white transition-all hover:border-themeColor hover:text-black '
-              }`}
+              className={`px-4 py-2 text-sm font-medium rounded-lg transition-all
+                ${account.openComponent == 'profile'
+                  ? 'bg-[#99775C] text-white'
+                  : 'text-gray-700 hover:bg-[#EAE7DD]'
+                }`}
             >
               Edit Profile
             </button>
@@ -140,13 +154,13 @@ export default function Profile({
                 e.preventDefault()
                 account.onOpen('account')
               }}
-              className={`mb-2 block p-2 text-left text-sm font-semibold text-gray-600 ${
-                account.openComponent == 'account'
-                  ? 'border-b-2 border-themeColor text-black'
-                  : 'border-b-2 border-white transition-all hover:border-themeColor hover:text-black '
-              }`}
+              className={`px-4 py-2 text-sm font-medium rounded-lg transition-all
+                ${account.openComponent == 'account'
+                  ? 'bg-[#99775C] text-white'
+                  : 'text-gray-700 hover:bg-[#EAE7DD]'
+                }`}
             >
-              Account-Settings
+              Account Settings
             </button>
 
             {password && (
@@ -155,41 +169,56 @@ export default function Profile({
                   e.preventDefault()
                   account.onOpen('password')
                 }}
-                className={`mb-2 block p-2 text-left text-sm font-semibold text-gray-600 ${
-                  account.openComponent == 'password'
-                    ? 'border-b-2 border-themeColor text-black'
-                    : 'border-b-2 border-white transition-all hover:border-themeColor hover:text-black '
-                }`}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all
+                  ${account.openComponent == 'password'
+                    ? 'bg-[#99775C] text-white'
+                    : 'text-gray-700 hover:bg-[#EAE7DD]'
+                  }`}
               >
                 Password
               </button>
             )}
           </div>
-        )}
+        </div>
 
-        {/* this all will not be rendered on  */}
+        {/* About Section - updated background */}
+        <div className="px-6 py-6 border-b border-[#EAE7DD]">
+          <h3 className="text-lg font-semibold mb-4">About</h3>
+          <p className="text-gray-600 bg-[#EAE7DD]/30 rounded-lg p-4">
+            {about || 'I am so excited to explore the properties!'}
+          </p>
+        </div>
         {account.openComponent == 'close' && (
-          <div className="my-2 w-[95%] p-2 md:w-[80%]">
-            <h2 className="my-2 text-lg font-semibold">About</h2>
-            <p className="text-md rounded-lg border-2 border-gray-200 bg-white p-2 text-gray-700 shadow-lg">
-              {about ? about : '..................'}
+          <div className="px-6 py-6 border-b border-gray-200">
+            <h3 className="text-lg font-semibold mb-4">About</h3>
+            <p className="text-gray-600 bg-gray-50 rounded-lg p-4">
+              {about || 'I am so excited to explore the properties!'}
             </p>
           </div>
         )}
 
-        <hr className="mt-5 mb-3 text-gray-300" />
-
+        {/* Listings Section */}
         {account.openComponent == 'close' && (
-          <div className="p-2">
-            <h1 className="ms:text-xl my-2 mb-6 text-lg font-semibold ">
-              {profileData.userName}s Listings
-            </h1>
+          <div className="px-6 py-6">
+            <h3 className="text-lg font-semibold mb-6">
+              {profileData.userName} Listings
+            </h3>
+            {listings && listings.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {listings.map((data, index) => (
+                  <Card data={data} key={index} />
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-500 text-center py-8">No listings yet</p>
+            )}
           </div>
         )}
       </div>
 
+      {/* Additional Components */}
       {account.openComponent == 'profile' && (
-        <div className={`${bg} my-2 rounded-lg`}>
+        <div className="mt-6 bg-white rounded-2xl shadow-md overflow-hidden">
           <EditBasic
             img={profileImg!.imgUrl}
             userName={userName!}
@@ -198,21 +227,19 @@ export default function Profile({
         </div>
       )}
 
-      {/* this is for admin exclusive */}
-      {is_Admin &&
-        userId !== profileData._id &&
-        account.openComponent == 'close' && (
-          <div className="my-3">
-            <AccountComponent
-              userData={profileData}
-              is_Admin={true}
-              userId={userId}
-            />
-          </div>
-        )}
+      {/* Admin Section */}
+      {is_Admin && userId !== profileData._id && account.openComponent == 'close' && (
+        <div className="mt-6 bg-white rounded-2xl shadow-md overflow-hidden">
+          <AccountComponent
+            userData={profileData}
+            is_Admin={true}
+            userId={userId}
+          />
+        </div>
+      )}
 
       {account.openComponent == 'account' && (
-        <div className="my-3">
+        <div className="mt-6 bg-white rounded-2xl shadow-md overflow-hidden">
           <AccountComponent
             userData={profileData}
             is_Admin={is_Admin}
@@ -222,10 +249,10 @@ export default function Profile({
       )}
 
       {account.openComponent == 'password' && (
-        <div className="my-3">
+        <div className="mt-6 bg-white rounded-2xl shadow-md overflow-hidden">
           <Password />
         </div>
       )}
     </main>
-  )
+  );
 }

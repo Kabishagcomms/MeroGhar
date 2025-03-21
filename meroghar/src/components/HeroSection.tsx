@@ -1,22 +1,26 @@
 import React from 'react'
 import Search from './navbar/searchButton'
+import { motion } from 'framer-motion'
 
 const HeroSection = () => {
   return (
-    <div className="relative h-[500px] w-full">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 h-full w-full"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?q=80&w=2070&auto=format&fit=crop')",
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-        }}
-      >
+    <div className="relative h-[100vh] w-full">
+      {/* Background Video */}
+      <div className="absolute inset-0 h-full w-full overflow-hidden">
+        <video
+          className="h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source
+            src="https://res.cloudinary.com/dnimr7n8t/video/upload/v1741926894/3015510-hd_1920_1080_24fps_rbj4yh.mp4"
+            type="video/mp4"
+          />
+        </video>
         {/* Overlay to ensure text readability */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/20" />
       </div>
 
       {/* Content Container */}
@@ -24,11 +28,31 @@ const HeroSection = () => {
         <div className="flex h-full flex-col items-center justify-center gap-8">
           {/* Hero Text */}
           <div className="text-center">
-            <h1 className="mb-4 text-4xl font-bold text-white sm:text-5xl">
-              Find your perfect stay on Mero Ghar
+            <h1 className="mb-6 font-rubik text-5xl font-medium text-mainColor sm:text-7xl">
+              Escape to the{" "}
+              <motion.span
+                className="text-mainColor font-semibold"
+                animate={{
+                  opacity: [0.7, 1, 0.7],
+                  scale: [0.98, 1.02, 0.98],
+                  textShadow: [
+                    "0 0 5px rgba(255,255,255,0.3)",
+                    "0 0 15px rgba(255,255,255,0.5)",
+                    "0 0 5px rgba(255,255,255,0.3)"
+                  ]
+                }}
+                transition={{
+                  duration: 3,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                  repeatType: "loop"
+                }}
+              >
+                extraordinary
+              </motion.span>
             </h1>
-            <p className="text-lg text-white/90 sm:text-xl">
-              Explore a wide range of accommodations for your next trip!
+            <p className="text-xl text-mainColor/90 sm:text-2xl font-light tracking-wide">
+              Take your pick of the world&apos;s finest homes, villas and chalets - we&apos;ll handle the rest.
             </p>
           </div>
 

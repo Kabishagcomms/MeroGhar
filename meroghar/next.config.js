@@ -11,7 +11,7 @@ const nextConfig = {
   //     ignoreBuildErrors: true,
   //  },
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ['res.cloudinary.com', 'ext.same-assets.com', 'images.unsplash.com', 'placehold.co'],
     remotePatterns: [
       {
         protocol: 'http',

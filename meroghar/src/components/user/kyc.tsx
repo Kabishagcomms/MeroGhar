@@ -6,8 +6,9 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { ErrorText } from '../random'
 
+// Update the input style constant at the top
 const inputStyle =
-  'text-md my-1 h-10 w-[90%]  rounded-md border-2  border-gray-400 p-1 text-gray-700 hover:bg-hoverColor focus:border-themeColor'
+  'text-md my-1 h-10 w-[90%] rounded-md border-2 border-gray-400 p-1 text-gray-700 hover:bg-[#EAE7DD]/30 focus:border-[#99775C]'
 
 import 'react-phone-input-2/lib/style.css'
 
@@ -172,9 +173,9 @@ export default function Kyc({ setopenKyc, userData }: kycprops) {
   }
 
   return (
-    <main key={'fuckU'} className="mt-5 w-full rounded-lg   p-4  ">
-      <h2 className="mb-5 text-xl font-semibold">Kyc Form</h2>
-      <hr className="my-5 border-gray-400" />
+    <main className="mt-5 w-full rounded-lg bg-white p-4">
+      <h2 className="mb-5 text-xl font-semibold text-[#99775C]">KYC Form</h2>
+      <hr className="my-5 border-[#EAE7DD]" />
 
       <form>
         <div className="my-3 grid  w-full grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -294,21 +295,26 @@ export default function Kyc({ setopenKyc, userData }: kycprops) {
         </div>
 
         <div className="my-6 w-full">
-          <div className="my-2 flex  w-full flex-col items-center gap-y-3">
-            {/* initially the value default does not read file casuing to return empty string */}
+          <div className="my-2 flex w-full flex-col items-center gap-y-3">
+            {/* Image preview container */}
             <div
               className={
                 imageUrl() == ''
                   ? 'hidden'
-                  : 'h-[200px] w-full rounded-lg  sm:h-[270px] md:h-[300px] md:w-[80%] lg:h-[350px]'
+                  : 'relative h-[200px] w-full rounded-lg sm:h-[270px] md:h-[300px] md:w-[80%] lg:h-[350px]'
               }
             >
-              <Image fill={true} src={imageUrl()} alt="ImagePreviewHere" />
+              <Image 
+                src={imageUrl()} 
+                alt="ImagePreviewHere" 
+                fill={true}
+                className="object-contain rounded-lg"
+              />
             </div>
 
             {/* for input and label */}
             <div className="flex w-full flex-col items-start justify-around rounded-lg border-2 border-gray-300 p-[6px] shadow-md md:w-[60%] md:flex-row md:items-center">
-              <label className="block text-sm font-semibold  text-slate-700 ">
+              <label className="block text-sm font-semibold text-slate-700">
                 Upload Image{' '}
               </label>
               <input
@@ -317,13 +323,14 @@ export default function Kyc({ setopenKyc, userData }: kycprops) {
                   required: kycInfo!.img.imgUrl == '' ? true : false,
                 })}
               ></input>
-
-              {/* donot render this button for 1st index */}
             </div>
-            <p className="text-sm font-semibold text-themeColor">
+            
+            {/* Identification text */}
+            <p className="text-sm font-semibold text-[#99775C]">
               Please provide proof of Identification
               CitizenShip/Passport/Driving License
             </p>
+
             {errors?.img && (
               <p className="block w-[95%] text-center text-sm text-red-700">
                 Please Upload image for the Field
@@ -334,12 +341,12 @@ export default function Kyc({ setopenKyc, userData }: kycprops) {
 
         <hr className="my-5 border-gray-400" />
 
-        <div className="my-2 flex items-center justify-between rounded-lg bg-slate-200 p-4">
+        {/* Updated button container */}
+        <div className="my-2 flex items-center justify-between rounded-lg bg-[#EAE7DD]/20 p-4">
           <button
-            className="text-md font-semibold underline"
+            className="text-md font-semibold text-[#99775C] hover:text-[#886a52]"
             onClick={(e) => {
               e.preventDefault()
-
               setopenKyc('close')
             }}
           >
@@ -347,7 +354,7 @@ export default function Kyc({ setopenKyc, userData }: kycprops) {
           </button>
           <button
             type="submit"
-            className="rounded-lg border border-white bg-themeColor p-2 text-white transition-all hover:bg-mainColor"
+            className="rounded-lg bg-[#99775C] px-4 py-2 text-white transition-all hover:bg-[#886a52]"
             onClick={handleSubmit(onSubmit)}
           >
             Submit Kyc

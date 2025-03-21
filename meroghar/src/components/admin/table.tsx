@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { FetchedMe, IBooking, Property } from '../../interface/response'
 import Api from '../../api/client/axios'
-
+import TripBookingClient from "../listing/TripsReservationClient"
 import { BsFillHouseCheckFill, BsFillHouseSlashFill } from 'react-icons/bs'
 import Image from 'next/image'
 
@@ -71,31 +71,45 @@ export default function AdminTable({
     console.log('ban', id)
     // first set content
     if (ban) {
+      // Add debug logs
+      console.log('Setting up ban modal for user:', id);
+      
+      // Make sure to set the button text first
       reject.setbtn('BanUser')
+      
+      // Set the content for the reject modal
       reject.onContent({
         onReject: (message: string) => {
+          console.log('onReject called with message:', message);
+          
           Api.patch(
             `/admin/v1/banUnbanUser/${id}`,
             { ban, message },
             { withCredentials: true }
           )
             .then((res) => {
-              toast.success('User successfullyt Banned')
+              toast.success('User successfully Banned')
               modal.onClose()
               return window.location.reload()
             })
             .catch((e) => {
+              console.error('Ban API error:', e);
               toast.error('User Banned Failed!')
             })
         },
       })
 
-      return modal.onOpen('reject')
+      // Try to open the modal and log the result
+      console.log('Attempting to open reject modal');
+      const modalOpened = modal.onOpen('reject');
+      console.log('Modal open result:', modalOpened);
+      return modalOpened;
     }
 
+    // Rest of the function remains the same
     //for unban
     confirm.onContent({
-      header: 'Are You Sure to UnBan User',
+      header: 'Are You Sure Unban User',
       actionBtn: 'UnBan User',
       onAction: () => {
         Api.patch(
@@ -118,54 +132,96 @@ export default function AdminTable({
   }
 
   const banUnbanProperty = (id: string, ban: boolean) => {
-    console.log('ban', id)
-    // first set content
+    console.log('ban', id);
+    
     if (ban) {
-      reject.setbtn('BanProperty')
+      console.log('Setting up ban modal for property:', id);
+      
+      // Ensure the button text is set
+      reject.setbtn('BanProperty');
+      
+      // Set the content for the reject modal
       reject.onContent({
         onReject: (message: string) => {
+          console.log('onReject called with message:', message);
+          
+          // Add loading toast
+          const loadingToast = toast.loading('Banning property...');
+          
           Api.patch(
             `/admin/v1/banUnbanProperty/${id}`,
             { ban, message },
             { withCredentials: true }
           )
             .then((res) => {
-              toast.success('Property successfully Banned')
-              modal.onClose()
-              return window.location.reload()
+              toast.dismiss(loadingToast);
+              toast.success('Property successfully banned');
+              modal.onClose();
+              
+              // Update the local state instead of reloading the page
+              setStateProperties(prevProperties => 
+                prevProperties?.map(property => 
+                  property._id === id 
+                    ? { ...property, isBanned: { status: true, message } } 
+                    : property
+                )
+              );
             })
             .catch((e) => {
-              toast.error('Property Banned Failed!')
-            })
+              toast.dismiss(loadingToast);
+              console.error('Ban property API error:', e);
+              toast.error('Property ban failed! Please try again.');
+            });
         },
-      })
-
+      });
+  
+      // Try to open the modal and log the result
+     
       return modal.onOpen('reject')
     }
-
-    //for unban
+  
+    // For unban, use the confirm modal
     confirm.onContent({
       header: 'Are You Sure to UnBan Property',
       actionBtn: 'UnBan Property',
       onAction: () => {
+        // Add loading toast
+        const loadingToast = toast.loading('Unbanning property...');
+        
         Api.patch(
           `/admin/v1/banUnbanProperty/${id}`,
           { ban },
           { withCredentials: true }
         )
           .then((res) => {
-            toast.success('Property successfully unBanned')
-            modal.onClose()
-            return window.location.reload()
+            toast.dismiss(loadingToast);
+            toast.success('Property successfully unbanned');
+            modal.onClose();
+            
+            // Update the local state instead of reloading the page
+            setStateProperties(prevProperties => 
+              prevProperties?.map(property => 
+                property._id === id 
+                  ? { ...property, isBanned: { status: false, message: '' } } 
+                  : property
+              )
+            );
           })
           .catch((e) => {
-            toast.error('Property unBanned Failed!')
-          })
+            toast.dismiss(loadingToast);
+            console.error('Unban property API error:', e);
+            toast.error('Property unban failed! Please try again.');
+          });
       },
-    })
-
-    return modal.onOpen('confirm')
-  }
+    });
+  
+    return modal.onOpen('confirm');
+  };
+  if(use=='booking'){
+    return(
+        <TripBookingClient trips={false} is_Admin={true} bookings={bookings!} />
+    )
+}
 
   return (
     <main>
@@ -304,10 +360,8 @@ export default function AdminTable({
                             {!data.isBanned?.status && (
                               <button
                                 type="button"
-                                className="ml-2 inline-flex  items-center rounded-lg bg-red-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
-                                onClick={(e) =>
-                                  banUnbanProperty(data._id!, true)
-                                }
+                                className="ml-2 inline-flex items-center rounded-lg bg-red-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
+                                onClick={(e) => testbanUnbanProperty(data._id!, true)}
                               >
                                 <BsFillHouseSlashFill className="mr-2 h-5 w-5" />
                                 BanProperty
@@ -317,8 +371,7 @@ export default function AdminTable({
                             {data.isBanned?.status && (
                               <button
                                 type="button"
-                                onClick={(e) =>
-                                  banUnbanProperty(data._id!, false)
+                                onClick={(e) => banUnbanProperty(data._id!, false)
                                 }
                                 className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center rounded-lg bg-themeColor px-3 py-2 text-center text-sm font-medium text-white hover:bg-mainColor focus:ring-4"
                               >
@@ -384,15 +437,15 @@ export default function AdminTable({
                                 className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center rounded-lg bg-themeColor px-3 py-2 text-center text-sm font-medium text-white hover:bg-mainColor focus:ring-4"
                               >
                                 <FaUserCheck className="mr-2 h-5 w-5" />
-                                UnBanUser
+                                Unban User
                               </button>
                             )}
 
                             {!data.isBanned?.status && (
                               <button
                                 type="button"
-                                className="ml-2 inline-flex  items-center rounded-lg bg-red-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
-                                onClick={(e) => banUnbanUser(data._id!, true)}
+                                className="ml-2 inline-flex items-center rounded-lg bg-red-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
+                                onClick={(e) => testBanUser(data._id!)}
                               >
                                 <FaUserTimes className="mr-2 h-5 w-5" />
                                 Ban User
@@ -411,3 +464,53 @@ export default function AdminTable({
     </main>
   )
 }
+
+// Add this function to test the API directly
+const testBanUser = (id: string) => {
+  const message = "Test ban reason";
+  console.log('Testing direct API call to ban user:', id);
+  
+  Api.patch(
+    `/admin/v1/banUnbanUser/${id}`,
+    { ban: true, message },
+    { withCredentials: true }
+  )
+    .then((res) => {
+      console.log('API response:', res);
+      toast.success('User successfully Banned');
+      window.location.reload();
+    })
+    .catch((e) => {
+      console.error('API error:', e);
+      toast.error('User Ban Failed!');
+    });
+};
+
+
+const testbanUnbanProperty = (id: string, ban: boolean) => {
+
+   const message = "Test ban reason";
+  console.log('Testing direct API call to ban property:', id);
+
+  Api.patch(
+    `/admin/v1/banUnbanProperty/${id}`,
+    { ban: true, message },
+    { withCredentials: true }
+  )
+    .then((res) => {
+      console.log('API response:', res);
+      toast.success('Property successfully Banned');
+      window.location.reload();
+      
+      // Update the local state instead of reloading the page
+    
+    })
+    .catch((e) => {
+      console.log('API error:', e);
+      toast.error('Property Ban Failed!');
+    });
+ 
+  };
+
+// Add this function to test the API directly for properties
+

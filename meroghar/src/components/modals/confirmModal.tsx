@@ -1,11 +1,8 @@
 'use client'
 
 import useModal from "../../store/useModal"
-
 import useConfirm from "../../store/useConfirm";
-
 import { RxCross1 } from "react-icons/rx";
-
 import Modal from "./modal"
 
 export function ConfirmModal(){
@@ -17,42 +14,44 @@ export function ConfirmModal(){
     return(
         <>
         <Modal isOpen={modal.isOpen}>
-              
-        <div className="w-full border-2 border-blue-500 md:w-[570px]  rounded-lg bg-white px-4 pt-5 pb-4   shadow-xl  ">
-            <div className="flex items-center justify-end ">
-              <button onClick={()=>{
-                  
-                  modal.onClose();
-              }}><RxCross1 className="h-5 w-5 rounded-full hover:bg-slate-200" /></button>
+        <div className="w-full md:w-[450px] rounded-xl bg-white p-6 shadow-2xl">
+            <div className="flex items-center justify-end">
+              <button 
+                onClick={() => modal.onClose()}
+                className="rounded-full p-1.5 hover:bg-gray-100 transition-colors"
+              >
+                <RxCross1 className="h-5 w-5 text-gray-500" />
+              </button>
             </div>
   
-            {/* <hr className='border-[1px] border-gray-300 my-2' /> */}
-  
-            <h2 className="my-8 text-center text-xl font-bold text-gray-700">
+            <h2 className="mt-2 mb-6 text-center text-2xl font-semibold text-gray-800">
               {confirm.content.header}
             </h2>
   
-            <div className="flex justify-around">
-              <button className="rounded-lg bg-gray-600 px-4 py-2 text-white transition-all hover:bg-gray-800"
-              
-              onClick={()=>{
-                modal.onClose();
-                 
-              }}>
-                Cancel
-              </button>
-              <button className={`rounded-lg  px-4 py-2 text-white transition-all ${confirm.content.actionBtn=='Delete'? 'bg-red-500 hover:bg-red-700' :'bg-themeColor hover:bg-mainColor'}`}
-              onClick={(e)=>{
-                e.preventDefault();
-                confirm.content.onAction();
-              }}
+            <div className="flex flex-col items-center justify-center gap-4">
+              <button 
+                className={`w-full rounded-lg px-6 py-3 text-white font-medium transition-all ${
+                  confirm.content.actionBtn === 'Delete' 
+                    ? 'bg-red-500 hover:bg-red-600 active:bg-red-700' 
+                    : 'bg-[#99775C] hover:bg-[#886a52] active:bg-[#775c44]'
+                }`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  confirm.content.onAction();
+                }}
               >
                 {confirm.content.actionBtn}
+              </button>
+              
+              <button 
+                className="w-full rounded-lg px-6 py-3 text-gray-600 font-medium border border-gray-300 hover:bg-gray-50 active:bg-gray-100 transition-all"
+                onClick={() => modal.onClose()}
+              >
+                Cancel
               </button>
             </div>
           </div>
         </Modal>
-        
         </>
     )
 }

@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 
-import { Nunito } from 'next/font/google'
+import { Inter } from 'next/font/google'
+import {Playfair_Display, Rubik} from 'next/font/google'
 import ClientComp from '../components/clientComp'
 
 import { LoginModal } from '../components/modals/loginModal'
@@ -11,9 +12,21 @@ import { ConfirmModal } from '../components/modals/confirmModal'
 
 import ResetPassword from '../components/modals/forgotpassword'
 import { SearchModal } from '../components/modals/searchModal'
+import { BookingModal } from '@/components/modals/bookingBillModal'
 
-const font = Nunito({
+const playfair = Playfair_Display({
+  subsets: ['cyrillic'],
+  variable: '--font-playfair', // Add this line
+})
+
+const rubik = Rubik({
   subsets: ['latin'],
+  variable: '--font-rubik', // Add this line
+})  
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter', // Add this line
 })
 
 export default async function RootLayout({
@@ -22,11 +35,9 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    //toggle dark mode by getting dark mode from
     <html>
       <head />
-      {/* body sets the root layout for entire application */}
-      <body className={` flex flex-col ${font.className}`}>
+      <body className={`flex flex-col bg-mainColor ${playfair.variable} ${inter.variable} ${rubik.variable}`}>
         <ClientComp>
           {/* this component are kind of hassle donot repeat them on other layouts since they have shared state 
           overlapping will cause modal to bug and close  on click since they are in root layout they are rendered through out the 
@@ -35,7 +46,7 @@ export default async function RootLayout({
           <LoginModal />
           <RegisterModal />
           <ConfirmModal />
-
+          <BookingModal/>
           <ResetPassword />
           <SearchModal />
         </ClientComp>

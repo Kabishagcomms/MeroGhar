@@ -18,7 +18,7 @@ interface passwordform {
 }
 
 const inputStyle =
-  'text-md my-2 h-10 w-[90%]  rounded-md border-2  border-gray-400 p-1 text-gray-700 hover:bg-hoverColor focus:border-themeColor'
+  'text-md my-2 h-10 w-[90%] rounded-md border-2 border-gray-400 p-1 text-gray-700 hover:bg-[#EAE7DD]/30 focus:border-[#99775C]'
 
 export default function Password() {
   const account = useAccount()
@@ -74,7 +74,7 @@ export default function Password() {
   return (
     <main className={`mx-auto rounded-lg ${bg}`}>
       <div className="w-[95%] sm:w-[70%] md:w-[50%] md:p-2">
-        <h2 className=" mb-5 text-2xl font-semibold text-slate-700">
+        <h2 className="mb-5 text-2xl font-semibold text-[#99775C]">
           Change Your Password
         </h2>
         <form>
@@ -84,7 +84,7 @@ export default function Password() {
             </label>
             <input
               type="text"
-              placeholder="old Password"
+              placeholder="Enter your old password"
               className={inputStyle}
               {...register('oldPassword', { required: true })}
             />
@@ -97,8 +97,8 @@ export default function Password() {
               New Password
             </label>
             <input
-              type="text"
-              placeholder="New password"
+              type="password"
+              placeholder="Enter your new password"
               className={inputStyle}
               {...register('newPassword', { required: true })}
             />
@@ -112,7 +112,7 @@ export default function Password() {
             </label>
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Confirm your password"
               className={inputStyle}
               {...register('confirmNewPassword', { required: true })}
             />
@@ -128,10 +128,10 @@ export default function Password() {
           {error == 2 && (
             <ErrorText text="Old password Wrong/Invalid New password" />
           )}
-          <hr className="my-5 border-gray-400" />
+          <hr className="my-5 border-[#EAE7DD]" />
           <div className="mb-4 flex items-center justify-between">
             <button
-              className="text-md font-semibold underline"
+              className="text-md font-semibold text-[#99775C] hover:text-[#886a52]"
               onClick={() => {
                 account.onClose()
               }}
@@ -140,7 +140,7 @@ export default function Password() {
             </button>
             <button
               type="submit"
-              className=" mt-2   rounded-lg bg-themeColor p-2 px-4 text-white transition-all hover:bg-mainColor"
+              className="mt-2 rounded-lg bg-[#99775C] p-2 px-4 text-white transition-all hover:bg-[#886a52]"
               onClick={handleSubmit(onSubmit)}
             >
               Update

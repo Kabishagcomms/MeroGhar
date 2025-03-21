@@ -1,16 +1,22 @@
 'use client'
 
+import Footer from '@/components/footer'
 import { SessionUser } from '../../api/server/auth'
-import Card from '../../components/card/card'
+
 import { Property, wishlist } from '../../interface/response'
+import HeroSection from '@/components/HeroSection'
+import NewsletterSignup from '@/components/newsletter-signup'
+import PropertyCarousel from '@/components/property-carousel'
+import ReviewCarousel from '@/components/review-carousel'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { motion } from 'framer-motion'
+
 interface HomeProps {
   properties: Partial<Property>[]
   wishList?: wishlist
   userData: SessionUser
 }
-import HeroSection from '@/components/HeroSection'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 
 export function HomeClient({ properties, wishList, userData }: HomeProps) {
   const router = useRouter()
@@ -19,87 +25,71 @@ export function HomeClient({ properties, wishList, userData }: HomeProps) {
     return router.refresh()
   }, [])
 
-  if (wishList) {
-    return (
-      <main className="w-full    ">
-        <HeroSection />
-        {/* for Property Viwed By users */}
-        <div className="mx-auto w-[95%] ">
-          {properties.length == 0 && (
-            <h1 className="my-5 text-center text-lg  font-semibold md:text-xl ">
-              No Properties To Display!
-            </h1>
-          )}
+  const fadeInUp = {
+    initial: { y: 20, opacity: 0 },
+    animate: { y: 0, opacity: 1 },
+    transition: { duration: 0.5 }
+  }
 
-          <div className="my-3 grid w-full grid-cols-1 gap-x-2 gap-y-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {properties.map((property, index) => {
-              //check if the wishlist matched the proeprty id
-              const inwish = wishList!.wishList.some(
-                (data) => data._id == property._id
-              )
-              return (
-                <Card
-                  use="card"
-                  key={index}
-                  wish={inwish}
-                  data={property}
-                  user={
-                    (userData.is_Admin && 'admin') ||
-                    (userData.docId == property.userId && 'owner') ||
-                    (userData.docId == '' && '') ||
-                    'user'
-                  }
-                />
-              )
-            })}
-          </div>
-
-          {properties.length >= 8 && (
-            <button className="mx-auto rounded-lg border border-white bg-themeColor px-3 py-2 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-mainColor ">
-              LoadMore
-            </button>
-          )}
-        </div>
-      </main>
-    )
+  const staggerContainer = {
+    animate: {
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
   }
 
   return (
-    <main className="w-full     ">
-      <HeroSection />
-      {/* for Property Viwed By users */}
-      <div className="mx-auto  w-[95%]">
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="w-full flex flex-col"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+      >
+        <HeroSection />
+      </motion.div>
+
+      <motion.div 
+        variants={staggerContainer}
+        initial="initial"
+        animate="animate"
+        className="mx-auto w-[95%] flex-1"
+      >
         {properties.length == 0 && (
-          <h1 className="my-5 text-center text-lg  font-semibold md:text-xl ">
+          <motion.h1 
+            variants={fadeInUp}
+            className="my-5 text-center text-lg font-semibold md:text-xl"
+          >
             No Properties To Display!
-          </h1>
+          </motion.h1>
         )}
 
-        <div className="my-3 grid w-full grid-cols-1 gap-x-2 gap-y-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {properties.map((property, index) => {
-            return (
-              <>
-                <main>
-                  <HeroSection />
-                  <Card
-                    use="card"
-                    key={index}
-                    wish={false}
-                    data={property}
-                    user={userData.is_Admin ? 'admin' : ''}
-                  />
-                </main>
-              </>
-            )
-          })}
-        </div>
+        <motion.div
+          variants={fadeInUp}
+        >
+          <PropertyCarousel properties={properties} userData={userData} wishList={wishList} />
+        </motion.div>
 
         {properties.length >= 8 && (
-          <button className="mx-auto rounded-lg border border-white bg-themeColor px-3 py-2 text-sm font-semibold text-white transition-all hover:scale-105 hover:bg-mainColor ">
+          <motion.button
+            variants={fadeInUp}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="mx-auto rounded-lg border border-white bg-themeColor px-3 py-2 text-sm font-semibold text-white transition-all hover:bg-mainColor"
+          >
             LoadMore
-          </button>
+          </motion.button>
         )}
-      </div>
-    </main>
+      </motion.div>
+
+      <ReviewCarousel/>
+      <NewsletterSignup/>
+      <Footer/>
+    </motion.main>
   )
 }

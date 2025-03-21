@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 import { checkSession } from '../../../api/server/auth'
-import { PrimaryFooter } from '../../../components/footer'
+
 
 export default async function Layout({
   children,
@@ -19,7 +19,7 @@ export default async function Layout({
         {children}
       </div>
 
-      <PrimaryFooter />
+   
     </main>
   )
 }

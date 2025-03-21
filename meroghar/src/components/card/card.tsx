@@ -60,46 +60,23 @@ export default function Card({ use, data, key, wish, user, index }: props) {
   const router = useRouter()
 
   return (
-    <div>
-      {/* {use=='userlisting'&&isVerified!.message!==''&&(!isVerified!.status)&&<div className=' mx-auto border-2 rounded-lg w-[97%] p-2 '>
-    <span className='flex items-center gap-x-1 text-red-500'>{isVerified?.message}</span>
-    </div>} */}
-
+    <div className="h-full">
       <div
         key={key}
-        className="border-gray-100 mb=[-4]  mx-auto my-auto h-fit w-[85%] overflow-hidden rounded-xl border-[1px] bg-white  shadow-md duration-300 hover:border-b-lime-900  hover:shadow-2xl"
+        className="border-gray-100 mx-auto h-fit w-full overflow-hidden rounded-xl border-[1px] bg-white shadow-md duration-300 hover:shadow-xl"
       >
-        <div className="group relative ">
+        <div className="group relative">
           <Link href={`/Home/rooms/${_id}`} target="_blank">
-            <div className="h-56  w-full object-cover transition-transform duration-300 ease-in-out hover:scale-105 ">
-              <Image fill={true} src={images![img]!.imgUrl} alt="property" />
+            <div className="relative h-64 w-full overflow-hidden">
+              <Image 
+                src={images![img]!.imgUrl} 
+                alt={name || "Property"} 
+                className="object-cover" 
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
             </div>
           </Link>
-
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              if (img == 0) {
-                return console.log('o here')
-              }
-              return setimg(img - 1)
-            }}
-            className=" bg-gray-100 absolute  top-[45%] rounded-full bg-opacity-70 p-3 opacity-0 transition-all hover:bg-[#59b077] hover:bg-opacity-100 hover:drop-shadow-lg group-hover:opacity-100"
-          >
-            <Image src="/left.png" alt="arrow" height={9} width={9} />
-          </button>
-
-          <button
-            onClick={() => {
-              if (img == images!.length! - 1) {
-                return console.log('o here')
-              }
-              return setimg(img + 1)
-            }}
-            className="bg-gray-100 absolute top-[45%] right-0 rounded-full bg-opacity-70 p-3 opacity-0 transition-all hover:bg-[#59b077] hover:bg-opacity-100 hover:drop-shadow-lg group-hover:opacity-100"
-          >
-            <Image src="/arrow.png" alt="arrow" height={9} width={9} />
-          </button>
 
           <div className="absolute bottom-2 flex w-full justify-center">
             <div className="flex items-center space-x-1">
@@ -110,6 +87,8 @@ export default function Card({ use, data, key, wish, user, index }: props) {
                     img === index ? 'fill-white' : 'fill-gray-500'
                   }`}
                   viewBox="0 0 8 8"
+                  onClick={() => setimg(index)}
+                  style={{ cursor: 'pointer' }}
                 >
                   <circle cx="4" cy="4" r="3" />
                 </svg>
@@ -117,7 +96,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
             </div>
           </div>
 
-          <div className="absolute top-3 right-2">
+          <div className="absolute top-3 right-3">
             {use == 'card' && (
               <div className="relative">
                 <Wish active={wish!} id={_id!} user={user} />
@@ -127,12 +106,12 @@ export default function Card({ use, data, key, wish, user, index }: props) {
         </div>
       </div>
 
-      <div className="my-2 mx-auto  w-[85%]  p-1">
+      <div className="mt-3 px-1">
         <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold">{name}</p>
+          <p className="text-sm text-rubik font-semibold">{name}</p>
           <div className="flex items-center gap-x-[2px]">
             <AiFillStar className="h-3 w-3" />
-            <span className="text-gray-600  text-md">{avgRating}</span>
+            <span className="text-gray-600 text-md">{avgRating}</span>
           </div>
         </div>
 
@@ -179,20 +158,20 @@ export default function Card({ use, data, key, wish, user, index }: props) {
 
         <p className="gray-600   text-sm ">
           <span className="text-xs font-bold">${rate}</span>
-          <span className="ml-1 text-sm">Night</span>
+          <span className="ml-1 text-xs font-semibold">Night</span>
         </p>
       </div>
       {use == 'adminlisting' && (
         <div className="my-2 mx-auto mt-4 w-[95%] ">
           <button
             type="button"
-            className="focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 inline-flex items-center rounded-lg bg-themeColor px-3 py-2 text-center text-sm font-medium text-white hover:bg-mainColor focus:ring-4"
+            className="inline-flex items-center rounded-lg border border-[#99775C] bg-white px-3 py-2 text-center text-sm font-medium text-[#99775C] hover:bg-[#99775C] hover:text-white focus:outline-none focus:ring-4 focus:ring-[#99775C]/50"
             onClick={(e) => {
               e.preventDefault()
               console.log('verify')
 
               confirm.onContent({
-                header: 'Are You Sure To Verify Property?',
+                header: 'Are you sure you want to verify Property?',
                 actionBtn: 'Verify',
                 onAction: async () => {
                   const res = await verifyProperty(_id!, { isVerified: true })
@@ -216,7 +195,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
 
           <button
             type="button"
-            className="ml-2 inline-flex  items-center rounded-lg bg-red-600 px-3 py-2 text-center text-sm font-medium text-white hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:focus:ring-red-900"
+            className="ml-2 inline-flex items-center rounded-lg border border-[#99775C] bg-white px-3 py-2 text-center text-sm font-medium text-[#99775C] hover:bg-[#99775C] hover:text-white focus:outline-none focus:ring-4 focus:ring-[#99775C]/50"
             onClick={(e) => {
               e.preventDefault()
               console.log('reject')
@@ -254,7 +233,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
         <div className="my-2 mx-auto mt-4 w-[95%] ">
           <button
             type="button"
-            className="me-2 mb-2 rounded-lg bg-[#66cd8b] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#59b077] focus:outline-none focus:ring-4 focus:ring-[#59b077]"
+            className="me-2 mb-2 rounded-lg bg-[#99775C] px-5 py-2.5 text-sm font-medium text-white hover:bg-[#886a52] focus:outline-none focus:ring-4 focus:ring-[#99775C]/50"
             onClick={(e) => {
               e.preventDefault()
               list.setIndex(index!)
@@ -266,7 +245,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
 
           <button
             type="button"
-            className="me-2 border-gray-200 text-gray-900 hover:bg-gray-100 focus:ring-gray-100   mb-2 ml-3 rounded-lg border bg-white py-2.5 px-5 text-sm font-medium hover:text-red-700 focus:z-10 focus:outline-none focus:ring-4 dark:hover:text-white"
+            className="me-2 border-gray-200 text-gray-900 hover:bg-gray-100 focus:ring-gray-100 mb-2 ml-3 rounded-lg border bg-white py-2.5 px-5 text-sm font-medium hover:text-red-700 focus:z-10 focus:outline-none focus:ring-4 dark:hover:text-white"
             onClick={() => {
               confirm.onContent({
                 header: 'Are You Sure To Delete Property?',

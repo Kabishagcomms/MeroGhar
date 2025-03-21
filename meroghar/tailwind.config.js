@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors')
 module.exports = {
   mode: 'jit',
   //the purgr property is used to remove unused css from the final build
@@ -14,9 +13,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        mainColor: '#66cd8b',
-        themeColor: '#66cd8b',
-        hoverColor: '#59b077',
+        mainColor: '#EAE7DD',
+        themeColor: '#EAE7DD',
+        hoverColor: '#dbd7cc',
+        secondaryColor: '#99775C',
+        secondaryHover: '#886a52',
         green: 'colors.emerald',
         yellow: 'colors.amber',
         purple: 'colors.violet',
@@ -66,6 +67,11 @@ module.exports = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      fontFamily: {
+        playfair: ['var(--font-playfair)'],
+        inter: ['var(--font-inter)'],
+        rubik: ['var(--font-rubik)'],
       },
     },
   },

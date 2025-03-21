@@ -15,13 +15,13 @@ export default async function Layout({
   if (!userData.is_Admin) return redirect('/')
 
   return (
-    <main className=" flex flex-col">
+    <main className="flex flex-col bg-white"> {/* Changed from bg-mainColor to bg-white */}
       <ClientComp>
         <DashboardNav />
       </ClientComp>
 
       {/* this children represents each page component  that is rendered */}
-      <main className=" my-24 ml-0  md:my-10 md:ml-[230px] lg:ml-[260px]">
+      <main className="my-24 ml-0 md:my-10 md:ml-[230px] lg:ml-[260px]"> {/* Removed bg-white since parent is now white */}
         {children}
       </main>
 

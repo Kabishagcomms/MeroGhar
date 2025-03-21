@@ -226,3 +226,16 @@ export interface Payment {
   // billImg?: string;
   // billId?: string;
 }
+
+// Add this to your existing response.ts file
+
+export interface INotification {
+  _id: string
+  userId: string
+  message: string
+  type: 'booking' | 'system' | 'payment' | 'review'
+  isRead: boolean
+  relatedId?: string // Could be bookingId, propertyId, etc.
+  createdAt: Date
+  updatedAt: Date
+}

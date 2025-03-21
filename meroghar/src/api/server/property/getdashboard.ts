@@ -5,6 +5,11 @@ import { getAccessToken } from '../auth'
 export interface dashData {
   totalUsers: number
   activeUsers: number
+  totalProperties:number,
+  activeProperties:number
+  totalBookings:number,
+  activeBookings:number
+  properties:Partial<Property>[]
 }
 
 export default async function getDashBoardData(): Promise<dashData> {

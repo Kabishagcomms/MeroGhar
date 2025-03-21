@@ -28,15 +28,12 @@ export function BookProperty({ reservations, user, propertyData }: Booking) {
     endDate: new Date(),
   })
 
-  console.log(reservations)
-
   const [guest, setguest] = useState(0)
 
   const modal = useModal()
   const bookingStore = useBookingStore()
 
   const currentDate = new Date()
-  console.log(date.startDate, currentDate)
   const maxDate = new Date()
   maxDate.setFullYear(currentDate.getFullYear() + 1) // set the year to be one year after the current date
   maxDate.setMonth(currentDate.getMonth()) // set the month to be the same as the current date
@@ -44,7 +41,6 @@ export function BookProperty({ reservations, user, propertyData }: Booking) {
 
   const handleValueChange = (newValue: any) => {
     console.log('newValue:', newValue)
-
     setdate(newValue)
   }
 
@@ -89,7 +85,7 @@ export function BookProperty({ reservations, user, propertyData }: Booking) {
 
     if (checkOverLap) return bookingStore.setError(true)
 
-    //set eroro false
+    //set error false
     bookingStore.setError(false)
 
     bookingStore.setPropertyData(propertyData)
@@ -99,70 +95,72 @@ export function BookProperty({ reservations, user, propertyData }: Booking) {
       endDate: date.endDate,
     })
     modal.onOpen('booking')
-
-    // // send post request
   }
 
   return (
-    <main className="md:border-gray-200 my-4 w-[95%] rounded-xl border-2  bg-white shadow-none md:w-[35%]  md:shadow-lg ">
-      <div className="my-5 flex items-center justify-around">
-        <p className="ml-[-45px] text-lg font-semibold">
-          From ${propertyData.rate}
-          <span className=" ml-1 text-sm font-semibold text-zinc-500">
-            per night
-          </span>
-        </p>
-        <div className="flex  gap-x-[2px] ">
-          <AiFillStar className="h-5 w-5" />
-          <span className="">{propertyData.avgRating}</span>
+    <main className="my-4 w-[95%] rounded-xl bg-white p-6 shadow-lg md:w-[100%]">
+      <div className="mb-6 flex items-center justify-between">
+        <div>
+          <p className="text-2xl font-semibold text-[#99775C]">
+            ${propertyData.rate}
+            <span className="ml-1 text-lg font-medium text-[#886a52]">
+              per night
+            </span>
+          </p>
+        </div>
+        <div className="flex items-center gap-x-1">
+          <AiFillStar className="h-5 w-5 text-[#99775C]" />
+          <span className="text-lg font-medium text-[#99775C]">{propertyData.avgRating}</span>
         </div>
       </div>
 
-      <div className="mx-auto my-2 w-[90%] rounded-lg ">
-        <div className="border-gray-300 my-2 rounded-lg border-2">
-          {/* an array with start and end date for the dates to be disabled is passed */}
+      <div className="w-full space-y-4">
+        <div className="rounded-lg border-2 border-[#99775C]/20 transition-colors focus-within:border-[#99775C]/50">
           <Datepicker
             value={date}
             onChange={handleValueChange}
             minDate={currentDate}
             maxDate={maxDate}
             disabledDates={reservations}
+            inputClassName="w-full p-3 text-[#99775C] placeholder:text-[#99775C]/60 focus:outline-none"
+            containerClassName="relative w-full"
+            toggleClassName="absolute right-0 h-full px-3 text-[#99775C] focus:outline-none"
+            displayFormat="MMM DD, YYYY"
+          
+            primaryColor="amber"
+            useRange={true}
+            readOnly={true}
           />
         </div>
 
-        <form>
+        <form className="space-y-4">
           <input
             type="number"
-            className="text-md border-gray-300 text-gray-700 my-1  h-11 w-full rounded-md border-2 p-2 text-sm hover:bg-hoverColor"
-            placeholder="No of Guest"
+            className="w-full rounded-lg border-2 border-[#99775C]/20 p-3 text-[#99775C] placeholder:text-[#99775C]/60 focus:border-[#99775C]/50 focus:outline-none transition-colors"
+            placeholder="Number of Guests"
             value={guest}
             onChange={(e) => {
-              console.log(guest)
-              setguest(parseInt(e.target.value))
+              setguest(parseInt(e.target.value) || 0)
             }}
           />
 
           {bookingStore.error && (
-            <div className="my-2 ">
+            <div className="my-2">
               <ErrorText text="Please Enter Valid Date/guest for Booking" />
             </div>
           )}
 
-          <hr className=" border-gray-300 my-2" />
-          {/* pass form value from rouet then use catch all routes to access query values */}
+          <hr className="border-[#99775C]/20" />
+
           <button
             type="submit"
-            className="my-4 block w-full rounded-lg bg-themeColor p-3 px-3 text-center text-sm font-semibold text-white hover:bg-mainColor"
+            className="w-full rounded-lg bg-[#99775C] p-4 text-center text-sm font-semibold text-white transition-all hover:bg-[#886a52] hover:shadow-lg active:scale-[0.98]"
             onClick={onReserve}
           >
             Reserve
           </button>
-
-          {/* <Link href="#" className='w-full block my-3 text-center  text-sm underline'>Contact Host</Link> */}
         </form>
       </div>
-
-      {/* Review Section */}
     </main>
   )
 }

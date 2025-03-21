@@ -90,7 +90,7 @@ export default function AccountComponent({
         {/* if kyc does not exist */}
 
         {!kycinfo && !is_Admin && (
-          <div className="my-3 flex items-center justify-between rounded-lg bg-slate-300 p-3 ">
+          <div className="my-3 flex items-center bg-[#EAE7DD] justify-between rounded-lg bg-slate-300 p-3 ">
             <h1 className="">Provide Kyc information ?</h1>
             <button
               className="text-sm font-bold text-gray-700 underline"
@@ -127,7 +127,7 @@ export default function AccountComponent({
               </div>
             )}
 
-            <div>
+           {/*  <div>
               {phonemail != 'email' && (userMatch || is_Admin) && (
                 <div className=" flex items-center justify-between">
                   <p>
@@ -146,7 +146,7 @@ export default function AccountComponent({
                   {!AdminKycView && (
                     <button
                       onClick={(e) => setphonemail('email')}
-                      className="text-sm font-semibold underline"
+                      className="text-sm font-bold text-gray-700 underline"
                     >
                       {kycInfo?.email == '' ? 'Add' : 'Edit'}
                     </button>
@@ -164,9 +164,9 @@ export default function AccountComponent({
               )}
 
               <hr className="my-4 border-gray-400" />
-            </div>
+            </div> */}
 
-            {(userMatch || is_Admin) && (
+          {/*  {(userMatch || is_Admin) && (
               <div>
                 {phonemail != 'phone' && (
                   <div className=" flex items-center justify-between">
@@ -180,7 +180,7 @@ export default function AccountComponent({
                     {!AdminKycView && (
                       <button
                         onClick={(e) => setphonemail('phone')}
-                        className="text-sm font-semibold underline"
+                        className="text-sm font-bold text-gray-700 underline"
                       >
                         {kycInfo?.phoneNumber == '' ? 'Add' : 'Edit'}
                       </button>
@@ -199,17 +199,18 @@ export default function AccountComponent({
 
                 <hr className="my-4 border-gray-400" />
               </div>
-            )}
+            )}  */}
 
             {kycinfo && (userMatch || is_Admin) && (
               <div className=" flex items-center justify-between p-3">
                 <p>
-                  <h1 className="my-2 font-semibold">Id</h1>
-                  <div className="my-2 block h-auto  w-[85%] rounded-lg sm:w-[60%]">
+                  <div className="my-2 relative h-[200px] w-[85%] rounded-lg sm:w-[60%] overflow-hidden">
                     <Image
-                      fill={true}
                       src={kycInfo!.img.imgUrl}
-                      alt="imghere"
+                      alt="KYC Document"
+                      className="object-contain"
+                      width={400}
+                      height={200}
                     />
                   </div>
                 </p>
@@ -222,7 +223,7 @@ export default function AccountComponent({
                 <div className="flex justify-end">
                   {!AdminKycView && (
                     <button
-                      className="text-md font-semibold text-gray-700 underline"
+                      className="text-md font-bold text-gray-700 underline"
                       onClick={(e) => {
                         e.preventDefault()
                         setopenKyc('edit')

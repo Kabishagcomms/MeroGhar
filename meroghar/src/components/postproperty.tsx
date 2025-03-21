@@ -37,7 +37,7 @@ export default function PostPropertyForm({
 }: postProperty) {
   console.log('propertty data on updatye', propertyData, isUpdate)
   let defaultValues: PropertyForm = {
-    images: [{ image: '' }],
+    images: ['default'],
     name: '',
 
     country: '',
@@ -56,10 +56,7 @@ export default function PostPropertyForm({
     defaultValues = {
       ...defaultValues,
       ...propertyData,
-      // Convert existing images to the new format if updating
-      images: propertyData.images
-        ? propertyData.images.map((img) => ({ image: img }))
-        : [{ image: null }],
+      images: propertyData.images || defaultValues.images
     }
   }
   const list = useRandom()
@@ -92,24 +89,18 @@ export default function PostPropertyForm({
 
   const imageUrl = (index: number) => {
     try {
-      const file = imagesS[index]?.image
-
-      // If the file is newly uploaded, create an object URL
-      if (file instanceof File) {
-        return URL.createObjectURL(file)
+      return URL.createObjectURL(imagesS[index][0])
+    } catch (e) {
+      try {
+        if (propertyData?.images![index].imgUrl) {
+          return propertyData.images[index].imgUrl
+        }
+      } catch (e) {
+        return ''
       }
-
-      // If the image is already stored in propertyData, return the existing URL
-      if (propertyData?.images?.[index]?.imgUrl) {
-        return propertyData.images[index].imgUrl
-      }
-
-      return ''
-    } catch (error) {
-      console.error('Error generating image preview:', error)
-      return ''
     }
   }
+
   const onSubmit: SubmitHandler<PropertyForm> = async (formdata) => {
     const postConfirmation = async () => {
       modal.setLoading(true)
@@ -174,7 +165,7 @@ export default function PostPropertyForm({
       }
     }
 
-    //now for update property
+ 
 
     const updateConfirmation = async () => {
       modal.setLoading(true)
@@ -252,8 +243,8 @@ export default function PostPropertyForm({
     //confirmation logic
     confirmModal.onContent({
       header: isUpdate
-        ? 'Are You Sure You Want To Update?'
-        : 'Are You sure You Want to Post',
+        ? 'Confirm Update Property'
+        : 'Confirm Posting Property',
       actionBtn: isUpdate ? 'Update Property' : 'Post Property',
       onAction: isUpdate ? updateConfirmation : postConfirmation,
     })
@@ -282,41 +273,37 @@ export default function PostPropertyForm({
                 key={field.id}
               >
                 {/* initially the value default does not read file casuing to return empty string */}
-                <div
-                  className={
-                    imageUrl(index) == ''
-                      ? 'hidden'
-                      : 'mb-5 h-[150px] w-full rounded-lg  sm:h-[270px] md:h-[100px] md:w-[80%] lg:h-[400px]'
-                  }
-                >
-                  <Image
-                    layout="intrinsic"
-                    width={400}
-                    height={250}
-                    src={imageUrl(index)!}
-                    alt="Image Here"
-                    className="ml-60 rounded-lg"
-                  />
-                </div>
-
-                {/* for input and label */}
-                <div className="border-gray-300  flex w-full flex-col items-start justify-around rounded-lg border-2 bg-white p-[6px] shadow-md md:w-[60%] md:flex-row md:items-center">
+                {/* Image preview section */}
+                                <div
+                                  className="mb-5 relative h-[250px] w-full rounded-lg sm:h-[270px] md:w-[80%] lg:h-[350px]"
+                                >
+                                  <Image
+                                    src={imageUrl(index) || "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UyZThmMCIvPjx0ZXh0IHg9IjMwMCIgeT0iMjAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5OTc3NUMiPlVwbG9hZCBQcm9wZXJ0eSBJbWFnZTwvdGV4dD48L3N2Zz4="}
+                                    alt={imageUrl(index) ? "Property Image" : "Upload Property Image"}
+                                    fill={true}
+                                    className="rounded-lg object-contain"
+                                    priority
+                                  />
+                                </div>
+                
+                                {/* for input and label */}
+                <div className="border-gray-300 flex w-full flex-col items-start justify-around rounded-lg border-2 bg-white p-[6px] shadow-md md:w-[60%] md:flex-row md:items-center">
                   <label
-                    htmlFor={`file-upload-${index}`} // Associate label with input
+                    htmlFor={`file-upload-${index}`}
                     className="my-1 block cursor-pointer text-sm font-semibold"
                   >
-                    Upload Image
+                    {index === 0 ? 'Upload Main Image' : 'Upload Additional Image'}
                   </label>
                   <input
                     type="file"
+                    id={`file-upload-${index}`}
                     key={field.id}
                     {...register(`images.${index}` as const, {
-                      required: isUpdate ? false : true,
+                      required: isUpdate ? false : index === 0,
                     })}
                   ></input>
 
                   {/* donot render this button for 1st index */}
-
                   {index != 0 && (
                     <button
                       type="button"
@@ -327,6 +314,7 @@ export default function PostPropertyForm({
                     </button>
                   )}
                 </div>
+
                 {errors?.images?.[index] && (
                   <p className="block w-[95%] text-center text-sm text-red-700">
                     Please Upload image for the Field
@@ -336,13 +324,17 @@ export default function PostPropertyForm({
             )
           })}
 
-          <button
-            type="button"
-            onClick={() => append({ image: 'newImage' })}
-            className="border-gray-400 my-2 rounded-lg border-2 hover:bg-hoverColor  "
-          >
-            <AiOutlinePlus className="h-6 w-6 fill-themeColor stroke-themeColor" />
-          </button>
+          {/* Show add button when main image exists */}
+          {imageUrl(0) && (
+            <button
+              type="button"
+              onClick={() => append({ image: '' })}
+              className="flex items-center gap-2 rounded-lg bg-[#99775C] p-2 px-4 text-white transition-all duration-300 hover:bg-[#886a52] hover:shadow-lg"
+            >
+              <AiOutlinePlus className="h-6 w-6" />
+              <span className="text-sm font-medium">Add More Images</span>
+            </button>
+          )}
         </div>
 
         <div className="border-gray-200 w-full rounded-lg border-2 bg-white p-4 shadow-lg">
@@ -355,10 +347,13 @@ export default function PostPropertyForm({
                 type="text"
                 placeholder="PropertyName"
                 className={inputStyle}
-                {...register('name', { required: true })}
+                {...register('name', { 
+                  required: "Property name is required",
+                  minLength: { value: 3, message: "Name must be at least 3 characters" }
+                })}
               />
               {errors.name && (
-                <ErrorText text="Please Enter Valid PropertyName" />
+                <ErrorText text={errors.name.message || "Please Enter Valid PropertyName"} />
               )}
             </div>
 
@@ -368,7 +363,7 @@ export default function PostPropertyForm({
               </label>
               <select
                 className={inputStyle}
-                {...register('propertyType', { required: true })}
+                {...register('propertyType', { required: "Property type is required" })}
               >
                 {propertyOptions.map((type, index) => (
                   <option key={index} value={type}>
@@ -378,7 +373,7 @@ export default function PostPropertyForm({
               </select>
 
               {errors.propertyType && (
-                <ErrorText text="Select Property Type Pls" />
+                <ErrorText text={errors.propertyType.message || "Select Property Type Pls"} />
               )}
             </div>
 
@@ -391,12 +386,12 @@ export default function PostPropertyForm({
                 placeholder="Price"
                 className={inputStyle}
                 {...register('rate', {
-                  required: true,
-                  minLength: 1,
-                  min: { value: 0, message: 'Please enter non negative no.' },
+                  required: "Rate is required",
+                  min: { value: 1, message: "Rate must be at least 1" },
+                  valueAsNumber: true
                 })}
               />
-              {errors.rate && <ErrorText text="Please Enter Valid Price" />}
+              {errors.rate && <ErrorText text={errors.rate.message || "Please Enter Valid Price"} />}
             </div>
           </div>
           {/* div for city and area  */}
@@ -408,7 +403,7 @@ export default function PostPropertyForm({
               </label>
               <select
                 className={inputStyle}
-                {...register('country', { required: true })}
+                {...register('country', { required: "Country is required" })}
               >
                 <option value={defaultValues.country}>
                   {defaultValues.country == ''
@@ -423,7 +418,7 @@ export default function PostPropertyForm({
               </select>
 
               {errors?.country && (
-                <ErrorText text="Please Select Valid Country" />
+                <ErrorText text={errors.country.message || "Please Select Valid Country"} />
               )}
             </div>
 
@@ -431,7 +426,7 @@ export default function PostPropertyForm({
               <label className="my-1 block text-sm font-semibold">State </label>
               <select
                 className={inputStyle}
-                {...register('state', { required: true })}
+                {...register('state', { required: "State is required" })}
               >
                 <option value={defaultValues.state}>
                   {defaultValues.state == ''
@@ -446,14 +441,14 @@ export default function PostPropertyForm({
                     </option>
                   ))}
               </select>
-              {errors?.state && <ErrorText text="Please Select Valid State" />}
+              {errors?.state && <ErrorText text={errors.state.message || "Please Select Valid State"} />}
             </div>
 
             <div className="w-full">
               <label className="my-1 block text-sm font-semibold">City</label>
               <select
                 className={inputStyle}
-                {...register('city', { required: true })}
+                {...register('city', { required: "City is required" })}
               >
                 <option value={defaultValues.city}>
                   {defaultValues.city == ''
@@ -471,7 +466,7 @@ export default function PostPropertyForm({
                     </option>
                   ))}
               </select>
-              {errors?.city && <ErrorText text="Please Select Valid City" />}
+              {errors?.city && <ErrorText text={errors.city.message || "Please Select Valid City"} />}
             </div>
           </div>
         </div>
@@ -483,13 +478,16 @@ export default function PostPropertyForm({
             </label>
             <textarea
               rows={5}
-              placeholder="Desription"
+              placeholder="Description"
               className={inputStyle}
-              {...register('discription', { required: true })}
+              {...register('discription', { 
+                required: "Description is required", 
+                minLength: { value: 15, message: "Description must be at least 15 characters" } 
+              })}
             ></textarea>
 
             {errors.discription && (
-              <ErrorText text="Please Enter Valid Property Description" />
+              <ErrorText text={errors.discription.message || "Please Enter Valid Property Description"} />
             )}
           </div>
 
@@ -499,10 +497,13 @@ export default function PostPropertyForm({
               rows={5}
               placeholder="Rules"
               className={inputStyle}
-              {...register('rules', { required: true })}
+              {...register('rules', { 
+                required: "Rules are required",
+                minLength: { value: 5, message: "Rules must be at least 5 characters" }
+              })}
             ></textarea>
 
-            {errors.rules && <ErrorText text="Please Enter Rules/Criteria" />}
+            {errors.rules && <ErrorText text={errors.rules.message || "Please Enter Rules/Criteria"} />}
           </div>
         </div>
 
@@ -525,7 +526,7 @@ export default function PostPropertyForm({
                     </label>
                   </div>
                 )
-              })}{' '}
+              })}
             </div>
           </div>
         </div>
@@ -533,11 +534,11 @@ export default function PostPropertyForm({
 
       <hr className="border-gray-400 my-5" />
 
-      <div className=" w-full   rounded-lg bg-slate-100 p-4 ">
-        <div className=" mx-auto flex  w-[97%] items-center justify-between">
+      <div className="w-full rounded-lg bg-slate-100 p-4">
+        <div className="mx-auto flex w-[97%] items-center justify-between">
           <button
             type="button"
-            className="text-md font-semibold underline hover:text-red-500"
+            className="relative text-md font-semibold text-gray-700 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-red-500 after:transition-transform after:duration-300 after:ease-out hover:text-red-500 hover:after:origin-bottom-left hover:after:scale-x-100"
             onClick={(e) => {
               e.preventDefault()
               list.onList('close')
@@ -547,13 +548,12 @@ export default function PostPropertyForm({
           </button>
           <button
             type="submit"
-            className="text-md cursor-pointer rounded-md bg-[#66cd8b] p-2 px-4 font-semibold text-white transition-all hover:bg-[#59b077]"
+            className="text-md relative overflow-hidden rounded-md bg-[#99775C] px-6 py-2.5 font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-[#99775C]/50 active:scale-95 before:absolute before:left-0 before:top-0 before:-z-10 before:h-full before:w-full before:origin-left before:scale-x-0 before:bg-[#886a52] before:transition-transform before:duration-300 before:content-[''] hover:before:scale-x-100"
             onClick={handleSubmit(onSubmit)}
           >
             Submit
           </button>
         </div>
-      </div>
-    </main>
+      </div>    </main>
   )
 }

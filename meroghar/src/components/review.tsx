@@ -33,12 +33,12 @@ export default function Review({ reviewData, currentUser, key }: Props) {
   return (
     <div
       key={key}
-      className="border-gray-100 rounded-lg border-2 bg-white p-4 shadow-lg"
+      className="rounded-lg border border-[#99775C]/10 bg-white p-5 shadow-sm hover:shadow-md transition-shadow"
     >
       {Edit == '' && (
         <div>
-          <div className="flex items-center justify-between">
-            <div className="flex w-full items-center gap-x-3 ">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex w-full items-center gap-x-3">
               <Link
                 href={`/Home/user/${reviewData.userId._id}`}
                 target="_space"
@@ -52,104 +52,90 @@ export default function Review({ reviewData, currentUser, key }: Props) {
                   alt="User"
                   height={48}
                   width={48}
-                  className="b-2 border-gray-300 block h-12 w-12 rounded-lg"
+                  className="block h-12 w-12 rounded-full border border-[#99775C]/20 object-cover"
                 />
               </Link>
 
-              <p>
-                <span className="text-md block font-semibold">
+              <div>
+                <span className="block font-semibold text-[#99775C]">
                   {reviewData.userId.userName}
                 </span>
-                <span className="text-gray-800 text-sm ">
-                  Date: {moment(reviewData.createdAt).format('MM/YY/DD')}
+                <span className="text-[#99775C]/70 text-sm">
+                  {moment(reviewData.createdAt).format('MMM DD, YYYY')}
                 </span>
-              </p>
+              </div>
             </div>
 
             {currentUser == reviewData.userId._id && (
-              <div className="mr-2 flex items-center gap-x-3">
+              <div className="flex items-center gap-x-3">
                 <button
                   onClick={(e) => {
                     setEdit(reviewData._id)
                   }}
+                  className="text-[#99775C]/70 hover:text-[#99775C] transition-colors"
                 >
-                  <FiEdit className="stroke-gray-500 mt-[2px] h-5 w-5 hover:stroke-black" />
+                  <FiEdit className="h-5 w-5" />
                 </button>
 
                 <button
                   onClick={(e) => {
-                    const onDelete = () => {
-                      Api.delete(`/property/v1/review/${reviewData._id}`, {
-                        withCredentials: true,
-                      })
-                        .then((res) => {
-                          toast.success('Review Deleted Successfully!!')
-                          router.refresh()
-                          return modal.onClose()
-                        })
-                        .catch((e) => {
-                          toast.error('Failed to Deleted Review')
-                          return modal.onClose()
-                        })
-                    }
-
                     confirm.onContent({
-                      header: 'Are You Sure to delete Review',
+                      header: 'Are you sure you want to delete this review?',
                       actionBtn: 'Delete',
-                      onAction: onDelete,
+                      onAction: () => {
+                        Api.delete(`/property/v1/review/${reviewData._id}`, {
+                          withCredentials: true,
+                        })
+                          .then((res) => {
+                            toast.success('Review Deleted Successfully!!')
+                            router.refresh()
+                            return modal.onClose()
+                          })
+                          .catch((e) => {
+                            toast.error('Failed to Delete Review!!!')
+                            return modal.onClose()
+                          })
+                      },
                     })
 
                     modal.onOpen('confirm')
                   }}
+                  className="text-red-400 hover:text-red-500 transition-colors"
                 >
-                  <AiFillDelete className="fill-gray-500 h-6 w-6 hover:fill-black" />
+                  <AiFillDelete className="h-5 w-5" />
                 </button>
               </div>
             )}
           </div>
 
-          <p className="text-md text-gray-700 my-3 mt-4">{reviewData.review}</p>
-          <div className="flex items-center justify-between">
-            <p className="my-2 ml-1 flex items-center gap-x-2">
-              <AiFillStar className="mt-[2px] h-4 w-4" />
-              <span className="block text-sm font-semibold">
-                {reviewData.rating}.0
-              </span>
-            </p>
+          <div className="flex items-center mb-3">
+            {[1, 2, 3, 4, 5].map((star, index) => (
+              <AiFillStar
+                key={index}
+                className={`h-5 w-5 ${
+                  index < reviewData.rating 
+                    ? 'text-[#99775C] fill-[#99775C]' 
+                    : 'text-gray-300 fill-886a52'
+                }`}
+              />
+            ))}
           </div>
 
-          {/* send api request to report this review so it can be checked by admin  can only be seen by owner*/}
-
-          {currentUser == reviewData.hostId && (
-            <button className="mr-4 flex items-center gap-x-2 underline">
-              <Image
-                height={20}
-                width={20}
-                src="/flag.png"
-                alt="flag"
-                className="block h-5 w-5"
-              />
-              <span className="text-gray-500 block text-sm font-semibold hover:text-black">
-                Report Review
-              </span>
-            </button>
-          )}
+          <p className="text-[#886a52] leading-relaxed">{reviewData.review}</p>
         </div>
       )}
 
-      {/* render other comp here */}
+      {/* Edit mode */}
       {Edit == reviewData._id && (
-        <div>
-          <ReviewInput
-            rating={reviewData.rating}
-            Review={reviewData.review}
-            propertyId={reviewData.propertyId}
-            reviewId={reviewData._id}
-            edit={true}
-            userData={reviewData.userId}
-            setEdit={setEdit}
-          />
-        </div>
+        <ReviewInput
+          userData={reviewData.userId}
+          propertyId={reviewData.propertyId}
+          reviewId={reviewData._id}
+          setEdit={setEdit}
+          edit={true}
+          rating={reviewData.rating}
+          Review={reviewData.review}
+        />
       )}
     </div>
   )

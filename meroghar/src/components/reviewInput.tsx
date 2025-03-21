@@ -78,8 +78,8 @@ export default function ReviewInput({
                 <AiFillStar
                   className={
                     index <= rate
-                      ? 'stroke-gray-100  h-6 w-6 fill-themeColor'
-                      : 'fill-gray-400 stroke-gray-300 h-6  w-6  transition-all  hover:fill-themeColor'
+                      ? 'stroke-gray-100  h-6 w-6 fill-[#99775C]'
+                      : 'fill-gray-400 stroke-gray-300 h-6  w-6  transition-all  hover:fill-886a52'
                   }
                 />
               </button>
@@ -114,7 +114,7 @@ export default function ReviewInput({
             )}
             <button
               type="button"
-              className="my-3   block rounded-lg bg-themeColor p-2 px-3 text-center text-sm font-semibold text-white hover:bg-mainColor"
+              className="my-3 block rounded-lg bg-[#99775C] px-4 py-2 text-center text-sm font-medium text-white transition-all hover:bg-[#886a52] active:scale-[0.98]"
               onClick={(e) => {
                 e.preventDefault
                 const newrate = rate + 1

@@ -51,6 +51,7 @@ export function SearchModal() {
     register,
     handleSubmit,
     watch,
+    setValue, // Add this to destructure setValue from useForm
     formState: { errors },
   } = useForm<SearchForm>({
     defaultValues: {
@@ -58,7 +59,7 @@ export function SearchModal() {
       state: '',
       city: '',
       propertyType: '',
-      amenities: [''],
+      amenities: [], // Change this to empty array instead of ['']
       minRate: 0,
       maxRate: 0,
       rating: 0,
@@ -68,31 +69,63 @@ export function SearchModal() {
 
   const onSubmit = (formdata: SearchForm) => {
     try {
-      const filteredAmenities = formdata.amenities.filter((item) => item !== '')
-      const query = {
-        ...formdata,
-        amenities: filteredAmenities,
-        country: formdata.country
-          ? countryhook.getCountryData(Number.parseInt(formdata.country)).name
-          : '',
-        state: formdata.state
-          ? countryhook.getStateData(
-              Number.parseInt(formdata.country),
-              Number.parseInt(formdata.state)
-            ).name
-          : '',
+      // Create a clean query object
+      let query: any = {}
+      
+      // Only add selected amenities
+      if (formdata.amenities && formdata.amenities.length > 0) {
+        query.amenities = formdata.amenities
       }
+      
+      if (formdata.country && formdata.country !== '') {
+        query.country = countryhook.getCountryData(Number.parseInt(formdata.country)).name
+      }
+      
+      if (formdata.state && formdata.state !== '') {
+        query.state = countryhook.getStateData(
+          Number.parseInt(formdata.country),
+          Number.parseInt(formdata.state)
+        ).name
+      }
+      
+      if (formdata.city && formdata.city !== '') {
+        query.city = formdata.city
+      }
+      
+      if (formdata.propertyType && formdata.propertyType !== '') {
+        query.propertyType = formdata.propertyType
+      }
+      
+      // Only add rate parameters if they're greater than 0
+      if (formdata.minRate > 0) {
+        query.minRate = formdata.minRate
+      }
+      
+      if (formdata.maxRate > 0) {
+        query.maxRate = formdata.maxRate
+      }
+      
+      if (formdata.rating > 0) {
+        query.rating = formdata.rating
+      }
+      
+      // If no search criteria were selected, just navigate to the listings page without query params
+      const url = Object.keys(query).length > 0 
+        ? qs.stringifyUrl(
+            {
+              url: '/Home/listings',
+              query,
+            },
+            { skipNull: true, skipEmptyString: true }
+          )
+        : '/Home/listings';
 
-      const url = qs.stringifyUrl(
-        {
-          url: '/Home',
-          query,
-        },
-        { skipNull: true }
-      )
-
+      // Close the modal first, then navigate
       modal.onClose()
-      router.push(url)
+      
+      // Add a loading state to the URL to indicate we're loading
+      const urlWithLoading = url + (url.includes('?') ? '&loading=true' : '?loading=true');
+      router.push(urlWithLoading)
     } catch (error) {
       console.error(error)
     }
@@ -107,25 +140,25 @@ export function SearchModal() {
       open={modal.isOpen === 'search'}
       onOpenChange={() => modal.onClose()}
     >
-      <DialogContent className="max-w-2xl">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-semibold">Filter</DialogTitle>
+      <DialogContent className="max-w-3xl bg-[var(--color-primary)] border-[var(--color-secondary)] rounded-xl">
+        <DialogHeader className="border-b border-[var(--color-secondary)/20] pb-4">
+          <DialogTitle className="text-2xl font-rubik text-[var(--color-secondary)] font-bold">Find Your Perfect Stay</DialogTitle>
         </DialogHeader>
         <ScrollArea className="max-h-[80vh]">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-1">
-            <Card>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 p-3">
+            <Card className="border-[var(--color-secondary)/20 shadow-md hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-6">
                 <div className="space-y-4">
-                  <h2 className="text-lg font-semibold">Price Range</h2>
-                  <p className="text-sm text-muted-foreground">
+                  <h2 className="text-lg font-rubik font-semibold text-[var(--color-secondary)]">Price Range</h2>
+                  <p className="text-sm text-[var(--color-secondary)]/70 font-inter">
                     Set your preferred nightly rate range
                   </p>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-2">
-                      <Label htmlFor="minRate">Minimum Rate/Night</Label>
+                      <Label htmlFor="minRate" className="font-medium text-[var(--color-secondary)]">Minimum Rate/Night</Label>
                       <Input
                         id="minRate"
-                        className="focus:border-[#59b077] focus:ring-0"
+                        className="bg-white/80 border-[var(--color-secondary)]/30 focus:border-[var(--color-secondary)] focus:ring-1 focus:ring-[var(--color-secondary)]/50 rounded-md"
                         type="number"
                         placeholder="0"
                         {...register('minRate', {
@@ -139,11 +172,11 @@ export function SearchModal() {
                       )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="maxRate">Maximum Rate/Night</Label>
+                      <Label htmlFor="maxRate" className="font-medium text-[var(--color-secondary)]">Maximum Rate/Night</Label>
                       <Input
                         id="maxRate"
                         type="number"
-                        className="focus:border-[#59b077] focus:ring-0"
+                        className="bg-white/80 border-[var(--color-secondary)]/30 focus:border-[var(--color-secondary)] focus:ring-1 focus:ring-[var(--color-secondary)]/50 rounded-md"
                         placeholder="0"
                         {...register('maxRate', {
                           min: { value: 0, message: 'Must be non-negative' },
@@ -160,24 +193,23 @@ export function SearchModal() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-[var(--color-secondary)]/20 shadow-md hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-6">
                 <div className="space-y-4">
-                  <h2 className="text-lg font-semibold">Property Details</h2>
+                  <h2 className="text-lg font-rubik font-semibold text-[var(--color-secondary)]">Property Details</h2>
                   <div className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="propertyType">Property Type</Label>
+                      <Label htmlFor="propertyType" className="font-medium text-[var(--color-secondary)]">Property Type</Label>
                       <Select {...register('propertyType')}>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-white/80 border-[var(--color-secondary)]/30 focus:border-[var(--color-secondary)] focus:ring-1 focus:ring-[var(--color-secondary)]/50 rounded-md">
                           <SelectValue
-                            className="focus:border-[#59b077] focus:ring-0"
                             placeholder="Select property type"
                           />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-white border-[var(--color-secondary)]/30">
                           {propertyOptions.map((type) => (
                             <SelectItem
-                              className="focus:bg-[#66cd8b] focus:ring-0"
+                              className="focus:bg-[var(--color-secondary)]/10 hover:bg-[var(--color-secondary)]/5"
                               key={type}
                               value={type}
                             >
@@ -189,12 +221,12 @@ export function SearchModal() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="rating">Minimum Rating</Label>
+                      <Label htmlFor="rating" className="font-medium text-[var(--color-secondary)]">Minimum Rating</Label>
                       <Input
                         id="rating"
                         type="number"
                         placeholder="0"
-                        className="focus:border-[#59b077] focus:ring-0"
+                        className="bg-white/80 border-[var(--color-secondary)]/30 focus:border-[var(--color-secondary)] focus:ring-1 focus:ring-[var(--color-secondary)]/50 rounded-md"
                         {...register('rating', {
                           min: { value: 0, message: 'Minimum 0' },
                           max: { value: 5, message: 'Maximum 5' },
@@ -211,22 +243,23 @@ export function SearchModal() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-[var(--color-secondary)]/20 shadow-md hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-6">
                 <div className="space-y-4">
-                  <h2 className="text-lg font-semibold">Location</h2>
+                  <h2 className="text-lg font-rubik font-semibold text-[var(--color-secondary)]">Location</h2>
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <div className="space-y-2">
-                      <Label htmlFor="country">Country</Label>
+                      <Label htmlFor="country" className="font-medium text-[var(--color-secondary)]">Country</Label>
                       <Select {...register('country')}>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-white/80 border-[var(--color-secondary)]/30 focus:border-[var(--color-secondary)] focus:ring-1 focus:ring-[var(--color-secondary)]/50 rounded-md">
                           <SelectValue placeholder="Select country" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-white border-[var(--color-secondary)]/30">
                           {countries.map((country, index) => (
                             <SelectItem
                               key={country.name}
                               value={index.toString()}
+                              className="focus:bg-[var(--color-secondary)]/10 hover:bg-[var(--color-secondary)]/5"
                             >
                               {country.name}
                             </SelectItem>
@@ -236,12 +269,12 @@ export function SearchModal() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="state">State</Label>
+                      <Label htmlFor="state" className="font-medium text-[var(--color-secondary)]">State</Label>
                       <Select {...register('state')}>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-white/80 border-[var(--color-secondary)]/30 focus:border-[var(--color-secondary)] focus:ring-1 focus:ring-[var(--color-secondary)]/50 rounded-md">
                           <SelectValue placeholder="Select state" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-white border-[var(--color-secondary)]/30">
                           {countryhook
                             .getStates(Number.parseInt(watch('country')))
                             .map((state, index) => (
@@ -257,12 +290,12 @@ export function SearchModal() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="city">City</Label>
+                      <Label htmlFor="city" className="font-medium text-[var(--color-secondary)]">City</Label>
                       <Select {...register('city')}>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-white/80 border-[var(--color-secondary)]/30 focus:border-[var(--color-secondary)] focus:ring-1 focus:ring-[var(--color-secondary)]/50 rounded-md">
                           <SelectValue placeholder="Select city" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-white border-[var(--color-secondary)]/30">
                           {countryhook
                             .getCities(
                               Number.parseInt(watch('country')),
@@ -281,23 +314,33 @@ export function SearchModal() {
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-[var(--color-secondary)]/20 shadow-md hover:shadow-lg transition-shadow duration-300">
               <CardContent className="p-6">
                 <div className="space-y-4">
-                  <h2 className="text-lg font-semibold">Amenities</h2>
+                  <h2 className="text-lg font-rubik font-semibold text-[var(--color-secondary)]">Amenities</h2>
                   <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-                    {amenities.map((amenity, index) => (
+                    {amenities.map((amenity) => (
                       <div
                         key={amenity}
-                        className="flex items-center space-x-2"
+                        className="flex items-center space-x-2 hover:bg-[var(--color-secondary)]/5 p-2 rounded-md transition-colors"
                       >
                         <Checkbox
-                          id={`amenity-${index}`}
+                          id={`amenity-${amenity}`}
                           value={amenity}
-                          className="data-[state=checked]:border-[#59b077] data-[state=checked]:bg-[#59b077]"
-                          {...register(`amenities.${index}`)}
+                          className="border-[var(--color-secondary)]/50 data-[state=checked]:border-[var(--color-secondary)] data-[state=checked]:bg-[var(--color-secondary)]"
+                          onCheckedChange={(checked) => {
+                            // Get current amenities
+                            const currentAmenities = [...(watch('amenities') || [])];
+                            
+                            // Add or remove the amenity based on checkbox state
+                            if (checked) {
+                              setValue('amenities', [...currentAmenities, amenity]);
+                            } else {
+                              setValue('amenities', currentAmenities.filter(a => a !== amenity));
+                            }
+                          }}
                         />
-                        <Label htmlFor={`amenity-${index}`} className="text-sm">
+                        <Label htmlFor={`amenity-${amenity}`} className="text-sm text-[var(--color-secondary)] cursor-pointer">
                           {amenity}
                         </Label>
                       </div>
@@ -307,17 +350,20 @@ export function SearchModal() {
               </CardContent>
             </Card>
 
-            <div className="sticky bottom-0 flex items-center justify-between rounded-lg border bg-background p-4">
+            <div className="sticky bottom-0 flex items-center justify-between rounded-lg border border-[var(--color-secondary)]/20 bg-[var(--color-primary)] p-4 shadow-md">
               <Button
                 type="button"
-                variant="ghost"
-                className="hover:text-red-500"
+                variant="outline"
+                className="border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)]/10 hover:text-[var(--color-secondary)] transition-colors"
                 onClick={() => modal.onClose()}
               >
                 Cancel
               </Button>
-              <Button className="bg-[#59b077] hover:bg-[#66cd8b]" type="submit">
-                Search
+              <Button 
+                className="bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] text-white font-medium transition-colors" 
+                type="submit"
+              >
+                Find Properties
               </Button>
             </div>
           </form>
