@@ -1,10 +1,97 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Users, Star, ShoppingBag, Award } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "framer-motion"
+
+// Animation component for counting up numbers
+const AnimatedCounter = ({
+  end,
+  duration = 2000,
+  suffix = "",
+  prefix = "",
+}: {
+  end: number
+  duration?: number
+  suffix?: string
+  prefix?: string
+}) => {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    let startTime: number | null = null
+    let animationFrame: number
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp
+      const progress = timestamp - startTime
+      const percentage = Math.min(progress / duration, 1)
+
+      // Easing function for a more natural animation
+      const easeOutQuart = 1 - Math.pow(1 - percentage, 4)
+      setCount(Math.floor(easeOutQuart * end))
+
+      if (percentage < 1) {
+        animationFrame = requestAnimationFrame(animate)
+      }
+    }
+
+    animationFrame = requestAnimationFrame(animate)
+
+    return () => cancelAnimationFrame(animationFrame)
+  }, [end, duration])
+
+  return (
+    <span className="tabular-nums">
+      {prefix}
+      {count.toLocaleString()}
+      {suffix}
+    </span>
+  )
+}
+
+// Stat item component
+const StatItem = ({
+  icon,
+  value,
+  label,
+  suffix = "+",
+  prefix = "",
+  delay = 0,
+}: {
+  icon: React.ReactNode
+  value: number
+  label: string
+  suffix?: string
+  prefix?: string
+  delay?: number
+}) => {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), delay)
+    return () => clearTimeout(timer)
+  }, [delay])
+
+  return (
+    <div className="flex flex-col items-center text-center p-6 transform transition-all duration-300 hover:scale-105">
+      <div className="mb-4 p-5 rounded-full bg-[#EAE7DD] text-[#99775C] shadow-lg">{icon}</div>
+      <h3 className="text-5xl font-extrabold mb-2 text-[#99775C]">
+        {isVisible ? (
+          <AnimatedCounter end={value} suffix={suffix} prefix={prefix} />
+        ) : (
+          <span className="opacity-0">
+            {value}
+            {suffix}
+          </span>
+        )}
+      </h3>
+      <p className="text-lg font-medium text-[#99775C]/80">{label}</p>
+    </div>
+  )
+}
 
 const reviews = [
   {
@@ -45,7 +132,7 @@ export default function ReviewCarousel() {
   }
 
   return (
-    <div className="w-full bg-secondaryColor w-full">
+    <div className="w-full bg-[#EAE7DD] w-full">
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -57,10 +144,51 @@ export default function ReviewCarousel() {
           initial={{ scale: 0.9, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="text-4xl md:text-5xl font-light font-inter text-center text-mainColor mb-16"
+          className="text-4xl md:text-5xl font-light font-inter text-center text-[#99775C] mb-16"
         >
-          <span className="text-mainColor font-normal">Trusted</span> by our Guests
+          <span className="text-[#99775C] font-normal">Trusted</span> by our Guests
         </motion.h2>
+
+        {/* Stats Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-20"
+        >
+          <div className="relative bg-white border border-[#99775C]/10 rounded-lg shadow-md overflow-hidden">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-4 p-4">
+              <StatItem
+                icon={<Users className="h-8 w-8" />}
+                value={10}
+                label="Trusted Customers"
+                suffix="k+"
+                delay={0}
+              />
+              <StatItem 
+                icon={<Star className="h-8 w-8" />} 
+                value={25} 
+                label="5-Star Reviews" 
+                suffix="k+" 
+                delay={200} 
+              />
+              <StatItem
+                icon={<ShoppingBag className="h-8 w-8" />}
+                value={99}
+                label="Orders Completed"
+                suffix="%"
+                delay={400}
+              />
+              <StatItem
+                icon={<Award className="h-8 w-8" />}
+                value={8}
+                label="Years of Excellence"
+                suffix="+"
+                delay={600}
+              />
+            </div>
+          </div>
+        </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
           <div className="flex flex-col justify-between h-full">
@@ -73,13 +201,13 @@ export default function ReviewCarousel() {
                 transition={{ duration: 0.5, ease: "easeInOut" }}
               >
                 <motion.p 
-                  className="text-xl md:text-2xl leading-relaxed font-normal mb-6 text-mainColor"
+                  className="text-xl md:text-2xl leading-relaxed font-normal mb-6 text-[#99775C]"
                 >
                   {reviews[currentIndex].text}
                 </motion.p>
                 <div className="flex flex-col mb-4">
                   <motion.p 
-                    className="text-2xl text-mainColor mb-1"
+                    className="text-2xl text-[#99775C] mb-1"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3 }}
@@ -87,7 +215,7 @@ export default function ReviewCarousel() {
                     {reviews[currentIndex].author}
                   </motion.p>
                   <motion.p 
-                    className="text-sm tracking-wider text-mainColor/80 mb-24"
+                    className="text-sm tracking-wider text-[#99775C]/80 mb-24"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.4 }}
@@ -101,7 +229,7 @@ export default function ReviewCarousel() {
                         variant="ghost"
                         size="icon"
                         onClick={previousReview}
-                        className="rounded-full h-12 w-12 bg-mainColor hover:bg-mainColor/90 text-secondaryColor"
+                        className="rounded-full h-12 w-12 bg-[#99775C] hover:bg-[#886a52] text-[#EAE7DD]"
                       >
                         <ChevronLeft className="h-6 w-6" />
                         <span className="sr-only">Previous review</span>
@@ -112,7 +240,7 @@ export default function ReviewCarousel() {
                         variant="ghost"
                         size="icon"
                         onClick={nextReview}
-                        className="rounded-full h-12 w-12 bg-mainColor hover:bg-mainColor/90 text-secondaryColor"
+                        className="rounded-full h-12 w-12 bg-[#99775C] hover:bg-[#886a52] text-[#EAE7DD]"
                       >
                         <ChevronRight className="h-6 w-6" />
                         <span className="sr-only">Next review</span>
