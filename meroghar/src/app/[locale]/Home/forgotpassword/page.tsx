@@ -1,5 +1,5 @@
-import ClientComp from "../../../components/clientComp";
-import PasswordReset from "../../../components/fogotpassword";
+import ClientComp from "../../../../components/clientComp";
+import PasswordReset from "../../../../components/fogotpassword";
 
 
 

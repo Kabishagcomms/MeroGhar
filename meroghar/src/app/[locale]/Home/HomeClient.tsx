@@ -1,9 +1,9 @@
 'use client'
 
 import Footer from '@/components/footer'
-import { SessionUser } from '../../api/server/auth'
+import { SessionUser } from '../../../api/server/auth'
 
-import { Property, wishlist } from '../../interface/response'
+import { Property, wishlist } from '../../../interface/response'
 import HeroSection from '@/components/HeroSection'
 import NewsletterSignup from '@/components/newsletter-signup'
 import PropertyCarousel from '@/components/property-carousel'

@@ -1,12 +1,12 @@
 import getReservations, {
   getPropertyBookings,
-} from '../../../../api/server/property/getReservation'
+} from '../../../../../api/server/property/getReservation'
 
-import { getPropertyById } from '../../../../api/server/property/getProperty'
-import ClientComp from '../../../../components/clientComp'
+import { getPropertyById } from '../../../../../api/server/property/getProperty'
+import ClientComp from '../../../../../components/clientComp'
 import { RoomClient } from './client'
-import { checkSession } from '../../../../api/server/auth'
-import { getReviews } from '../../../../api/server/property/getReviews'
+import { checkSession } from '../../../../../api/server/auth'
+import { getReviews } from '../../../../../api/server/property/getReviews'
 
 // type Params = {
 //   params: {

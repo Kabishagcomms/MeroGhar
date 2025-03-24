@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import ClientComp from '../../../components/clientComp'
+import ClientComp from '../../../../components/clientComp'
 import { motion } from 'framer-motion'
-import Card from '../../../components/card/card'
-import CategoryBar from '../../../components/categorybar'
-import { Property, wishlist } from '../../../interface/response'
-import { SearchForm } from '../../../components/modals/searchModal'
-import { SessionUser } from '../../../api/server/auth'
+import Card from '../../../../components/card/card'
+import CategoryBar from '../../../../components/categorybar'
+import { Property, wishlist } from '../../../../interface/response'
+import { SearchForm } from '../../../../components/modals/searchModal'
+import { SessionUser } from '../../../../api/server/auth'
 
 interface ListingsClientProps {
   properties: Partial<Property>[]

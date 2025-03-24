@@ -1,14 +1,9 @@
 
 
-import { checkSession } from '../../api/server/auth';
-import ClientComp from '../../components/clientComp';
-import NavBar from '../../components/navbar/navbar';
+import { checkSession } from '../../../api/server/auth';
+import ClientComp from '../../../components/clientComp';
+import NavBar from '../../../components/navbar/navbar';
 import { cookies } from 'next/headers';
-
-
-
-
-
 
 export default async function Layout({children}: {children: React.ReactNode}) {
   const {session,userData}=await checkSession()

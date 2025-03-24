@@ -1,7 +1,7 @@
 'use client'
 
-import RoomDetails from '../../../../components/RoomDetails'
-import { FetchedMe, IReview, Property } from '../../../../interface/response'
+import RoomDetails from '../../../../../components/RoomDetails'
+import { FetchedMe, IReview, Property } from '../../../../../interface/response'
 import { Reservation } from './page'
 
 interface RoomProps {

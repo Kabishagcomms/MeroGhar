@@ -1,0 +1,28 @@
+{
+  "common": {
+    "home": "Home",
+    "explore": "Explore",
+    "wishlist": "Wishlist",
+    "trips": "Trips",
+    "inbox": "Inbox",
+    "profile": "Profile",
+    "login": "Log in",
+    "signup": "Sign Up",
+    "logout": "Log Out",
+    "account": "Account",
+    "dashboard": "Dashboard"
+  },
+  "hero": {
+    "title": "Escape to the extraordinary",
+    "subtitle": "Take your pick of the world's finest homes, villas and chalets - we'll handle the rest."
+  },
+  "search": {
+    "anywhere": "Anywhere",
+    "anyweek": "AnyWeek",
+    "guest": "Guest"
+  },
+  "language": {
+    "en": "English",
+    "ne": "Nepali"
+  }
+}

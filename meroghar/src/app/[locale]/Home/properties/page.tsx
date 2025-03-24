@@ -1,8 +1,8 @@
-import { checkSession } from '../../../api/server/auth'
-import { getProperties } from '../../../api/server/property/getProperty'
-import { getFavourites } from '../../../api/server/property/getwishlist'
-import { SearchForm } from '../../../components/modals/searchModal'
-import ClientComp from '../../../components/clientComp'
+import { checkSession } from '../../../../api/server/auth'
+import { getProperties } from '../../../../api/server/property/getProperty'
+import { getFavourites } from '../../../../api/server/property/getwishlist'
+import { SearchForm } from '../../../../components/modals/searchModal'
+import ClientComp from '../../../../components/clientComp'
 import PropertyCard from '@/components/property-card'
 
 

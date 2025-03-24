@@ -3,7 +3,8 @@ import '../styles/globals.css'
 import { Inter } from 'next/font/google'
 import {Playfair_Display, Rubik} from 'next/font/google'
 import ClientComp from '../components/clientComp'
-
+import {NextIntlClientProvider} from 'next-intl';
+import {getLocale, getMessages} from 'next-intl/server';
 import { LoginModal } from '../components/modals/loginModal'
 import { RegisterModal } from '../components/modals/registerModal'
 
@@ -16,17 +17,17 @@ import { BookingModal } from '@/components/modals/bookingBillModal'
 
 const playfair = Playfair_Display({
   subsets: ['cyrillic'],
-  variable: '--font-playfair', // Add this line
+  variable: '--font-playfair',
 })
 
 const rubik = Rubik({
   subsets: ['latin'],
-  variable: '--font-rubik', // Add this line
+  variable: '--font-rubik',
 })  
 
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter', // Add this line
+  variable: '--font-inter',
 })
 
 export default async function RootLayout({
@@ -34,25 +35,26 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html>
+    <html lang={locale}>
       <head />
       <body className={`flex flex-col bg-mainColor ${playfair.variable} ${inter.variable} ${rubik.variable}`}>
-        <ClientComp>
-          {/* this component are kind of hassle donot repeat them on other layouts since they have shared state 
-          overlapping will cause modal to bug and close  on click since they are in root layout they are rendered through out the 
-          application */}
-          <ToasterProvider />
-          <LoginModal />
-          <RegisterModal />
-          <ConfirmModal />
-          <BookingModal/>
-          <ResetPassword />
-          <SearchModal />
-        </ClientComp>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <ClientComp>
+            <ToasterProvider />
+            <LoginModal />
+            <RegisterModal />
+            <ConfirmModal />
+            <BookingModal/>
+            <ResetPassword />
+            <SearchModal />
+          </ClientComp>
 
-        {/* this children represents each page component  that is rendered */}
-        {children}
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   )

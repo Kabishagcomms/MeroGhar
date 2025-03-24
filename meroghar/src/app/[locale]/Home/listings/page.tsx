@@ -1,8 +1,8 @@
 import ListingsClient from './ListingsClient'
-import { checkSession } from '../../../api/server/auth'
-import { getProperties } from '../../../api/server/property/getProperty'
-import { getFavourites } from '../../../api/server/property/getwishlist'
-import { SearchForm } from '../../../components/modals/searchModal'
+import { checkSession } from '../../../../api/server/auth'
+import { getProperties } from '../../../../api/server/property/getProperty'
+import { getFavourites } from '../../../../api/server/property/getwishlist'
+import { SearchForm } from '../../../../components/modals/searchModal'
 
 interface ListingsProps {
   searchParams: SearchForm
