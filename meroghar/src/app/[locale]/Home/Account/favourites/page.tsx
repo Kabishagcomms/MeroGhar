@@ -1,7 +1,7 @@
-import { getFavourites } from "../../../../api/server/property/getwishlist"
+import { getFavourites } from "../../../../../api/server/property/getwishlist"
 import Link from 'next/link'
-import Card from "../../../../components/card/card";
-import ClientComp from "../../../../components/clientComp";
+import Card from "../../../../../components/card/card";
+import ClientComp from "../../../../../components/clientComp";
 
 export default async function Favourites(){
     const wishList=await getFavourites(1,10);

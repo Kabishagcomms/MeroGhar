@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useEffect, useState } from "react"
 import { Users, Star, ShoppingBag, Award } from "lucide-react"
+import { useTranslations } from 'next-intl'
 
 // Animation component for counting up numbers
 const AnimatedCounter = ({
@@ -95,19 +96,21 @@ const StatItem = ({
 }
 
 export default function ReviewStats() {
+  const t = useTranslations('stats')
+
   return (
     <div className="py-16 px-4 mx-auto bg-gradient-to-b from-background to-background/80">
       <div className="text-center mb-12 max-w-3xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-          Trusted by businesses worldwide
+          {t('statTitle')}
         </h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Join thousands of satisfied customers who trust our products and services
+          {t('statSubtitle')}
         </p>
       </div>
 
       <div className="max-w-6xl mx-auto relative">
-        {/* Decorative elements */}
+        {/* Decorative elements remain unchanged */}
         <div className="absolute -top-10 -left-10 w-20 h-20 rounded-full bg-primary/5 blur-xl"></div>
         <div className="absolute -bottom-10 -right-10 w-20 h-20 rounded-full bg-primary/5 blur-xl"></div>
 
@@ -118,22 +121,28 @@ export default function ReviewStats() {
             <StatItem
               icon={<Users className="h-10 w-10" />}
               value={10}
-              label="Trusted Customers"
+              label={t('trustedCustomers')}
               suffix="k+"
               delay={0}
             />
-            <StatItem icon={<Star className="h-10 w-10" />} value={25} label="5-Star Reviews" suffix="k+" delay={200} />
+            <StatItem 
+              icon={<Star className="h-10 w-10" />} 
+              value={25} 
+              label={t('reviews')} 
+              suffix="k+" 
+              delay={200} 
+            />
             <StatItem
               icon={<ShoppingBag className="h-10 w-10" />}
               value={99}
-              label="Satisfaction"
+              label={t('satisfaction')}
               suffix="%"
               delay={400}
             />
             <StatItem
               icon={<Award className="h-10 w-10" />}
               value={2}
-              label="Years of Excellence"
+              label={t('experience')}
               suffix="+"
               delay={600}
             />

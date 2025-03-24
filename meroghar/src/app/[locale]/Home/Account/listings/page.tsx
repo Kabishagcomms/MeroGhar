@@ -1,7 +1,7 @@
-import { checkSession } from '../../../../api/server/auth'
-import { getMyProperties } from '../../../../api/server/property/getProperty'
-import ClientComp from '../../../../components/clientComp'
-import ListingComp from '../../../../components/listing/listingcomp'
+import { checkSession } from '../../../../../api/server/auth'
+import { getMyProperties } from '../../../../../api/server/property/getProperty'
+import ClientComp from '../../../../../components/clientComp'
+import ListingComp from '../../../../../components/listing/listingcomp'
 
 
 export default async function Listing() {

@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { checkSession } from '../../../api/server/auth'
+import { checkSession } from '../../../../api/server/auth'
 
 
 export default async function Layout({

@@ -1,5 +1,5 @@
 'use client'
-
+import { useTranslations } from 'next-intl'
 import { useState, useEffect, useRef } from 'react'
 import InititailModalC from './navmodel'
 import { createRef } from 'react'
@@ -18,6 +18,8 @@ interface NavProps {
 }
 
 const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
+
+  const t = useTranslations('common')
   //get auth state and pass into the initial model
   const [open, setopen] = useState(false)
   const menuRef = createRef<HTMLDivElement>()
@@ -67,10 +69,10 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
           <Link
-            href="/about-us"
+            href="/en/about-us"
             className="text-secondaryColor font-semibold transition-colors font-inter"
           >
-            About Us
+            {t('aboutUs')}
           </Link>
         </motion.div>
         <motion.div
@@ -79,10 +81,10 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
           <Link
-            href="/contact-us"
+            href="/en/contact-us"
             className="text-secondaryColor font-semibold transition-colors font-inter"
           >
-            Contact Us
+            {t('contactUs')}
           </Link>
         </motion.div>
         
@@ -95,10 +97,10 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               <Link
-                href="/Home/Account/favourites"
+                href="/en/Home/Account/favourites"
                 className="text-secondaryColor font-semibold transition-colors font-inter"
               >
-                Favourites
+                {t('favourites')}
               </Link>
             </motion.div>
             <motion.div
@@ -107,10 +109,10 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
               <Link
-                href="/Home/Account/reservations"
+                href="/en/Home/Account/reservations"
                 className="text-secondaryColor font-semibold transition-colors font-inter"
               >
-                Reservations
+                {t('reservations')}
               </Link>
             </motion.div>
           </>
@@ -126,10 +128,10 @@ const NavBar = ({ authState, img, is_Admin }: NavProps): JSX.Element => {
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <Link
-              href="/Home/Account/listings"
+              href="/en/Home/Account/listings"
               className="border-secondaryColor text-secondaryColor block rounded-md border-2 p-2 px-3 font-semibold hover:bg-secondaryColor hover:text-mainColor transition-colors md:text-sm"
             >
-              Post Room
+             {t('postRoom')}
             </Link>
           </motion.div>
         )}

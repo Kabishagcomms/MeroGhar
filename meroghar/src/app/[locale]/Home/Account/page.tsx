@@ -1,9 +1,9 @@
-import AccountComponent from '../../../components/user/account'
-import { checkSession } from '../../../api/server/auth'
-import ClientComp from '../../../components/clientComp'
-import { getMe } from '../../../api/server/user/getUser'
-import Profile from '../../../components/user/profile'
-import { getMyProperties } from "../../../api/server/property/getProperty";
+import AccountComponent from '../../../../components/user/account'
+import { checkSession } from '../../../../api/server/auth'
+import ClientComp from '../../../../components/clientComp'
+import { getMe } from '../../../../api/server/user/getUser'
+import Profile from '../../../../components/user/profile'
+import { getMyProperties } from "../../../../api/server/property/getProperty";
 
 
 export default async function AccountSetting() {

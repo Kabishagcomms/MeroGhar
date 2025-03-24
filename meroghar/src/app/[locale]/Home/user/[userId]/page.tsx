@@ -1,7 +1,7 @@
-import Profile from '../../../../components/user/profile'
-import { getMe, getUser, getUserKyc } from '../../../../api/server/user/getUser'
-import { checkSession } from '../../../../api/server/auth'
-import ClientComp from '../../../../components/clientComp'
+import Profile from '../../../../../components/user/profile'
+import { getMe, getUser, getUserKyc } from '../../../../../api/server/user/getUser'
+import { checkSession } from '../../../../../api/server/auth'
+import ClientComp from '../../../../../components/clientComp'
 type Params = {
   params: {
     userId: string

@@ -66,7 +66,7 @@ export default function Card({ use, data, key, wish, user, index }: props) {
         className="border-gray-100 mx-auto h-fit w-full overflow-hidden rounded-xl border-[1px] bg-white shadow-md duration-300 hover:shadow-xl"
       >
         <div className="group relative">
-          <Link href={`/Home/rooms/${_id}`} target="_blank">
+          <Link href={`/en/Home/rooms/${_id}`} target="_blank">
             <div className="relative h-64 w-full overflow-hidden">
               <Image 
                 src={images![img]!.imgUrl} 

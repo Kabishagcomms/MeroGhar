@@ -4,7 +4,12 @@
     "explore": "Explore",
     "wishlist": "Wishlist",
     "trips": "Trips",
+    "aboutUs": "About Us",
+    "contactUs": "Contact Us",
+    "favourites": "Favourites",
+    "reservations": "Reservations",
     "inbox": "Inbox",
+    "postRoom": "Post Room",
     "profile": "Profile",
     "login": "Log in",
     "signup": "Sign Up",
@@ -21,8 +26,21 @@
     "anyweek": "AnyWeek",
     "guest": "Guest"
   },
+  "carousel": {
+    "title": "Step inside and",
+    "titleHighlight": "be swept away",
+    "description": "We are only satisfied with the best. From unbeatable locations to astonishing landmarks, we consider every detail when it comes to selecting our luxury vacation rentals. Take your pick from our collection of spacious luxury apartment rentals, luxury villas or luxury home rentals, all ideally located, exquisitely designed and lavishly furnished."
+  },
   "language": {
     "en": "English",
     "ne": "Nepali"
+  },
+  "stats": {
+    "statTitle": "Trusted by our Guests",
+    "statSubtitle": "Join thousands of satisfied customers who trust our products and services",
+    "trustedCustomers": "Trusted Customers",
+    "reviews": "5-Star Reviews",
+    "satisfaction": "Satisfaction",
+    "experience": "Years of Excellence"
   }
 }

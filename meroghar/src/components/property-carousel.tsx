@@ -8,6 +8,7 @@ import { Property, wishlist } from '../interface/response'
 import { SessionUser } from '../api/server/auth'
 import Card from './card/card'
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
 
 interface CarouselProps {
   properties: Partial<Property>[]
@@ -16,6 +17,7 @@ interface CarouselProps {
 }
 
 export default function PropertyCarousel({ properties, userData, wishList }: CarouselProps) {
+  const t = useTranslations('carousel')
 
   console.log(properties)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
@@ -124,16 +126,13 @@ export default function PropertyCarousel({ properties, userData, wishList }: Car
           variants={headerVariants}
           className="text-4xl md:text-5xl font-inter text-secondaryColor mb-6"
         >
-          Step inside and <span className=" font-semibold text-secondaryColor font-inter">be swept away</span>
+          {t('title')}
         </motion.h2>
         <motion.p 
           variants={paragraphVariants}
           className="max-w-3xl mx-auto text-center text-secondaryColor text-gray-700 font-rubik text-normal font-medium tracking-wide leading-6"
         >
-          We are only satisfied with the best. From unbeatable locations to astonishing interior design, we consider
-          every detail when it comes to selecting our luxury vacation rentals. Take your pick from our collection of
-          spacious luxury apartment rentals, luxury villas or luxury home rentals, all ideally located, exquisitely
-          designed and lavishly furnished.
+          {t('description')}
         </motion.p>
       </div>
 

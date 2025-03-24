@@ -1,11 +1,11 @@
 //wil contain my reservations information 
 
-import { checkSession } from "../../../../api/server/auth";
-import { getMyBookings } from "../../../../api/server/property/getReservation";
-import { NoAuth } from "../../../../components/NoAuth";
-import ClientComp from "../../../../components/clientComp";
+import { checkSession } from "../../../../../api/server/auth";
+import { getMyBookings } from "../../../../../api/server/property/getReservation";
+import { NoAuth } from "../../../../../components/NoAuth";
+import ClientComp from "../../../../../components/clientComp";
 import  Link from 'next/link'
-import TripBookingClient from "../../../../components/listing/TripsReservationClient";
+import TripBookingClient from "../../../../../components/listing/TripsReservationClient";
 
 
 export default async function MyTrips(){

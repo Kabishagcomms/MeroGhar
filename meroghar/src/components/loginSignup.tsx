@@ -44,20 +44,21 @@ export default function LoginSignup({
         )
         if (res.data.success) {
           console.log('login succesful')
-          // if(res.data.user.is_Admin){}
           toast.success('Login Successful!')
           router.refresh()
           loginSignupModal.onClose()
-          // Redirect to listings page after successful login
-          return router.push('/Home/listings')
+          // Updated route to include locale
+          return router.push('/en/Home/listings')
         }
         toast.error(res.data.error)
         setIsLoading(false)
-        return router.push('/Home')
+        // Updated route to include locale
+        return router.push('/en/Home')
       } catch (e) {
         setIsLoading(false)
         toast.error('Login Failed/Invalid Credential/UserBanned')
-        return router.push('/Home')
+        // Updated route to include locale
+        return router.push('/en/Home')
       }
     }
 

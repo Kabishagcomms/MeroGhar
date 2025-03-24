@@ -1,6 +1,5 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 
-
 const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
@@ -9,12 +8,6 @@ const nextConfig = {
     appDir: true,
   },
 
-  // typescript: {
-
-  //     // Dangerously allow production builds to successfully complete even if
-  //     // your project has type errors.
-  //     ignoreBuildErrors: true,
-  //  },
   images: {
     domains: ['res.cloudinary.com', 'ext.same-assets.com', 'images.unsplash.com', 'placehold.co'],
     remotePatterns: [
@@ -43,13 +36,16 @@ const nextConfig = {
     return [
       {
         source: '/',
-        destination: '/Home',
+        destination: '/en/Home',
         permanent: true,
       },
+      {
+        source: '/Home',
+        destination: '/en/Home',
+        permanent: true,
+      }
     ]
   },
 }
 
 export default withNextIntl(nextConfig);
-
-

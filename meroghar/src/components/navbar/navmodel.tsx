@@ -86,14 +86,14 @@ const NavModal = forwardRef<HTMLDivElement, NavModalProps>((props, ref) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56 mt-2 p-2">
           <DropdownMenuItem asChild>
-            <Link href="/Home/Account" className="flex items-center gap-2 cursor-pointer">
+            <Link href="/en/Home/Account" className="flex items-center gap-2 cursor-pointer">
               <HiUser className="h-4 w-4 text-[#99775C]" />
               <span>{t('account')}</span>
             </Link>
           </DropdownMenuItem>
 
           <DropdownMenuItem asChild>
-            <Link href="/Home/trips" className="flex items-center gap-2 cursor-pointer">
+            <Link href="/en/Home/trips" className="flex items-center gap-2 cursor-pointer">
               <HiHome className="h-4 w-4 text-[#99775C]" />
               <span>{t('trips')}</span>
             </Link>
@@ -132,5 +132,6 @@ const NavModal = forwardRef<HTMLDivElement, NavModalProps>((props, ref) => {
     </div>
   )
 })
+NavModal.displayName = 'NavModal';
 
 export default NavModal;
