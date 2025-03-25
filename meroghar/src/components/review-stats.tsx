@@ -98,6 +98,7 @@ const StatItem = ({
 export default function ReviewStats() {
   const t = useTranslations('stats')
 
+
   return (
     <div className="py-16 px-4 mx-auto bg-gradient-to-b from-background to-background/80">
       <div className="text-center mb-12 max-w-3xl mx-auto">

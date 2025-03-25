@@ -17,8 +17,100 @@
     "account": "Account",
     "dashboard": "Dashboard"
   },
+  "auth": {
+    "logoAlt": "Mero Ghar Logo",
+    "common": {
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your Password"
+    },
+    "signIn": {
+      "title": "Sign In to Your Account",
+      "userIdLabel": "User ID or Email",
+      "userIdPlaceholder": "Enter your User ID or Email",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign in",
+      "loading": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign up"
+    },
+    "signUp": {
+      "title": "Create an Account",
+      "userIdLabel": "User ID",
+      "userIdPlaceholder": "Enter your User ID",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Enter your Email",
+      "submit": "Sign up",
+      "loading": "Signing up...",
+      "hasAccount": "Already have an account?",
+      "signInLink": "Sign in"
+    },
+    "validation": {
+      "userId": "Please enter a valid User ID",
+      "email": "Please enter a valid email",
+      "password": "Password must be at least 6 characters"
+    }
+  },
+  "about": {
+    "backToHome": "Back to Home",
+    "hero": {
+      "title": "About",
+      "brandName": "Mero Ghar",
+      "subtitle": "Your home away from home, wherever your journey takes you"
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "Founded in 2025, Mero Ghar began with a simple idea: to create a platform where travelers could find authentic, comfortable homes that feel like their own, no matter where they are in the world.",
+      "paragraph2": "The name \"Mero Ghar,\" which means \"My Home\" in Nepali, reflects our commitment to providing accommodations that don't just serve as a place to stay, but as a true home during your travels.",
+      "paragraph3": "What started as a small collection of curated properties has grown into a trusted platform connecting thousands of travelers with unique homes across the globe.",
+      "imageAlt": "Mero Ghar founding team"
+    },
+    "mission": {
+      "title": "Our Mission & Vision",
+      "subtitle": "We're on a mission to revolutionize the way people experience travel accommodations.",
+      "ourMission": {
+        "title": "Our Mission",
+        "description": "To connect travelers with comfortable, authentic accommodations that enhance their travel experience, while empowering property owners to share their spaces with the world."
+      },
+      "ourVision": {
+        "title": "Our Vision",
+        "description": "To create a world where every traveler can feel at home anywhere, fostering cultural exchange and authentic connections between hosts and guests across the globe."
+      }
+    },
+    "values": {
+      "title": "Our Values",
+      "subtitle": "These core principles guide everything we do at Mero Ghar.",
+      "authenticity": {
+        "title": "Authenticity",
+        "description": "We believe in real homes, real experiences, and real connections between hosts and guests."
+      },
+      "community": {
+        "title": "Community",
+        "description": "We cover a large community of property owners and possible renters moving worldwide scale."
+      },
+      "trust": {
+        "title": "Trust & Safety",
+        "description": "We prioritize the security and comfort of our community through verified listings and secure transactions."
+      }
+    },
+    "team": {
+      "title": "Meet Our Team",
+      "subtitle": "The passionate individuals behind Mero Ghar who work tirelessly to create exceptional experiences.",
+      "members": {
+        "founder": {
+          "name": "Kabisha Guragain",
+          "role": "Founder & CEO"
+        }
+      }
+    },
+    "cta": {
+      "title": "Join the Mero Ghar Community",
+      "findStay": "Find a Stay",
+      "becomeHost": "Become a Host"
+    }
+  },
   "hero": {
-    "title": "Escape to the extraordinary",
+    "title": "Escape to the",
+    "ssTitle": "Extraordinary",
     "subtitle": "Take your pick of the world's finest homes, villas and chalets - we'll handle the rest."
   },
   "search": {
@@ -42,5 +134,105 @@
     "reviews": "5-Star Reviews",
     "satisfaction": "Satisfaction",
     "experience": "Years of Excellence"
+  },
+  "newsletter": {
+    "joinThe": "Join the",
+    "community": "Community",
+    "description": "Subscribe to our newsletter to discover new homes & deals as they're released, as well as the latest editorial.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "agreement": "I agree to receive this newsletter",
+    "subscribe": "SUBSCRIBE",
+    "sending": "SENDING..."
+  },
+  "footer": {
+    "quickLinks": {
+      "about": "About",
+      "support": "Support"
+    },
+    "travel": {
+      "title": "TRAVEL",
+      "whatsNew": "What's New"
+    },
+    "rightColumn": {
+      "title": "Handpicked Homes",
+      "subtitle": "& Small Hotels",
+      "register": "REGISTER",
+      "signIn": "SIGN IN"
+    },
+    "copyright": "© 2025 MERO GHAR INC."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We're here to help with any questions about your stay or hosting experience!",
+    "backToHome": "Back to Home",
+    "contactInfo": {
+      "callUs": {
+        "title": "Call Us",
+        "description": "Our customer support team is available 24/7",
+        "phone1": "+977 1 4123456",
+        "phone2": "+977 9801234567"
+      },
+      "emailUs": {
+        "title": "Email Us",
+        "description": "Send us an email and we'll respond as soon as possible",
+        "email": "meroghar@zohomail.com"
+      },
+      "visitUs": {
+        "title": "Visit Us",
+        "description": "Our office is open Monday to Friday, 9am to 5pm",
+        "address1": "Thamel, Kathmandu",
+        "address2": "Nepal"
+      }
+    },
+    "form": {
+      "title": "Send Us a Message",
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Enter your first name",
+      "lastName": "Last Name",
+      "lastNamePlaceholder": "Enter your last name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email address",
+      "phone": "Phone Number (Optional)",
+      "phonePlaceholder": "Enter your phone number",
+      "subject": "Subject",
+      "subjectPlaceholder": "Select a subject",
+      "message": "Message",
+      "messagePlaceholder": "Enter your message",
+      "sending": "Sending...",
+      "send": "Send Message",
+      "subjects": {
+        "booking": "Booking Inquiry",
+        "hosting": "Hosting Information",
+        "support": "Customer Support",
+        "feedback": "Feedback",
+        "other": "Other"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Find quick answers to common questions about Mero Ghar.",
+      "questions": {
+        "booking": {
+          "title": "How do I book a property?",
+          "answer": "Simply search for your desired location and dates, browse available properties, and click \"Book Now\" on the one you like. Follow the prompts to complete your booking."
+        },
+        "host": {
+          "title": "How do I become a host?",
+          "answer": "Click on \"Become a Host\" in the navigation menu, create an account if you don't have one, and follow the step-by-step guide to list your property."
+        },
+        "support": {
+          "title": "How do I contact customer support?",
+          "answer": "You can reach our customer support team 24/7 via email through our website."
+        },
+        "payment": {
+          "title": "What payment methods are accepted?",
+          "answer": "We accept PayPal payment option for secure transactions."
+        }
+      },
+      "notFound": "Didn't find what you're looking for? Contact our support team for assistance.",
+      "startNow": "Start Now"
+    }
   }
 }

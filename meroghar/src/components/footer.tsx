@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { Facebook, Instagram, Twitter, Linkedin, Pointer as Pinterest } from 'lucide-react';
 import { motion } from 'framer-motion';
 import useModal from '@/store/useModal';
+import { useTranslations } from 'next-intl';
 
 const Footer = () => {
+  const t = useTranslations('footer');
   const loginSignupModal = useModal();
 
   return (
@@ -22,12 +24,12 @@ const Footer = () => {
           <div className="space-y-4">
             <motion.div whileHover={{ x: 10 }} transition={{ type: "spring", stiffness: 300 }}>
               <Link href="/about-us" className="block text-2xl hover:text-secondaryHover">
-                About
+                {t('quickLinks.about')}
               </Link>
             </motion.div>
             <motion.div whileHover={{ x: 10 }} transition={{ type: "spring", stiffness: 300 }}>
               <Link href="/contact-us" className="block text-2xl hover:text-secondaryHover">
-                Support
+                {t('quickLinks.support')}
               </Link>
             </motion.div>
           </div>
@@ -39,18 +41,16 @@ const Footer = () => {
                 whileHover={{ scale: 1.05 }}
                 className="text-sm font-medium text-secondaryColor mb-4"
               >
-                TRAVEL
+                {t('travel.title')}
               </motion.h3>
               <div className="space-y-3">
                 <motion.div whileHover={{ x: 10 }} transition={{ type: "spring", stiffness: 300 }}>
                   <Link href="/Home/listnigs" className="block hover:text-secondaryHover">
-                    What&apos;s New
+                    {t('travel.whatsNew')}
                   </Link>
                 </motion.div>
-               
               </div>
             </div>
-          
           </div>
 
           {/* Right Column - Title and Buttons */}
@@ -60,8 +60,9 @@ const Footer = () => {
               transition={{ type: "spring", stiffness: 300 }}
               className="text-4xl mb-8 text-secondaryColor font-inter"
             >
-              Handpicked Homes
-              <br />& Small Hotels
+              {t('rightColumn.title')}
+              <br />
+              {t('rightColumn.subtitle')}
             </motion.h2>
             <div className="space-y-4">
               <motion.button 
@@ -70,7 +71,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-secondaryColor text-mainColor py-3 px-6 hover:bg-secondaryHover transition-colors"
               >
-                REGISTER
+                {t('rightColumn.register')}
               </motion.button>
               <motion.button 
                 onClick={() => loginSignupModal.onOpen('login')}
@@ -78,13 +79,13 @@ const Footer = () => {
                 whileTap={{ scale: 0.98 }}
                 className="w-full border border-secondaryColor text-secondaryColor py-3 px-6 hover:bg-secondaryColor hover:text-mainColor transition-colors"
               >
-                SIGN IN
+                {t('rightColumn.signIn')}
               </motion.button>
             </div>
           </div>
         </motion.div>
 
-        {/* Social Links */}
+        {/* Social Links section remains unchanged */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -111,7 +112,7 @@ const Footer = () => {
           viewport={{ once: true }}
           className="flex flex-col md:flex-row justify-between items-center text-sm text-secondaryColor/80"
         >
-          <motion.p whileHover={{ scale: 1.05 }}>© 2025 MERO GHAR INC.</motion.p>
+          <motion.p whileHover={{ scale: 1.05 }}>{t('copyright')}</motion.p>
         </motion.div>
       </div>
     </footer>

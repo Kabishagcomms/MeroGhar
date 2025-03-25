@@ -11,8 +11,10 @@ import { motion } from "framer-motion"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 import { Loader2 } from "lucide-react"
+import { useTranslations } from 'next-intl'
 
 export default function NewsletterSignup() {
+  const t = useTranslations('newsletter')
   const [agreed, setAgreed] = useState(false)
   const [email, setEmail] = useState("")
   const [firstName, setFirstName] = useState("")
@@ -103,16 +105,10 @@ export default function NewsletterSignup() {
       className="w-full mt-5 bg-mainColor text-secondaryColor"
     >
       <div className="max-w-[1400px] mx-auto px-4 py-16 md:py-24">
-        <motion.div 
-          variants={containerVariants}
-          className="grid md:grid-cols-2 gap-12 items-start"
-        >
+        <motion.div variants={containerVariants} className="grid md:grid-cols-2 gap-12 items-start">
           <div>
-            <motion.h2 
-              variants={itemVariants}
-              className="text-3xl md:text-4xl lg:text-5xl font-light font-inter  mb-8 text-secondaryColor"
-            >
-              Join the <motion.span 
+            <motion.h2 variants={itemVariants} className="text-3xl md:text-4xl lg:text-5xl font-light font-inter mb-8 text-secondaryColor">
+              {t('joinThe')} <motion.span 
                 className="font-semibold text-secondaryColor"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 300 }}
@@ -120,32 +116,20 @@ export default function NewsletterSignup() {
                 Meroghar
               </motion.span> 
               <br />
-              <span className="text-secondaryColor">Community</span>
+              <span className="text-secondaryColor">{t('community')}</span>
             </motion.h2>
 
-            <motion.p 
-              variants={itemVariants}
-              className="text-secondaryColor/80 tracking-normal mb-8 text-lg"
-            >
-              Subscribe to our newsletter to discover new homes & deals as they&apos;re released, as well as the latest
-              editorial.
+            <motion.p variants={itemVariants} className="text-secondaryColor/80 tracking-normal mb-8 text-lg">
+              {t('description')}
             </motion.p>
           </div>
 
-          {/* Form inputs styling */}
-          <motion.form 
-            variants={formVariants}
-            onSubmit={handleSubmit} 
-            className="space-y-6"
-          >
-            <motion.div 
-              className="grid grid-cols-1 md:grid-cols-2 gap-4"
-              variants={itemVariants}
-            >
+          <motion.form variants={formVariants} onSubmit={handleSubmit} className="space-y-6">
+            <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-4" variants={itemVariants}>
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Input
                   type="text"
-                  placeholder="First Name"
+                  placeholder={t('firstName')}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   className={cn(
@@ -160,7 +144,7 @@ export default function NewsletterSignup() {
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Input
                   type="text"
-                  placeholder="Last Name"
+                  placeholder={t('lastName')}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   className={cn(
@@ -174,14 +158,10 @@ export default function NewsletterSignup() {
               </motion.div>
             </motion.div>
 
-            <motion.div 
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
+            <motion.div variants={itemVariants} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Input
                 type="email"
-                placeholder="Email Address"
+                placeholder={t('email')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className={cn(
@@ -194,11 +174,7 @@ export default function NewsletterSignup() {
               />
             </motion.div>
 
-            <motion.div 
-              variants={itemVariants}
-              className="flex items-center justify-between gap-4"
-              whileHover={{ scale: 1.02 }}
-            >
+            <motion.div variants={itemVariants} className="flex items-center justify-between gap-4" whileHover={{ scale: 1.02 }}>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="newsletter"
@@ -211,7 +187,7 @@ export default function NewsletterSignup() {
                   htmlFor="newsletter"
                   className="text-sm text-secondaryColor/80 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  I agree to receive this newsletter
+                  {t('agreement')}
                 </label>
               </div>
 
@@ -226,10 +202,10 @@ export default function NewsletterSignup() {
                 {isSubmitting ? (
                   <span className="flex items-center">
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    SENDING...
+                    {t('sending')}
                   </span>
                 ) : (
-                  "SUBSCRIBE"
+                  t('subscribe')
                 )}
               </Button>
             </motion.div>

@@ -1,8 +1,12 @@
 import React from 'react'
 import Search from './navbar/searchButton'
 import { motion } from 'framer-motion'
+import { useTranslations } from 'next-intl'
+
 
 const HeroSection = () => {
+
+  const t = useTranslations('hero')
   return (
     <div className="relative h-[100vh] w-full">
       {/* Background Video */}
@@ -29,7 +33,7 @@ const HeroSection = () => {
           {/* Hero Text */}
           <div className="text-center">
             <h1 className="mb-6 font-rubik text-5xl font-medium text-mainColor sm:text-7xl">
-              Escape to the{" "}
+              {t('title')}
               <motion.span
                 className="text-mainColor font-semibold"
                 animate={{
@@ -48,11 +52,11 @@ const HeroSection = () => {
                   repeatType: "loop"
                 }}
               >
-                extraordinary
+                {t('ssTitle')}
               </motion.span>
             </h1>
             <p className="text-xl text-mainColor/90 sm:text-2xl font-light tracking-wide">
-              Take your pick of the world&apos;s finest homes, villas and chalets - we&apos;ll handle the rest.
+              {t('subtitle')}
             </p>
           </div>
 

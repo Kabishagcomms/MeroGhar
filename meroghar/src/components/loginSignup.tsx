@@ -15,10 +15,16 @@ import Image from 'next/image'
 
 //since this component will be used multiple places always check the page before rendering the component
 
+// Add this import at the top
+import { useTranslations } from 'next-intl'
+
 export default function LoginSignup({
   login,
   modal,
 }: loginSignupModal): JSX.Element {
+  // Add translation hook
+  const t = useTranslations('auth')
+
   const {
     register,
     handleSubmit,
@@ -73,7 +79,7 @@ export default function LoginSignup({
         toast.success('User Registered Successfully!')
         setIsLoading(false)
         loginSignupModal.onClose()
-        return ;
+        return;
       }
 
       throw new Error(`${res.data.error}`)
@@ -87,31 +93,28 @@ export default function LoginSignup({
     <div className="flex min-h-full flex-1 flex-col justify-center bg-mainColor px-6 py-12 md:w-[540px] lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <Image
-          alt="Your Company"
+          alt={t('logoAlt')}
           src="https://res.cloudinary.com/dnimr7n8t/image/upload/v1742365333/buymesome_j4ja9q.png"
           width={90}
           height={90}
           className="mx-auto w-auto"
         />
         <h2 className="text-secondaryColor mt-10 text-center text-2xl font-bold tracking-tight">
-          {login ? 'Sign In to Your Account' : 'Create an Account'}
+          {login ? t('signIn.title') : t('signUp.title')}
         </h2>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
-            <label
-              htmlFor="userId"
-              className="text-secondaryColor block text-sm font-medium"
-            >
-              {login ? 'User ID or Email' : 'User ID'}
+            <label htmlFor="userId" className="text-secondaryColor block text-sm font-medium">
+              {login ? t('signIn.userIdLabel') : t('signUp.userIdLabel')}
             </label>
             <div className="mt-2">
               <input
                 id="userId"
                 type="text"
-                placeholder={login ? "Enter your User ID or Email" : "Enter your User ID"}
+                placeholder={login ? t('signIn.userIdPlaceholder') : t('signUp.userIdPlaceholder')}
                 required
                 className="text-secondaryColor placeholder:text-secondaryColor/50 block w-full rounded-md bg-mainColor px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-secondaryColor/30 focus:outline-2 focus:-outline-offset-2 focus:outline-secondaryColor sm:text-sm"
                 {...register('userId', {
@@ -123,25 +126,21 @@ export default function LoginSignup({
                 })}
               />
               {errors.userId && (
-                <ErrorText text={errors.userId.message || "Please enter a valid User ID"} />
+                <ErrorText text={t('validation.userId')} />
               )}
             </div>
           </div>
 
-          {/* Email input field - same styling applied */}
           {!login && (
             <div>
-              <label
-                htmlFor="email"
-                className="text-secondaryColor block text-sm font-medium"
-              >
-                Email
+              <label htmlFor="email" className="text-secondaryColor block text-sm font-medium">
+                {t('signUp.emailLabel')}
               </label>
               <div className="mt-2">
                 <input
                   id="email"
                   type="email"
-                  placeholder="Enter your Email"
+                  placeholder={t('signUp.emailPlaceholder')}
                   required
                   className="text-secondaryColor placeholder:text-secondaryColor/50 block w-full rounded-md bg-mainColor px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-secondaryColor/30 focus:outline-2 focus:-outline-offset-2 focus:outline-secondaryColor sm:text-sm"
                   {...register('email', {
@@ -153,25 +152,21 @@ export default function LoginSignup({
                   })}
                 />
                 {errors.email && (
-                  <ErrorText text={errors.email.message || "Please enter a valid email"} />
+                  <ErrorText text={t('validation.email')} />
                 )}
               </div>
             </div>
           )}
 
-          {/* Password field */}
           <div>
-            <label
-              htmlFor="password"
-              className="text-secondaryColor block text-sm font-medium"
-            >
-              Password
+            <label htmlFor="password" className="text-secondaryColor block text-sm font-medium">
+              {t('common.passwordLabel')}
             </label>
             <div className="mt-2">
               <input
                 id="password"
                 type="password"
-                placeholder="Enter your Password"
+                placeholder={t('common.passwordPlaceholder')}
                 required
                 className="text-secondaryColor placeholder:text-secondaryColor/50 block w-full rounded-md bg-mainColor px-3 py-1.5 text-base outline-1 -outline-offset-1 outline-secondaryColor/30 focus:outline-2 focus:-outline-offset-2 focus:outline-secondaryColor sm:text-sm"
                 {...register('password', {
@@ -183,12 +178,11 @@ export default function LoginSignup({
                 })}
               />
               {errors.password && (
-                <ErrorText text={errors.password.message || "Please enter a valid Password"} />
+                <ErrorText text={t('validation.password')} />
               )}
             </div>
           </div>
 
-          {/* Forgot password link */}
           {login && (
             <div className="text-sm">
               <Link
@@ -200,12 +194,11 @@ export default function LoginSignup({
                 }}
                 className="font-semibold text-secondaryColor hover:text-secondaryHover"
               >
-                Forgot password?
+                {t('signIn.forgotPassword')}
               </Link>
             </div>
           )}
 
-          {/* Submit button */}
           <div>
             <button
               type="submit"
@@ -218,18 +211,17 @@ export default function LoginSignup({
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                   </svg>
-                  {login ? 'Signing in...' : 'Signing up...'}
+                  {login ? t('signIn.loading') : t('signUp.loading')}
                 </>
               ) : (
-                login ? 'Sign in' : 'Sign up'
+                login ? t('signIn.submit') : t('signUp.submit')
               )}
             </button>
           </div>
         </form>
 
-        {/* Bottom text and links */}
         <p className="text-secondaryColor/70 mt-10 text-center text-sm">
-          {login ? "Don't have an account?" : 'Already have an account?'}{' '}
+          {login ? t('signIn.noAccount') : t('signUp.hasAccount')}{' '}
           {modal ? (
             <button
               className="font-semibold text-secondaryColor hover:text-secondaryHover"
@@ -240,14 +232,14 @@ export default function LoginSignup({
                   : loginSignupModal.onOpen('login')
               }}
             >
-              {login ? 'Sign up' : 'Sign in'}
+              {login ? t('signIn.signUpLink') : t('signUp.signInLink')}
             </button>
           ) : (
             <Link
               href={login ? '/signup' : '/login'}
               className="font-semibold text-secondaryColor hover:text-secondaryHover"
             >
-              {login ? 'Sign up' : 'Sign in'}
+              {login ? t('signIn.signUpLink') : t('signUp.signInLink')}
             </Link>
           )}
         </p>
