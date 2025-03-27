@@ -83,10 +83,11 @@ const Search = () => {
           <div
             className="
               rounded-full 
-              bg-[#66cd8b]
+              bg-[#99775C]
               p-2 
               text-white
-              hover:bg-[#59b077]
+              hover:bg-[#886a52]
+              transition-colors
             "
           >
             <BiSearch size={18} />
