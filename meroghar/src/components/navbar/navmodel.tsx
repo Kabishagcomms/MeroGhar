@@ -85,29 +85,29 @@ const NavModal = forwardRef<HTMLDivElement, NavModalProps>((props, ref) => {
           </motion.button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-56 mt-2 p-2">
-          <DropdownMenuItem asChild>
-            <Link href="/en/Home/Account" className="flex items-center gap-2 cursor-pointer">
-              <HiUser className="h-4 w-4 text-[#99775C]" />
-              <span>{t('account')}</span>
-            </Link>
-          </DropdownMenuItem>
+          {!props.is_Admin && (
+            <>
+              <DropdownMenuItem asChild>
+                <Link href="/en/Home/Account" className="flex items-center gap-2 cursor-pointer">
+                  <HiUser className="h-4 w-4 text-[#99775C]" />
+                  <span>{t('account')}</span>
+                </Link>
+              </DropdownMenuItem>
 
-          <DropdownMenuItem asChild>
-            <Link href="/en/Home/trips" className="flex items-center gap-2 cursor-pointer">
-              <HiHome className="h-4 w-4 text-[#99775C]" />
-              <span>{t('trips')}</span>
-            </Link>
-          </DropdownMenuItem>
-
-
-
-
+              <DropdownMenuItem asChild>
+                <Link href="/en/Home/trips" className="flex items-center gap-2 cursor-pointer">
+                  <HiHome className="h-4 w-4 text-[#99775C]" />
+                  <span>{t('trips')}</span>
+                </Link>
+              </DropdownMenuItem>
+            </>
+          )}
 
           {props.is_Admin && (
             <DropdownMenuItem asChild>
               <Link href="/Admin" className="flex items-center gap-2 cursor-pointer">
                 <RiAdminFill className="h-4 w-4 text-[#99775C]" />
-                <span>{t('admin')}</span>
+                <span>{t('dashboard')}</span>
               </Link>
             </DropdownMenuItem>
           )}
