@@ -14,11 +14,11 @@ import Image from 'next/image'
 interface EditProfile {
   userName?: string
   profileImg?:
-    | any
-    | {
-        imgId: string
-        imgUrl: string
-      }
+  | any
+  | {
+    imgId: string
+    imgUrl: string
+  }
   about?: string
 }
 
@@ -101,7 +101,7 @@ export function EditBasic({ userName, about, img }: Prop) {
           //upload image
           const upload = await uploadImage(formdata.profileImg[0])
           if (upload) {
-            ;(profileData.profileImg.imgId = upload.imgId),
+            ; (profileData.profileImg.imgId = upload.imgId),
               (profileData.profileImg.imgUrl = upload.imgUrl)
           }
         }
@@ -132,7 +132,7 @@ export function EditBasic({ userName, about, img }: Prop) {
 
     // for confirmation update default state
     confirm.onContent({
-      header: 'Are you sure U Want to Update Profile Details?',
+      header: 'Are you sure you want to Update Profile Details?',
       actionBtn: 'Update',
       onAction: onSubmit,
     })

@@ -63,7 +63,7 @@ export default function Password() {
 
     // for confirmation update default state
     confirm.onContent({
-      header: 'Are you sure U Want to Update Password?',
+      header: 'Are you sure you want to Update Password?',
       actionBtn: 'Update',
       onAction: onSubmit,
     })
