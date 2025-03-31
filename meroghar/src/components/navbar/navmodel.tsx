@@ -46,7 +46,7 @@ const NavModal = forwardRef<HTMLDivElement, NavModalProps>((props, ref) => {
           </Button>
         </motion.div>
         <motion.div
-          whileHover={{ 
+          whileHover={{
             scale: 1.05,
             boxShadow: "0px 5px 15px rgba(153, 119, 92, 0.2)"
           }}
@@ -59,7 +59,7 @@ const NavModal = forwardRef<HTMLDivElement, NavModalProps>((props, ref) => {
             {t('signup')}
           </Button>
         </motion.div>
-        
+
         {/* Add Language Toggle */}
         <LanguageToggle />
       </div>
@@ -70,10 +70,10 @@ const NavModal = forwardRef<HTMLDivElement, NavModalProps>((props, ref) => {
     <div className="flex items-center gap-3">
       {/* Add Language Toggle outside dropdown for logged-in users */}
       <LanguageToggle className="mr-2" />
-      
+
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <motion.button 
+          <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="flex items-center gap-2 p-2 rounded-full"
@@ -99,9 +99,9 @@ const NavModal = forwardRef<HTMLDivElement, NavModalProps>((props, ref) => {
             </Link>
           </DropdownMenuItem>
 
-          
 
-        
+
+
 
           {props.is_Admin && (
             <DropdownMenuItem asChild>
@@ -112,11 +112,11 @@ const NavModal = forwardRef<HTMLDivElement, NavModalProps>((props, ref) => {
             </DropdownMenuItem>
           )}
 
-          <DropdownMenuItem 
+          <DropdownMenuItem
             className="flex items-center gap-2 cursor-pointer text-red-500 hover:text-red-700"
             onClick={async () => {
               try {
-                await Api.post('/auth/v1/logout', {}, { withCredentials: true })
+                await Api.delete('/auth/v1/logout', { withCredentials: true })
                 toast.success('Logged out successfully')
                 router.refresh()
               } catch (error) {
