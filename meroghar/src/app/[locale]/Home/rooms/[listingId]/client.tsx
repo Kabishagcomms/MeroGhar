@@ -3,6 +3,8 @@
 import RoomDetails from '../../../../../components/RoomDetails'
 import { FetchedMe, IReview, Property } from '../../../../../interface/response'
 import { Reservation } from './page'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 interface RoomProps {
   propertyData: Partial<Property>
@@ -23,7 +25,15 @@ export function RoomClient({
   reviews,
   currentUser,
 }: RoomProps) {
-  console.log('userType', user)
+  const router = useRouter()
+  
+  useEffect(() => {
+    // Check if user is empty string or null/undefined
+    if (user === '' || user === null || user === undefined) {
+      // Use replace instead of push for a cleaner navigation experience
+      router.replace('/en/Home')
+    }
+  }, [user, router])
   
   return (
     <RoomDetails

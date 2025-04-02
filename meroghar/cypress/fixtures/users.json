@@ -1,0 +1,12 @@
+{
+  "testUser": {
+    "userId": "drake",
+    "email": "testuser@example.com",
+    "password": "drake123"
+  },
+  "invalidUser": {
+    "userId": "invaliduser",
+    "email": "invalid@example.com",
+    "password": "wrongpassword"
+  }
+}

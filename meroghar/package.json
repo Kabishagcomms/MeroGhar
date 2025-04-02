@@ -9,7 +9,11 @@
     "dev": "next dev ",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress": "cypress open",
+    "cypress:headless": "cypress run",
+    "test": "start-server-and-test dev http://localhost:3000 cypress",
+    "test:headless": "start-server-and-test dev http://localhost:3000 cypress:headless"
   },
   "dependencies": {
     "@firebase/auth": "^0.21.5",
@@ -65,6 +69,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^6.5.1",
+    "@testing-library/cypress": "^10.0.3",
     "@types/file-saver": "^2.0.5",
     "@types/lodash": "^4.14.194",
     "@types/react-date-range": "^1.4.4",
@@ -73,9 +78,12 @@
     "@types/react-stars": "^2.2.1",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "autoprefixer": "^10.4.13",
+    "cypress": "^14.2.1",
+    "cypress-file-upload": "^5.0.8",
     "postcss": "^8.4.21",
     "prettier": "^2.8.0",
     "prettier-plugin-tailwindcss": "^0.2.0",
+    "start-server-and-test": "^2.0.11",
     "tailwindcss": "^3.2.4"
   }
 }

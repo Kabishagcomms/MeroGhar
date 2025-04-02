@@ -18,23 +18,30 @@ interface ListingsClientProps {
   searchParams: SearchForm
 }
 
-export default function ListingsClient({ 
-  properties, 
-  session, 
-  userData, 
+export default function ListingsClient({
+  properties,
+  session,
+  userData,
   wishList,
-  searchParams 
+  searchParams
 }: ListingsClientProps) {
   const router = useRouter()
   const params = useSearchParams()
   const [isLoading, setIsLoading] = useState(params.get('loading') === 'true')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  
+
+  // Add logout redirection
+  useEffect(() => {
+    if (!session) {
+      router.replace('/en/Home')
+    }
+  }, [session, router])
+
   // Filter properties based on selected category
   const filteredProperties = selectedCategory
-    ? properties.filter(property => 
-        property.propertyType?.toLowerCase() === selectedCategory.replace(/-/g, ' ')
-      )
+    ? properties.filter(property =>
+      property.propertyType?.toLowerCase() === selectedCategory.replace(/-/g, ' ')
+    )
     : properties
 
   // Remove the loading parameter from URL once component is mounted
@@ -43,17 +50,17 @@ export default function ListingsClient({
       // Create a small delay to show the spinner
       const timer = setTimeout(() => {
         setIsLoading(false)
-        
+
         // Remove the loading parameter from URL
         const newParams = new URLSearchParams(params.toString())
         newParams.delete('loading')
-        
-        const newUrl = window.location.pathname + 
+
+        const newUrl = window.location.pathname +
           (newParams.toString() ? `?${newParams.toString()}` : '')
-        
-        router.replace(newUrl, )
+
+        router.replace(newUrl,)
       }, 800) // Show spinner for 800ms
-      
+
       return () => clearTimeout(timer)
     }
   }, [isLoading, params, router])
@@ -68,7 +75,7 @@ export default function ListingsClient({
         <div className="border-b border-gray-200 pb-4">
           <CategoryBar onCategorySelect={handleCategorySelect} />
         </div>
-        
+
         <header>
           <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
             {Object.keys(searchParams).length > 0 && (
@@ -96,7 +103,7 @@ export default function ListingsClient({
                     const inwish = wishList?.wishList.some(
                       (data) => data._id == property._id
                     ) || false
-                    
+
                     return (
                       <motion.div
                         key={index}
@@ -126,8 +133,8 @@ export default function ListingsClient({
                   <div className="col-span-full text-center py-10">
                     <h2 className="text-xl font-semibold text-gray-700">No properties found</h2>
                     <p className="text-gray-500 mt-2">
-                      {selectedCategory 
-                        ? `No properties available in the ${selectedCategory.replace(/-/g, ' ')} category` 
+                      {selectedCategory
+                        ? `No properties available in the ${selectedCategory.replace(/-/g, ' ')} category`
                         : 'Try adjusting your search criteria'}
                     </p>
                   </div>

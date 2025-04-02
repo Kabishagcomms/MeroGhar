@@ -73,15 +73,15 @@ export default function AdminTable({
     if (ban) {
       // Add debug logs
       console.log('Setting up ban modal for user:', id);
-      
+
       // Make sure to set the button text first
       reject.setbtn('BanUser')
-      
+
       // Set the content for the reject modal
       reject.onContent({
         onReject: (message: string) => {
           console.log('onReject called with message:', message);
-          
+
           Api.patch(
             `/admin/v1/banUnbanUser/${id}`,
             { ban, message },
@@ -110,7 +110,7 @@ export default function AdminTable({
     //for unban
     confirm.onContent({
       header: 'Are You Sure Unban User',
-      actionBtn: 'UnBan User',
+      actionBtn: 'Unban User',
       onAction: () => {
         Api.patch(
           `/admin/v1/banUnbanUser/${id}`,
@@ -133,21 +133,21 @@ export default function AdminTable({
 
   const banUnbanProperty = (id: string, ban: boolean) => {
     console.log('ban', id);
-    
+
     if (ban) {
       console.log('Setting up ban modal for property:', id);
-      
+
       // Ensure the button text is set
       reject.setbtn('BanProperty');
-      
+
       // Set the content for the reject modal
       reject.onContent({
         onReject: (message: string) => {
           console.log('onReject called with message:', message);
-          
+
           // Add loading toast
           const loadingToast = toast.loading('Banning property...');
-          
+
           Api.patch(
             `/admin/v1/banUnbanProperty/${id}`,
             { ban, message },
@@ -157,12 +157,12 @@ export default function AdminTable({
               toast.dismiss(loadingToast);
               toast.success('Property successfully banned');
               modal.onClose();
-              
+
               // Update the local state instead of reloading the page
-              setStateProperties(prevProperties => 
-                prevProperties?.map(property => 
-                  property._id === id 
-                    ? { ...property, isBanned: { status: true, message } } 
+              setStateProperties(prevProperties =>
+                prevProperties?.map(property =>
+                  property._id === id
+                    ? { ...property, isBanned: { status: true, message } }
                     : property
                 )
               );
@@ -174,12 +174,12 @@ export default function AdminTable({
             });
         },
       });
-  
+
       // Try to open the modal and log the result
-     
+
       return modal.onOpen('reject')
     }
-  
+
     // For unban, use the confirm modal
     confirm.onContent({
       header: 'Are You Sure to UnBan Property',
@@ -187,7 +187,7 @@ export default function AdminTable({
       onAction: () => {
         // Add loading toast
         const loadingToast = toast.loading('Unbanning property...');
-        
+
         Api.patch(
           `/admin/v1/banUnbanProperty/${id}`,
           { ban },
@@ -197,12 +197,12 @@ export default function AdminTable({
             toast.dismiss(loadingToast);
             toast.success('Property successfully unbanned');
             modal.onClose();
-            
+
             // Update the local state instead of reloading the page
-            setStateProperties(prevProperties => 
-              prevProperties?.map(property => 
-                property._id === id 
-                  ? { ...property, isBanned: { status: false, message: '' } } 
+            setStateProperties(prevProperties =>
+              prevProperties?.map(property =>
+                property._id === id
+                  ? { ...property, isBanned: { status: false, message: '' } }
                   : property
               )
             );
@@ -214,14 +214,14 @@ export default function AdminTable({
           });
       },
     });
-  
+
     return modal.onOpen('confirm');
   };
-  if(use=='booking'){
-    return(
-        <TripBookingClient trips={false} is_Admin={true} bookings={bookings!} />
+  if (use == 'booking') {
+    return (
+      <TripBookingClient trips={false} is_Admin={true} bookings={bookings!} />
     )
-}
+  }
 
   return (
     <main>
@@ -339,11 +339,10 @@ export default function AdminTable({
 
                           <td className="max-w-sm overflow-hidden truncate p-4 text-base font-normal text-gray-900 dark:text-gray-400 xl:max-w-xs">
                             <Link
-                              href={`/Home/user/${
-                                typeof data.userId == 'object'
-                                  ? data!.userId!._id!
-                                  : ''
-                              }`}
+                              href={`/Home/user/${typeof data.userId == 'object'
+                                ? data!.userId!._id!
+                                : ''
+                                }`}
                               className="underline"
                             >
                               {' '}
@@ -469,7 +468,7 @@ export default function AdminTable({
 const testBanUser = (id: string) => {
   const message = "Test ban reason";
   console.log('Testing direct API call to ban user:', id);
-  
+
   Api.patch(
     `/admin/v1/banUnbanUser/${id}`,
     { ban: true, message },
@@ -489,7 +488,7 @@ const testBanUser = (id: string) => {
 
 const testbanUnbanProperty = (id: string, ban: boolean) => {
 
-   const message = "Test ban reason";
+  const message = "Test ban reason";
   console.log('Testing direct API call to ban property:', id);
 
   Api.patch(
@@ -501,16 +500,16 @@ const testbanUnbanProperty = (id: string, ban: boolean) => {
       console.log('API response:', res);
       toast.success('Property successfully Banned');
       window.location.reload();
-      
+
       // Update the local state instead of reloading the page
-    
+
     })
     .catch((e) => {
       console.log('API error:', e);
       toast.error('Property Ban Failed!');
     });
- 
-  };
+
+};
 
 // Add this function to test the API directly for properties
 

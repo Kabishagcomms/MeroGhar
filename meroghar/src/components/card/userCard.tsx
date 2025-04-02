@@ -26,7 +26,7 @@ export default function UserCard({ userData }: UserProps) {
   const { userName, userId, _id, profileImg, about } = userData
 
   return (
-    <main className="mx-auto w-[95%] rounded-lg border-2 border-gray-200 bg-white p-4 duration-300  hover:shadow-xl  sm:w-[80%] ">
+    <main data-testid="user-card" className="mx-auto w-[95%] rounded-lg border-2 border-gray-200 bg-white p-4 duration-300  hover:shadow-xl  sm:w-[80%] ">
       <Link href={`/Home/user/${_id}`} target="_space">
         <div className="mt-2 mb-4 w-fit">
           <Image

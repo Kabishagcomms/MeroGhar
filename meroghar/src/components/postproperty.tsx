@@ -165,7 +165,7 @@ export default function PostPropertyForm({
       }
     }
 
- 
+
 
     const updateConfirmation = async () => {
       modal.setLoading(true)
@@ -208,9 +208,9 @@ export default function PostPropertyForm({
           propertyData?.state == formdata.state
             ? formdata.state
             : countryhook.getStateData(
-                parseInt(formdata.country),
-                parseInt(formdata.state)
-              ).name,
+              parseInt(formdata.country),
+              parseInt(formdata.state)
+            ).name,
         city: formdata.city,
 
         discription,
@@ -262,7 +262,7 @@ export default function PostPropertyForm({
         {isUpdate && (
           <p className="text-md font-medium text-[#000000]">
             Adding New Images will{' '}
-            <span className="text-[#66cd8b]">replace</span> previous images{' '}
+            <span className="">replace</span> previous images{' '}
           </p>
         )}
         <div className="w-full p-2">
@@ -274,19 +274,19 @@ export default function PostPropertyForm({
               >
                 {/* initially the value default does not read file casuing to return empty string */}
                 {/* Image preview section */}
-                                <div
-                                  className="mb-5 relative h-[250px] w-full rounded-lg sm:h-[270px] md:w-[80%] lg:h-[350px]"
-                                >
-                                  <Image
-                                    src={imageUrl(index) || "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UyZThmMCIvPjx0ZXh0IHg9IjMwMCIgeT0iMjAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5OTc3NUMiPlVwbG9hZCBQcm9wZXJ0eSBJbWFnZTwvdGV4dD48L3N2Zz4="}
-                                    alt={imageUrl(index) ? "Property Image" : "Upload Property Image"}
-                                    fill={true}
-                                    className="rounded-lg object-contain"
-                                    priority
-                                  />
-                                </div>
-                
-                                {/* for input and label */}
+                <div
+                  className="mb-5 relative h-[250px] w-full rounded-lg sm:h-[270px] md:w-[80%] lg:h-[350px]"
+                >
+                  <Image
+                    src={imageUrl(index) || "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgZmlsbD0iI2UyZThmMCIvPjx0ZXh0IHg9IjMwMCIgeT0iMjAwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiM5OTc3NUMiPlVwbG9hZCBQcm9wZXJ0eSBJbWFnZTwvdGV4dD48L3N2Zz4="}
+                    alt={imageUrl(index) ? "Property Image" : "Upload Property Image"}
+                    fill={true}
+                    className="rounded-lg object-contain"
+                    priority
+                  />
+                </div>
+
+                {/* for input and label */}
                 <div className="border-gray-300 flex w-full flex-col items-start justify-around rounded-lg border-2 bg-white p-[6px] shadow-md md:w-[60%] md:flex-row md:items-center">
                   <label
                     htmlFor={`file-upload-${index}`}
@@ -347,7 +347,7 @@ export default function PostPropertyForm({
                 type="text"
                 placeholder="PropertyName"
                 className={inputStyle}
-                {...register('name', { 
+                {...register('name', {
                   required: "Property name is required",
                   minLength: { value: 3, message: "Name must be at least 3 characters" }
                 })}
@@ -480,9 +480,9 @@ export default function PostPropertyForm({
               rows={5}
               placeholder="Description"
               className={inputStyle}
-              {...register('discription', { 
-                required: "Description is required", 
-                minLength: { value: 15, message: "Description must be at least 15 characters" } 
+              {...register('discription', {
+                required: "Description is required",
+                minLength: { value: 15, message: "Description must be at least 15 characters" }
               })}
             ></textarea>
 
@@ -497,7 +497,7 @@ export default function PostPropertyForm({
               rows={5}
               placeholder="Rules"
               className={inputStyle}
-              {...register('rules', { 
+              {...register('rules', {
                 required: "Rules are required",
                 minLength: { value: 5, message: "Rules must be at least 5 characters" }
               })}
