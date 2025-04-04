@@ -71,58 +71,58 @@ export function SearchModal() {
     try {
       // Create a clean query object
       let query: any = {}
-      
+
       // Only add selected amenities
       if (formdata.amenities && formdata.amenities.length > 0) {
         query.amenities = formdata.amenities
       }
-      
+
       if (formdata.country && formdata.country !== '') {
         query.country = countryhook.getCountryData(Number.parseInt(formdata.country)).name
       }
-      
+
       if (formdata.state && formdata.state !== '') {
         query.state = countryhook.getStateData(
           Number.parseInt(formdata.country),
           Number.parseInt(formdata.state)
         ).name
       }
-      
+
       if (formdata.city && formdata.city !== '') {
         query.city = formdata.city
       }
-      
+
       if (formdata.propertyType && formdata.propertyType !== '') {
         query.propertyType = formdata.propertyType
       }
-      
+
       // Only add rate parameters if they're greater than 0
       if (formdata.minRate > 0) {
         query.minRate = formdata.minRate
       }
-      
+
       if (formdata.maxRate > 0) {
         query.maxRate = formdata.maxRate
       }
-      
+
       if (formdata.rating > 0) {
         query.rating = formdata.rating
       }
-      
+
       // If no search criteria were selected, just navigate to the listings page without query params
-      const url = Object.keys(query).length > 0 
+      const url = Object.keys(query).length > 0
         ? qs.stringifyUrl(
-            {
-              url: '/Home/listings',
-              query,
-            },
-            { skipNull: true, skipEmptyString: true }
-          )
+          {
+            url: '/en/Home/listings',
+            query,
+          },
+          { skipNull: true, skipEmptyString: true }
+        )
         : '/Home/listings';
 
       // Close the modal first, then navigate
       modal.onClose()
-      
+
       // Add a loading state to the URL to indicate we're loading
       const urlWithLoading = url + (url.includes('?') ? '&loading=true' : '?loading=true');
       router.push(urlWithLoading)
@@ -331,7 +331,7 @@ export function SearchModal() {
                           onCheckedChange={(checked) => {
                             // Get current amenities
                             const currentAmenities = [...(watch('amenities') || [])];
-                            
+
                             // Add or remove the amenity based on checkbox state
                             if (checked) {
                               setValue('amenities', [...currentAmenities, amenity]);
@@ -359,8 +359,8 @@ export function SearchModal() {
               >
                 Cancel
               </Button>
-              <Button 
-                className="bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] text-white font-medium transition-colors" 
+              <Button
+                className="bg-[var(--color-secondary)] hover:bg-[var(--color-secondary-hover)] text-white font-medium transition-colors"
                 type="submit"
               >
                 Find Properties
